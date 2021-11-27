@@ -1,0 +1,54 @@
+{
+	"compiler": {
+		"version": "0.6.6+commit.6c089d02"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "PROOF_LENGTH",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"methods": {}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"VRFCoordinator/OneFileContract.sol": "VRF"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"VRFCoordinator/OneFileContract.sol": {
+			"keccak256": "0x7c73907f6bc35ed92d2df5eef055effc96196fe4ef5fdc553cda61747af163cc",
+			"urls": [
+				"bzz-raw://94cbb44159f9b545bba556c63d1315133eb9572743453dc93bc32fd55160204b",
+				"dweb:/ipfs/QmNvD5G4qdNgbLSx4S5hXJA9Msv6c9inEEK3vbtgH2FSa8"
+			]
+		}
+	},
+	"version": 1
+}

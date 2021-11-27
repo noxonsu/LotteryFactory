@@ -1,0 +1,46 @@
+{
+	"compiler": {
+		"version": "0.8.4+commit.c7e474f2"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "Collection of functions related to the address type",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"PancakeSwapLottery/PancakeSwapLottery.sol": "Address"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 99999
+		},
+		"remappings": []
+	},
+	"sources": {
+		"PancakeSwapLottery/PancakeSwapLottery.sol": {
+			"keccak256": "0x4394c328d2c94897d3c5cd177316bf5943ed54b9660c6726feaa55f8b7bd7d5f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9320b457144e3eba1bb50c837587a45da9869953ec8981cf26b5e21ad72d4d14",
+				"dweb:/ipfs/QmfSfiHVaL4jhxhuYNDH2ocukXuGVTTmmNqMMCAgtGjk7t"
+			]
+		}
+	},
+	"version": 1
+}

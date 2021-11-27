@@ -1,0 +1,197 @@
+{
+	"deploy": {
+		"VM:-": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"main:1": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"ropsten:3": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"rinkeby:4": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"kovan:42": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"görli:5": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		},
+		"Custom": {
+			"linkReferences": {},
+			"autoDeployLib": true
+		}
+	},
+	"data": {
+		"bytecode": {
+			"generatedSources": [],
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"deployedBytecode": {
+			"generatedSources": [],
+			"immutableReferences": {},
+			"linkReferences": {},
+			"object": "",
+			"opcodes": "",
+			"sourceMap": ""
+		},
+		"gasEstimates": null,
+		"methodIdentifiers": {
+			"buyTickets(uint256,uint32[])": "88303dbd",
+			"claimTickets(uint256,uint256[],uint32[])": "c914914f",
+			"closeLottery(uint256)": "9d8ca531",
+			"drawFinalNumberAndMakeLotteryClaimable(uint256,bool)": "c38de539",
+			"injectFunds(uint256,uint256)": "471aeab4",
+			"startLottery(uint256,uint256,uint256,uint256[6],uint256)": "b1829b82",
+			"viewCurrentLotteryId()": "80a06160"
+		}
+	},
+	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_lotteryId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint32[]",
+					"name": "_ticketNumbers",
+					"type": "uint32[]"
+				}
+			],
+			"name": "buyTickets",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_lotteryId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256[]",
+					"name": "_ticketIds",
+					"type": "uint256[]"
+				},
+				{
+					"internalType": "uint32[]",
+					"name": "_brackets",
+					"type": "uint32[]"
+				}
+			],
+			"name": "claimTickets",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_lotteryId",
+					"type": "uint256"
+				}
+			],
+			"name": "closeLottery",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_lotteryId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "bool",
+					"name": "_autoInjection",
+					"type": "bool"
+				}
+			],
+			"name": "drawFinalNumberAndMakeLotteryClaimable",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_lotteryId",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_amount",
+					"type": "uint256"
+				}
+			],
+			"name": "injectFunds",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_endTime",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_priceTicketInCake",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_discountDivisor",
+					"type": "uint256"
+				},
+				{
+					"internalType": "uint256[6]",
+					"name": "_rewardsBreakdown",
+					"type": "uint256[6]"
+				},
+				{
+					"internalType": "uint256",
+					"name": "_treasuryFee",
+					"type": "uint256"
+				}
+			],
+			"name": "startLottery",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "viewCurrentLotteryId",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+	]
+}
