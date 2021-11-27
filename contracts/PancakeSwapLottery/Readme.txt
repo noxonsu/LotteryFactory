@@ -32,3 +32,20 @@ random generator: 0xb7eac960108837128264e4e11f1307e4912a799d
 testnet - 5 minutes
 https://testnet.bscscan.com/address/0x3709e34ba2d6cf740efde829f99d3d331f77714a#code
 0x3709e34ba2d6cf740efde829f99d3d331f77714a
+
+
+Start lottery tx
+https://bscscan.com/tx/0x56ae29f6a75e9836081dac921e264a0a2e700bbb62524608c48190ec768a64d4
+0	_endTime	uint256	1638057600
+1	_priceTicketInCake	uint256	370000000000000000
+2	_discountDivisor	uint256	2000
+3	_rewardsBreakdown	uint256[6]	250
+375
+625
+1250
+2500
+5000
+4	_treasuryFee	uint256	2000
+
+testnet example
+https://testnet.bscscan.com/tx/0x1f2333e1938cf922729d832fd9c8c00dc06e972f5eddfe435f92b5bdc99656cb
