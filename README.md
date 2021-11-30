@@ -20,7 +20,7 @@ Videos:
 1. admin panel video
 2. user panel video
 
-How int work?
+How it works?
 1. users buy ticket(s)
 https://screenshots.wpmix.net/chrome_NCdFvlJ69uxi477VGyAHE9B0wC36neSv.png
 
