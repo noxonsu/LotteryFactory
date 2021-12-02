@@ -26,6 +26,14 @@ token = 0x692f6efdfdebc7be1c24f02badf2ea877a6afdae
 constructor testnet
 0xba3824b49f5d0c67dccc64d35fe92604fd086325, 0x692f6efdfdebc7be1c24f02badf2ea877a6afdae
 
-https://testnet.bscscan.com/address/0xb7eac960108837128264e4e11f1307e4912a799d#code
+https://testnet.bscscan.com/address/0x61eeac8b9db0df4e5e3ccc651f16fffc6c1d4456#code
 
-0xb7eac960108837128264e4e11f1307e4912a799d
+0x61eeac8b9db0df4e5e3ccc651f16fffc6c1d4456
+
+
+установить фии
+https://bscscan.com/tx/0xdda9df026eeface1667e4702371f5f2a70609273c446db17b6ca6cb86079a850
+установить хеш setKeyHash
+https://bscscan.com/tx/0x2e5f1f7c9ad8bfbb17359bfd92232fd353ee57e35b5beea037c766f5b02bc9a6
+установить адрес контракта лотереи
+https://bscscan.com/tx/0x7fe4ace6cbf9de3581d06ef9c8ec4805dd85c27160ee24015f4f25462c079f3c

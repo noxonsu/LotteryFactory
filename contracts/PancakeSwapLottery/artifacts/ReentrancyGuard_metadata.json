@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.4+commit.c7e474f2"
+		"version": "0.8.0+commit.c7dfd78e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -34,11 +34,11 @@
 	},
 	"sources": {
 		"PancakeSwapLottery/PancakeSwapLottery.sol": {
-			"keccak256": "0x4394c328d2c94897d3c5cd177316bf5943ed54b9660c6726feaa55f8b7bd7d5f",
+			"keccak256": "0xc77a13d352a84914c41ecde2061a21d19d4fdc9d6aae401fb6f0ad1afc817f3f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9320b457144e3eba1bb50c837587a45da9869953ec8981cf26b5e21ad72d4d14",
-				"dweb:/ipfs/QmfSfiHVaL4jhxhuYNDH2ocukXuGVTTmmNqMMCAgtGjk7t"
+				"bzz-raw://bdfdd6fc6fd8be4acb9769786ca9c2deb304f28922b576864364d8f278ea854e",
+				"dweb:/ipfs/QmVD3veugYHn6sbqYgbugXsRZtJucGug6n5RjqX6tQUwEu"
 			]
 		}
 	},

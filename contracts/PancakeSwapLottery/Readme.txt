@@ -25,13 +25,12 @@ Arg [1] : 0000000000000000000000008c6375aab6e5b26a30bf241ebbf29ad6e6c503c2
 testnet constructor
 
 token: 0x703f112bda4cc6cb9c5fb4b2e6140f6d8374f10b - weenus
-random generator: 0xb7eac960108837128264e4e11f1307e4912a799d
 
-0x703f112bda4cc6cb9c5fb4b2e6140f6d8374f10b, 0xb7eac960108837128264e4e11f1307e4912a799d
+0x703f112bda4cc6cb9c5fb4b2e6140f6d8374f10b
 
 testnet - 5 minutes
-https://testnet.bscscan.com/address/0x3709e34ba2d6cf740efde829f99d3d331f77714a#code
-0x3709e34ba2d6cf740efde829f99d3d331f77714a
+https://testnet.bscscan.com/address/0xbb6e81ae73b8a09c964ecd361e36b573aa332cab#code
+0xbb6e81ae73b8a09c964ecd361e36b573aa332cab
 
 
 Start lottery tx
@@ -49,3 +48,10 @@ https://bscscan.com/tx/0x56ae29f6a75e9836081dac921e264a0a2e700bbb62524608c48190e
 
 testnet example
 https://testnet.bscscan.com/tx/0x1f2333e1938cf922729d832fd9c8c00dc06e972f5eddfe435f92b5bdc99656cb
+
+
+Buy ticket 
+https://bscscan.com/tx/0xe732c16c0555ba27dd16d1e09888223777b787cab6bb6e4a60c71b46007a697a
+#	Name	Type	Data
+0	_lotteryId	uint256	296
+1	_ticketNumbers	uint32[]	1041340

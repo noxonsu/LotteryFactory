@@ -50,7 +50,7 @@
 			"buyTickets(uint256,uint32[])": "88303dbd",
 			"claimTickets(uint256,uint256[],uint32[])": "c914914f",
 			"closeLottery(uint256)": "9d8ca531",
-			"drawFinalNumberAndMakeLotteryClaimable(uint256,bool)": "c38de539",
+			"drawFinalNumberAndMakeLotteryClaimable(uint256,bytes32,bool)": "2385860b",
 			"injectFunds(uint256,uint256)": "471aeab4",
 			"startLottery(uint256,uint256,uint256,uint256[6],uint256)": "b1829b82",
 			"viewCurrentLotteryId()": "80a06160"
@@ -117,6 +117,11 @@
 					"internalType": "uint256",
 					"name": "_lotteryId",
 					"type": "uint256"
+				},
+				{
+					"internalType": "bytes32",
+					"name": "_seed",
+					"type": "bytes32"
 				},
 				{
 					"internalType": "bool",
