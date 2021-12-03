@@ -55,3 +55,9 @@ https://bscscan.com/tx/0xe732c16c0555ba27dd16d1e09888223777b787cab6bb6e4a60c71b4
 #	Name	Type	Data
 0	_lotteryId	uint256	296
 1	_ticketNumbers	uint32[]	1041340
+
+
+
+matic testnet https://mumbai.polygonscan.com/address/0x6e9c98a8a481bf038ba7e1d669a0086547dd144e#code
+0x6e9c98a8a481bf038ba7e1d669a0086547dd144e
+token plasma 0x2d7882beDcbfDDce29Ba99965dd3cdF7fcB10A1e

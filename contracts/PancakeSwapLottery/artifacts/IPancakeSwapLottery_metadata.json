@@ -228,7 +228,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"PancakeSwapLottery/PancakeSwapLottery.sol": "IPancakeSwapLottery"
+			"PancakeSwapLottery/PancakeSwapLotteryWithMulticall.sol": "IPancakeSwapLottery"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -242,12 +242,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"PancakeSwapLottery/PancakeSwapLottery.sol": {
-			"keccak256": "0xc77a13d352a84914c41ecde2061a21d19d4fdc9d6aae401fb6f0ad1afc817f3f",
+		"PancakeSwapLottery/PancakeSwapLotteryWithMulticall.sol": {
+			"keccak256": "0x927001919cbbc76fd48639c137a9595887dfec077f6fda221f6d1a09cb3c78c6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bdfdd6fc6fd8be4acb9769786ca9c2deb304f28922b576864364d8f278ea854e",
-				"dweb:/ipfs/QmVD3veugYHn6sbqYgbugXsRZtJucGug6n5RjqX6tQUwEu"
+				"bzz-raw://78546c219c8fc7cc42a8614ae17ec3e7210343bd010e36820289a83f0f7d1448",
+				"dweb:/ipfs/QmQrRJ7ZShKvEKdPeZ8rfJsdee1tAgj1jNhV9wNZkuTCtn"
 			]
 		}
 	},
