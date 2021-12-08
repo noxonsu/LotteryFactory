@@ -38,3 +38,7 @@ A: yes!
 
 Q: Does it work with Bep20 tokens (binance smart chain)
 A: yes!
+
+
+See also: 
+1. installation service https://www.fiverr.com/s2/c411885a6f
