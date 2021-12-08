@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.4.11+commit.68ef5810"
+		"version": "0.5.4+commit.9549d8ff"
 	},
 	"language": "Solidity",
 	"output": {
@@ -16,28 +16,30 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
 				"constant": false,
 				"inputs": [
 					{
-						"name": "_spender",
+						"name": "spender",
 						"type": "address"
 					},
 					{
-						"name": "_value",
+						"name": "tokens",
 						"type": "uint256"
 					}
 				],
 				"name": "approve",
 				"outputs": [
 					{
-						"name": "",
+						"name": "success",
 						"type": "bool"
 					}
 				],
 				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -51,32 +53,34 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
 				"constant": false,
 				"inputs": [
 					{
-						"name": "_from",
+						"name": "from",
 						"type": "address"
 					},
 					{
-						"name": "_to",
+						"name": "to",
 						"type": "address"
 					},
 					{
-						"name": "_value",
+						"name": "tokens",
 						"type": "uint256"
 					}
 				],
 				"name": "transferFrom",
 				"outputs": [
 					{
-						"name": "",
+						"name": "success",
 						"type": "bool"
 					}
 				],
 				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -90,61 +94,14 @@
 					}
 				],
 				"payable": false,
-				"type": "function"
-			},
-			{
-				"constant": false,
-				"inputs": [
-					{
-						"name": "_to",
-						"type": "address"
-					},
-					{
-						"name": "_value",
-						"type": "uint256"
-					},
-					{
-						"name": "_data",
-						"type": "bytes"
-					}
-				],
-				"name": "transferAndCall",
-				"outputs": [
-					{
-						"name": "success",
-						"type": "bool"
-					}
-				],
-				"payable": false,
-				"type": "function"
-			},
-			{
-				"constant": false,
-				"inputs": [
-					{
-						"name": "_spender",
-						"type": "address"
-					},
-					{
-						"name": "_subtractedValue",
-						"type": "uint256"
-					}
-				],
-				"name": "decreaseApproval",
-				"outputs": [
-					{
-						"name": "success",
-						"type": "bool"
-					}
-				],
-				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
 				"constant": true,
 				"inputs": [
 					{
-						"name": "_owner",
+						"name": "tokenOwner",
 						"type": "address"
 					}
 				],
@@ -156,6 +113,30 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [],
+				"name": "acceptOwnership",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -169,6 +150,7 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -177,17 +159,18 @@
 				"name": "drip",
 				"outputs": [],
 				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"constant": false,
 				"inputs": [
 					{
-						"name": "_to",
+						"name": "to",
 						"type": "address"
 					},
 					{
-						"name": "_value",
+						"name": "tokens",
 						"type": "uint256"
 					}
 				],
@@ -199,21 +182,26 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"constant": false,
 				"inputs": [
 					{
-						"name": "_spender",
+						"name": "spender",
 						"type": "address"
 					},
 					{
-						"name": "_addedValue",
+						"name": "tokens",
 						"type": "uint256"
+					},
+					{
+						"name": "data",
+						"type": "bytes"
 					}
 				],
-				"name": "increaseApproval",
+				"name": "approveAndCall",
 				"outputs": [
 					{
 						"name": "success",
@@ -221,17 +209,55 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "newOwner",
+				"outputs": [
+					{
+						"name": "",
+						"type": "address"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "tokenAddress",
+						"type": "address"
+					},
+					{
+						"name": "tokens",
+						"type": "uint256"
+					}
+				],
+				"name": "transferAnyERC20Token",
+				"outputs": [
+					{
+						"name": "success",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"constant": true,
 				"inputs": [
 					{
-						"name": "_owner",
+						"name": "tokenOwner",
 						"type": "address"
 					},
 					{
-						"name": "_spender",
+						"name": "spender",
 						"type": "address"
 					}
 				],
@@ -243,12 +269,50 @@
 					}
 				],
 				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
 				"payable": false,
+				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"payable": true,
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"name": "_from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"name": "_to",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
 			},
 			{
 				"anonymous": false,
@@ -265,13 +329,8 @@
 					},
 					{
 						"indexed": false,
-						"name": "value",
+						"name": "tokens",
 						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"name": "data",
-						"type": "bytes"
 					}
 				],
 				"name": "Transfer",
@@ -282,7 +341,7 @@
 				"inputs": [
 					{
 						"indexed": true,
-						"name": "owner",
+						"name": "tokenOwner",
 						"type": "address"
 					},
 					{
@@ -292,7 +351,7 @@
 					},
 					{
 						"indexed": false,
-						"name": "value",
+						"name": "tokens",
 						"type": "uint256"
 					}
 				],
@@ -301,53 +360,7 @@
 			}
 		],
 		"devdoc": {
-			"methods": {
-				"allowance(address,address)": {
-					"details": "Function to check the amount of tokens that an owner allowed to a spender.\r",
-					"params": {
-						"_owner": "address The address which owns the funds.\r",
-						"_spender": "address The address which will spend the funds.\r"
-					},
-					"return": "A uint256 specifying the amount of tokens still available for the spender.\r"
-				},
-				"approve(address,uint256)": {
-					"details": "Approve the passed address to spend the specified amount of tokens on behalf of msg.sender.\r",
-					"params": {
-						"_spender": "The address which will spend the funds.\r",
-						"_value": "The amount of tokens to be spent.\r"
-					}
-				},
-				"balanceOf(address)": {
-					"details": "Gets the balance of the specified address.\r",
-					"params": {
-						"_owner": "The address to query the the balance of. \r"
-					},
-					"return": "An uint256 representing the amount owned by the passed address.\r"
-				},
-				"transfer(address,uint256)": {
-					"details": "transfer token to a specified address.\r",
-					"params": {
-						"_to": "The address to transfer to.\r",
-						"_value": "The amount to be transferred.\r"
-					}
-				},
-				"transferAndCall(address,uint256,bytes)": {
-					"details": "transfer token to a specified address with additional data if the recipient is a contract.\r",
-					"params": {
-						"_data": "The extra data to be passed to the receiving contract.\r",
-						"_to": "The address to transfer to.\r",
-						"_value": "The amount to be transferred.\r"
-					}
-				},
-				"transferFrom(address,address,uint256)": {
-					"details": "Transfer tokens from one address to another\r",
-					"params": {
-						"_from": "address The address which you want to send tokens from\r",
-						"_to": "address The address which you want to transfer to\r",
-						"_value": "uint256 the amount of tokens to be transferred\r"
-					}
-				}
-			}
+			"methods": {}
 		},
 		"userdoc": {
 			"methods": {}
@@ -355,8 +368,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"LinkToken/LinkLotteryToken.sol": "LinkLotteryToken"
+			"TestToken/TestToken.sol": "WeenusToken"
 		},
+		"evmVersion": "byzantium",
 		"libraries": {},
 		"optimizer": {
 			"enabled": true,
@@ -365,10 +379,10 @@
 		"remappings": []
 	},
 	"sources": {
-		"LinkToken/LinkLotteryToken.sol": {
-			"keccak256": "0x5697cc4cf3516c1b79116d5a1c6ea6bd3ddf34a8e75d3db960e565294c84d386",
+		"TestToken/TestToken.sol": {
+			"keccak256": "0xa30f10305ef9aee201ac093ead3ea914133d6a420c412e608fe09162897d6cc6",
 			"urls": [
-				"bzzr://0dba072b07fc2fbf4f79d94320ee23afd84acd1851efbbf80b4e49cb42f74908"
+				"bzzr://6b1a6cde869b90ddcb21965778ac676adde6da92798c0a5ecf95bbca6ab9b4f7"
 			]
 		}
 	},

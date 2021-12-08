@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.4.16+commit.d7661dd9"
+		"version": "0.4.11+commit.68ef5810"
 	},
 	"language": "Solidity",
 	"output": {
@@ -25,7 +25,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -39,7 +38,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -66,7 +64,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -89,7 +86,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -108,7 +104,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -131,7 +126,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -154,7 +148,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -177,7 +170,6 @@
 					}
 				],
 				"payable": false,
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -278,7 +270,7 @@
 		"libraries": {},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 99999
 		},
 		"remappings": []
 	},

@@ -61,8 +61,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "view"
 		},
 		{
 			"constant": true,
@@ -80,8 +80,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "view"
 		},
 		{
 			"constant": false,
@@ -103,8 +103,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "nonpayable"
 		},
 		{
 			"anonymous": false,

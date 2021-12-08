@@ -44,7 +44,7 @@
 		},
 		"gasEstimates": null,
 		"methodIdentifiers": {
-			"onTokenTransfer(address,uint256,bytes)": "a4c0ed36"
+			"receiveApproval(address,uint256,address,bytes)": "8f4ffcb1"
 		}
 	},
 	"abi": [
@@ -52,23 +52,27 @@
 			"constant": false,
 			"inputs": [
 				{
-					"name": "_sender",
+					"name": "from",
 					"type": "address"
 				},
 				{
-					"name": "_value",
+					"name": "tokens",
 					"type": "uint256"
 				},
 				{
-					"name": "_data",
+					"name": "token",
+					"type": "address"
+				},
+				{
+					"name": "data",
 					"type": "bytes"
 				}
 			],
-			"name": "onTokenTransfer",
+			"name": "receiveApproval",
 			"outputs": [],
 			"payable": false,
-			"type": "function",
-			"stateMutability": "nonpayable"
+			"stateMutability": "nonpayable",
+			"type": "function"
 		}
 	]
 }

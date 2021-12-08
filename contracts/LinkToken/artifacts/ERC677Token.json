@@ -74,8 +74,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "nonpayable"
 		},
 		{
 			"constant": true,
@@ -88,8 +88,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "view"
 		},
 		{
 			"constant": false,
@@ -115,8 +115,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "nonpayable"
 		},
 		{
 			"constant": false,
@@ -142,8 +142,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "nonpayable"
 		},
 		{
 			"constant": true,
@@ -161,8 +161,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "view"
 		},
 		{
 			"constant": false,
@@ -184,8 +184,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "nonpayable",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "nonpayable"
 		},
 		{
 			"constant": true,
@@ -207,8 +207,8 @@
 				}
 			],
 			"payable": false,
-			"stateMutability": "view",
-			"type": "function"
+			"type": "function",
+			"stateMutability": "view"
 		},
 		{
 			"anonymous": false,
