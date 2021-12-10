@@ -1,0 +1,196 @@
+/* Button */
+
+.ff-button {
+  position: relative;
+  height: 32px;
+  padding: 0 16px;
+  border: 0;
+  font-family: 'Kanit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: #5CC4D1;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.2s ease 0s;
+}
+
+.ff-button:not([disabled]):hover {
+  background-color: #53dee9;
+}
+
+.ff-button[disabled] {
+  background-color: #e9eaeb;
+  border-color: #e9eaeb;
+  box-shadow: none;
+  color: #bdc2c4;
+  cursor: not-allowed;
+}
+
+.ff-button .ff-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+
+/* Modal */
+
+.ff-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(69 42 122 / 60%);
+}
+
+.ff-modal {
+  width: auto;
+  min-width: 400px;
+  max-width: 560px;
+  background-color: #fff;
+  font-family: 'Kanit', sans-serif;
+  border-radius: 8px;
+  box-shadow: rgb(25 19 38 / 10%) 0 2px 12px -8px, rgb(25 19 38 / 5%) 0 1px 1px;
+}
+
+.ff-modal-headline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #e9eaeb;
+}
+
+.ff-modal-title {
+  font-weight: 600;
+  font-size: 20px;
+  color: #402E76;
+}
+
+.ff-modal-close {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+  color: #1fc7d4;
+  background: none;
+  border-radius: 8px;
+  box-sizing: content-box;
+  outline: none;
+}
+
+.ff-modal-close svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ff-modal-close:hover {
+  background-color: #eff4f5;
+}
+
+.ff-modal-content {
+  padding: 24px;
+  color: #8f80ba;
+}
+
+.ff-modal-buttons {
+  margin-top: 16px;
+}
+
+.ff-modal-buttons .ff-button {
+  width: 100%;
+}
+
+
+/**
+ * lottery Factory admin style
+ */
+.post-type-lotteryfactory .lotteryfactory-form-inline {
+	display: flex;
+	align-items: center;
+}
+.lotteryfactory-form-inline .large-text {
+	flex: 1;
+}
+.lotteryfactory-form-inline .small-text {
+	flex: 0 0 80px;
+	width: 80px;
+}
+.lotteryfactory-form-inline span {
+	padding-left: 3px;
+	padding-right: 3px;
+}
+.lotteryfactory-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10000;
+	background-color: rgb(255 255 255 / 80%);
+}
+.lotteryfactory-overlay.visible {
+	display: block;
+}
+.lotteryfactory-loader {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 40px;
+	height: 40px;
+	background-color: #313131;
+	animation: rectangle 1.5s infinite ease-in-out;
+}
+@keyframes rectangle {
+	0% {
+		transform:perspective(12rem) rotateX(0deg) rotateY(0deg)
+	}
+	50% {
+		transform:perspective(12rem) rotateX(-180.1deg) rotateY(0deg)
+	}
+	100% {
+		transform:perspective(12rem) rotateX(-180deg) rotateY(-179.9deg)
+	}
+}
+
+/* Metabox */
+.misc-pub-post-status,
+.misc-pub-visibility,
+.misc-pub-curtime,
+#minor-publishing-actions {
+  display: none;
+}
+#lotteryimagediv .inside img {
+  max-width: 100%;
+  height: auto;
+  width: auto;
+  vertical-align: top;
+  background-image: linear-gradient( 45deg ,#c3c4c7 25%,transparent 25%,transparent 75%,#c3c4c7 75%,#c3c4c7),linear-gradient(45deg ,#c3c4c7 25%,transparent 25%,transparent 75%,#c3c4c7 75%,#c3c4c7);
+  background-position: 0 0,10px 10px;
+  background-size: 20px 20px;
+}
+
+.lottery-status-header {
+  background: #007cba;
+  display: block;
+  min-height: 32px;
+  line-height: 2.30769231;
+  padding: 0 12px;
+  color: #fff;
+}

@@ -1,0 +1,61 @@
+{
+  "name": "farmfactory",
+  "version": "0.0.0",
+  "author": {
+    "name": "Pavel Ivanov",
+    "email": "grammka@gmail.com"
+  },
+  "description": "Farming widget",
+  "homepage": "https://github.com/noxonsu/farmfactory#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noxonsu/farmfactory.git"
+  },
+  "keywords": [
+    "farming",
+    "widget"
+  ],
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "dev": "rollup -cw",
+    "build:farmdeploy": "node ./bin/solc.js",
+    "build:farmfactory": "rollup -c",
+    "build": "rimraf ./lib && npm run build:farmdeploy && npm run build:farmfactory"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+    "@babel/plugin-transform-classes": "^7.7.4",
+    "@babel/plugin-transform-destructuring": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-inject": "^4.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^11.0.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-loader": "^8.1.0",
+    "bignumber.js": "^9.0.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.1.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-typescript2": "^0.26.0",
+    "rollup-plugin-uglify": "^6.0.4",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@metamask/detect-provider": "^1.2.0",
+    "@openzeppelin/contracts": "^3.4.0",
+    "crypto": "^1.0.1",
+    "human-standard-token-abi": "^2.0.0",
+    "js-sha256": "^0.9.0",
+    "solc": "^0.8.0"
+  }
+}
