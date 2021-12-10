@@ -48,6 +48,21 @@ function lotteryfactory_main_shortcode( $atts ) {
 	), $atts );
 
 	$id             = $atts['id'];
+  $lottery = array();
+  foreach( array(
+    'blockchain'        => 'matic_testnet',
+    'token'             => '',
+    'token_name'        => '',
+    'token_symbol'      => '',
+    'token_decimals'    => '',
+    'contract'          => '',
+    'last_ticket_price' => '1',
+    'last_treasury_fee' => '2'
+  ) as $key => $default) {
+    $data = get_post_meta( $id, $key, true);
+    if ( empty( $data ) ) $data = $default;
+    $lottery[ $key ] = $data;
+  }
 	$html           = '';
 	$lotteryfactory          = wp_count_posts( 'lotteryfactory' )->publish;
 	$inline_scripts = '';
@@ -90,23 +105,29 @@ function lotteryfactory_main_shortcode( $atts ) {
 	}
 
   $relative_path = './';
-  
+
+  $lottery_chain = lotteryfactory_blockchains()[$lottery['blockchain']];
   ob_start();
+  echo '<pre>';
+  print_r($atts);
+  print_r($lottery);
+  print_r($lottery_chain);
+  echo '</pre>';
   ?>
   <strong>THISSSS <?php echo LOTTERYFACTORY_URL?></strong>
-  <div id="root"></div>
+  <div id="root" class="alignfull"></div>
   <div id="portal-root"></div>
   <script>
     window.SO_LotteryConfig = {
-    chainId: 80001,
-    rpc: 'https://rpc-mumbai.maticvigil.com',
-    contract: '0xA288a01E59ABB87FF6AC63563c40c50bd7C7A1C6',
+    chainId: <?php echo $lottery_chain['chainId']?>,
+    rpc: "<?php echo $lottery_chain['rpc']?>",
+    contract: "<?php echo $lottery['contract']?>",
     token: {
-      symbol: 'WEENUS',
-      address: '0x35bE4cA2f4C66861b6B3B9E6F35A7d8FDaD48dea',
-      decimals: 18,
-      title: 'Weenus',
-      price: 10
+      symbol: "<?php echo $lottery['token_symbol']?>",
+      address: "<?php echo $lottery['token']?>",
+      decimals: "<?php echo $lottery['token_decimals']?>",
+      title: "<?php echo $lottery['token_name']?>",
+      price: 1
     }
   }
   </script>
