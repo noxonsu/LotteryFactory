@@ -1,18 +1,15 @@
 {
-  "name": "farmfactory",
-  "version": "0.0.0",
-  "author": {
-    "name": "Pavel Ivanov",
-    "email": "grammka@gmail.com"
-  },
-  "description": "Farming widget",
-  "homepage": "https://github.com/noxonsu/farmfactory#readme",
+  "name": "lotteryfactory",
+  "version": "1.0.0",
+  "description": "Blockchain lottery widget",
+  "homepage": "https://github.com/noxonsu/LotteryFactory#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/noxonsu/farmfactory.git"
+    "url": "git+https://github.com/noxonsu/LotteryFactory.git"
   },
   "keywords": [
-    "farming",
+    "lottery",
+    "blockchain",
     "widget"
   ],
   "files": [
@@ -22,9 +19,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "rollup -cw",
-    "build:farmdeploy": "node ./bin/solc.js",
-    "build:farmfactory": "rollup -c",
-    "build": "rimraf ./lib && npm run build:farmdeploy && npm run build:farmfactory"
+    "build:lotterydeploy": "node ./bin/solc.js",
+    "build:lotteryfactory": "rollup -c",
+    "build": "rimraf ./lib && npm run build:lotterydeploy && npm run build:lotteryfactory"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",

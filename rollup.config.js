@@ -8,28 +8,6 @@ import babel from 'rollup-plugin-babel'
 
 export default [
   {
-    input: 'src/widget2/index.ts',
-    output: {
-      file: 'lib/farmfactory.js',
-      format: 'iife',
-      name: 'farmFactory',
-    },
-    plugins: [
-      json(),
-      commonjs(),
-      nodeResolve({
-        preferBuiltins: false,
-      }),
-      typescript({
-        typescript: require('typescript'),
-      }),
-      babel({
-        runtimeHelpers: true,
-      }),
-      uglify(),
-    ],
-  },
-  {
     input: 'src/deployer/index.ts',
     output: {
       file: 'lib/lotterydeployer.js',
