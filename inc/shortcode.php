@@ -35,6 +35,103 @@ function lotteryfactory_main_shortcode( $atts ) {
   lotteryfactory_prepare_vendor();
   ob_start();
   ?>
+  <style>
+    #root::before,
+    #root::after,
+    #root *::before,
+    #root *::after {
+      all: unset;
+    }
+    #root * {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+    }
+
+    /*
+    article, aside, details, figcaption, figure, 
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+    body {
+      line-height: 1;
+      font-size: 16px;
+    }
+    ol,
+    ul {
+      list-style: disc;
+      list-style-position: inside;
+    }
+    blockquote,
+    q {
+      quotes: none;
+    }
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+      content: "";
+      content: none;
+    }
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    [role="button"] {
+      cursor: pointer;
+    }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    * {
+      font-family: 'Kanit', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+
+    input[type=range] {
+      -webkit-appearance: none; 
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+    }
+    input[type=range]:focus {
+      outline: none;
+    }
+    input[type=range]::-ms-track {
+      width: 100%;
+      cursor: pointer;
+      background: transparent; 
+      border-color: transparent;
+      color: transparent;
+    }
+    */
+  </style>
+  <div id="lottery-style-holder"></div>
   <div id="root" class="alignfull"></div>
   <div id="portal-root"></div>
   <script>
