@@ -6,39 +6,6 @@
  */
 
 /**
- * Fram inline scripts
- *
- * @param number $id Pos id.
- */
-function lotteryfactory_shortcode_inline_scripts( $id ) {
-  /*
-	$inline_scripts  = "\n";
-	$inline_scripts .= "\t" . 'const widget' . esc_js( $id ) . ' = new farmFactory.Widget({' . "\n";
-	$inline_scripts .= "\t\t" . 'selector: "ff-widget-' . esc_js( $id ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'farmAddress: "' . get_post_meta( $id, 'farm_address', true ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'rewardsAddress: "' . get_post_meta( $id, 'reward_address', true ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'stakingAddress: "' . get_post_meta( $id, 'staking_address', true ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'apy: "' . get_post_meta( $id, 'farm_apy', true ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'apyLabel: "' . get_post_meta( $id, 'farm_apy_label', true ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'rewardsTokenIcon: "' . get_the_post_thumbnail_url( $id, 'medium' ) . '",' . "\n";
-	$inline_scripts .= "\t\t" . 'stakingTokenIcon: "' . wp_get_attachment_image_url( get_post_meta( $id, '_farm_thumbnail_id', true ), 'medium' ) . '",' . "\n";
-	$inline_scripts .= "\t" . '});' . "\n";
-  */
-  $ver = wp_rand( 1, 2222222 );
-
-  //// wp_enqueue_script( 'lotteryfactory-front-chunk', LOTTERYFACTORY_URL . 'vendor/static/js/2.e3d2bd83.chunk.js', array(), '1.0.0', true );
-  //// wp_enqueue_script( 'lotteryfactory-front-main', LOTTERYFACTORY_URL . 'vendor/static/js/main.3ea37187.chunk.js', array(), '1.0.0', true );
-  $inline_scripts = '/* script */';
-  ob_start();
-  ?>
-  /* out script */
-  var boo = 'foo';
-  <?php
-  $inline_scripts = ob_get_clean();
-	return $inline_scripts;
-}
-
-/**
  * Main Shortcode
  */
 function lotteryfactory_main_shortcode( $atts ) {
@@ -63,48 +30,6 @@ function lotteryfactory_main_shortcode( $atts ) {
     if ( empty( $data ) ) $data = $default;
     $lottery[ $key ] = $data;
   }
-	$html           = '';
-	$lotteryfactory          = wp_count_posts( 'lotteryfactory' )->publish;
-	$inline_scripts = '';
-	$html_before    = '<div class="ff-widgets-container">';
-	$html_after     = '</div>';
-
-	if ( null !== $id && get_post( $id ) ) {
-
-		$inline_scripts = lotteryfactory_shortcode_inline_scripts( $id );
-
-		$html = '<div id="ff-widget-' . esc_attr( $id ) . '"></div>';
-
-	} elseif ( null === $id ) {
-
-		$lotteryfactory_args  = array(
-			'post_type'      => 'lotteryfactory',
-			'posts_per_page' => -1,
-		);
-		$lotteryfactory_query = new WP_Query( $lotteryfactory_args );
-
-		if ( $lotteryfactory_query->have_posts() ) :
-			while ( $lotteryfactory_query->have_posts() ) :
-				$lotteryfactory_query->the_post();
-				$id = get_the_ID();
-
-				$inline_scripts .= lotteryfactory_shortcode_inline_scripts( $id );
-
-				$html .= '<div id="ff-widget-' . esc_attr( $id ) . '"></div>';
-
-			endwhile;
-		endif;
-
-		wp_reset_postdata();
-
-	}
-
-	if ( $lotteryfactory ) {
-		$html = $html_before . $html . $html_after;
-		wp_add_inline_script( 'lotteryfactory-js', $inline_scripts, 'after' );
-	}
-
-  $relative_path = './';
 
   $lottery_chain = lotteryfactory_blockchains()[$lottery['blockchain']];
   lotteryfactory_prepare_vendor();
@@ -132,6 +57,5 @@ function lotteryfactory_main_shortcode( $atts ) {
   <?php
   $ret = ob_get_clean();
   return $ret;
-	return $html;
 }
 add_shortcode( 'lotteryfactory', 'lotteryfactory_main_shortcode' );
