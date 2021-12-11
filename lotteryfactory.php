@@ -10,7 +10,7 @@ Version: 1.0.0
 
 /* Define Plugin Constants */
 defined( 'ABSPATH' ) || exit;
-define( 'LOTTERYFACTORY_TEMPLATE_DIR', __DIR__ . '/templates' );
+define( 'LOTTERYFACTORY_TEMPLATE_DIR', __DIR__ . DIRECTORY_SEPARATOR . 'templates' );
 define( 'LOTTERYFACTORY_BASE_DIR', __DIR__ );
 define( 'LOTTERYFACTORY_BASE_FILE', __FILE__ );
 define( 'LOTTERYFACTORY_PATH', plugin_dir_path( __FILE__ ) );
