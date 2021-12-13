@@ -71,10 +71,40 @@ function lotteryfactory_blockchains() {
       'rpc'       => 'https://data-seed-prebsc-1-s1.binance.org:8545/',
       'title'     => 'Binance Block Chain (ERC20) - Testnet'
     ),
+    'bsc_mainnet' => array(
+      'chainId'   => 56,
+      'rpc'       => 'https://bsc-dataseed.binance.org/',
+      'title'     => 'Binance Smart Chain (ERC20)'
+    ),
     'matic_testnet' => array(
       'chainId'   => 80001,
       'rpc'       => 'https://rpc-mumbai.maticvigil.com',
       'title'     => 'Poligon Matic - Testnet (mumbai)'
+    ),
+    'matic_mainnet' => array(
+      'chainId'   => 137,
+      'rpc'       => 'https://rpc-mainnet.maticvigil.com',
+      'title'     => 'Polygon Matic'
+    ),
+    'eth_rinkeby'   => array(
+      'chainId'   => 4,
+      'rpc'       => 'https://rinkeby.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
+      'title'     => 'Ethereum - Testnet (Rinkeby)'
+    ),
+    'eth_mainnet'   => array(
+      'chainId'   => 1,
+      'rpc'       => 'https://mainnet.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c',
+      'title'     => 'Ethereum'
+    ),
+    'arbeth_testnet' => array(
+      'chainId'   => 421611,
+      'rpc'       => 'https://rinkeby.arbitrum.io/rpc',
+      'title'     => 'Arbitrum Testnet (Rinkeby)'
+    ),
+    'arbeth_mainnet' => array(
+      'chainId'   => 42161,
+      'rpc'       => 'https://arb1.arbitrum.io/rpc',
+      'title'     => 'Arbitrum'
     )
   );
 }
