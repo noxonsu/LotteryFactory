@@ -19,8 +19,8 @@ class MenuPageController extends Controller
 	{
 		add_submenu_page(
 			'edit.php?post_type=lotteryfactory',
-			esc_html__('Staking settings', 'lotteryfactory'),
-			esc_html__('Staking settings', 'lotteryfactory'),
+			esc_html__('Lottery settings', 'lotteryfactory'),
+			esc_html__('Lottery settings', 'lotteryfactory'),
 			'manage_options',
 			'LOTTERYFACTORY',
 			[$this, 'page']
