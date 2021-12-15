@@ -628,7 +628,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
     uint256 public maxNumberTicketsPerBuyOrClaim = 100;
 
     uint256 public maxPriceTicketInCake = 50 ether;
-    uint256 public minPriceTicketInCake = 0.005 ether;
+    uint256 public minPriceTicketInCake = 0.00000000001 ether;
 
     uint256 public pendingInjectionNextLottery;
 
