@@ -13,4 +13,4 @@ node_modules
 /*.html
 Farm.json
 /example/
-vendor/*
+vendor/*/*
