@@ -105,6 +105,16 @@ function lotteryfactory_blockchains() {
       'chainId'   => 42161,
       'rpc'       => 'https://arb1.arbitrum.io/rpc',
       'title'     => 'Arbitrum'
+    ),
+    'xdai_testnet' => array(
+      'chainId'   => 77,
+      'rpc'       => 'https://sokol.poa.network',
+      'title'     => 'xDai Testnet (Sokol)'
+    ),
+    'xdai_mainnet' => array(
+      'chainId'   => 100,
+      'rpc'       => 'https://rpc.xdaichain.com/',
+      'title'     => 'xDai Mainnet (Gnosis)'
     )
   );
 }
