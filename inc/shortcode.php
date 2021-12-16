@@ -42,6 +42,7 @@ function lotteryfactory_main_shortcode( $atts ) {
     #root *::after {
       all: unset;
     }
+    /*
     #root * {
       margin: 0;
       padding: 0;
@@ -49,6 +50,7 @@ function lotteryfactory_main_shortcode( $atts ) {
       font-size: 100%;
       vertical-align: baseline;
     }
+    */
 
     /*
     article, aside, details, figcaption, figure, 
