@@ -17,6 +17,7 @@ class MenuPageController extends Controller
 
 	public function menu()
 	{
+    /*
 		add_submenu_page(
 			'edit.php?post_type=lotteryfactory',
 			esc_html__('Lottery settings', 'lotteryfactory'),
@@ -25,6 +26,7 @@ class MenuPageController extends Controller
 			'LOTTERYFACTORY',
 			[$this, 'page']
 		);
+    */
 	}
 
 	public function page()
