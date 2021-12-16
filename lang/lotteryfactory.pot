@@ -1,0 +1,254 @@
+# Copyright (C) 2020 farmfactory
+# This file is distributed under the same license as the farmfactory package.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: farmfactory\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: inc/metabox.php:40
+msgid "Lottery Factory Details"
+msgstr ""
+
+#: inc/metabox.php:78
+msgid "Blockchain"
+msgstr ""
+
+#: inc/metabox.php:94
+msgid "Lottery token Address"
+msgstr ""
+
+#: inc/metabox.php:99 inc/metabox.php:138
+msgid "Fetch"
+msgstr ""
+
+#: inc/metabox.php:104
+#, php-format
+msgid "ERC20 address of token&#039;s contract which users will be used for buy tickets. Press Fetch for get info about token. Free test tokens %s."
+msgstr ""
+
+#: inc/metabox.php:111
+msgid "Token name"
+msgstr ""
+
+#: inc/metabox.php:118
+msgid "Token symbol"
+msgstr ""
+
+#: inc/metabox.php:125
+msgid "Token decimals"
+msgstr ""
+
+#: inc/metabox.php:133
+msgid "Lottery contract"
+msgstr ""
+
+#: inc/metabox.php:141
+msgid "Deploy"
+msgstr ""
+
+#: inc/metabox.php:146
+msgid "Use \"Deploy\" button next to the field to create new Lottery contract. After deployment address will be automatically placed in the field above"
+msgstr ""
+
+#: inc/metabox.php:152
+msgid "If you have Lottery contract address then you can pass it to this field and press &quot;Fetch&quot;. NOTE: please be sure that you fill Lottery contract address! If you are not sure PLEASE PRESS \"Deploy\" button!!! Otherwise, this may lead to incorrect operations of the program and you may lose your tokens!\""
+msgstr ""
+
+#: inc/metabox.php:158
+msgid "Нажмите &quot;Запросить статус лотереи&quot; чтобы управлять ей"
+msgstr ""
+
+#: inc/metabox.php:164
+msgid "Запросить статус лотереи"
+msgstr ""
+
+#: inc/metabox.php:171
+msgid "Lottery owner"
+msgstr ""
+
+#: inc/metabox.php:175
+msgid "Lottery Operator"
+msgstr ""
+
+#: inc/metabox.php:179
+msgid "Treasury address"
+msgstr ""
+
+#: inc/metabox.php:183
+msgid "Current lottery #"
+msgstr ""
+
+#: inc/metabox.php:190
+msgid "Лотерея завершена. Нужно расчитать выигрышную комбинацию"
+msgstr ""
+
+#: inc/metabox.php:194
+msgid "Уникальная &quot;соль&quot;"
+msgstr ""
+
+#: inc/metabox.php:199
+msgid "Сгенерировать случайное"
+msgstr ""
+
+#: inc/metabox.php:203
+msgid "Уникальная строка. Используется для генерации случайных чисел внутри блокчейна. Уникальность строки гарантирует защиту от мошеничества. (ссылка на faq об особенностях random в блокчейне)"
+msgstr ""
+
+#: inc/metabox.php:212
+msgid "Расчитать выигрышные числа"
+msgstr ""
+
+#: inc/metabox.php:221
+msgid "Лотерея запущена"
+msgstr ""
+
+#: inc/metabox.php:225
+msgid "Банк"
+msgstr ""
+
+#: inc/metabox.php:229
+msgid "Время старта"
+msgstr ""
+
+#: inc/metabox.php:233
+msgid "Время окончания"
+msgstr ""
+
+#: inc/metabox.php:237
+msgid "Осталось времени"
+msgstr ""
+
+#: inc/metabox.php:241
+msgid "Время вышло. Нажмите, чтобы закрыть раунт и перейти к расчёту выигрышной комбинации"
+msgstr ""
+
+#: inc/metabox.php:249
+msgid "Нет запущенных лотерей. Заполните форму, чтобы начать лотерею"
+msgstr ""
+
+#: inc/metabox.php:254
+msgid "Цена одного билета"
+msgstr ""
+
+#: inc/metabox.php:261
+msgid "Цена в токенах за один билет лотереи"
+msgstr ""
+
+#: inc/metabox.php:266
+msgid "Козначейский сбор"
+msgstr ""
+
+#: inc/metabox.php:273
+msgid "Козначейский сбор от 0% до 30%. После завершения лотереи этот процент будет отправлен в козначейство (владельцу лотереи). Остаток будет разыгран между игроками"
+msgstr ""
+
+#: inc/metabox.php:278
+msgid "Дата и время завершения лотереи"
+msgstr ""
+
+#: inc/metabox.php:285
+msgid "От 5 минут до 4 дней"
+msgstr ""
+
+#: inc/metabox.php:293
+msgid "Запустить лотерею"
+msgstr ""
+
+#: inc/metabox.php:361
+msgid "Shortcode"
+msgstr ""
+
+#: inc/metabox.php:364
+msgid "Copy Shortcode to clipboard"
+msgstr ""
+
+#: inc/metabox.php:365
+msgid "Copied!"
+msgstr ""
+
+#: inc/post-type.php:14 inc/post-type.php:15 inc/post-type.php:16
+#: inc/post-type.php:17
+msgid "Lottery"
+msgstr ""
+
+#: inc/post-type.php:18
+msgid "All Lotteries"
+msgstr ""
+
+#: inc/post-type.php:19
+msgid "Add New Lottery"
+msgstr ""
+
+#: inc/post-type.php:20
+msgid "Add New"
+msgstr ""
+
+#: inc/post-type.php:21
+msgid "New Lottery"
+msgstr ""
+
+#: inc/post-type.php:22
+msgid "Edit Lottery"
+msgstr ""
+
+#: inc/post-type.php:23
+msgid "Update Lottery"
+msgstr ""
+
+#: inc/post-type.php:24
+msgid "Search Lottery"
+msgstr ""
+
+#: inc/post-type.php:25
+msgid "Not found"
+msgstr ""
+
+#: inc/post-type.php:26
+msgid "Not found in Trash"
+msgstr ""
+
+#: templates/settings.php:19
+msgid "Info"
+msgstr ""
+
+#: templates/settings.php:23
+msgid "First of all please"
+msgstr ""
+
+#: templates/settings.php:23
+msgid " check for updates"
+msgstr ""
+
+#: templates/settings.php:23
+msgid "How to use? Just enter [lotteryfactory] shortcode in your page or post."
+msgstr ""
+
+#: templates/settings.php:30
+msgid "Infura ID"
+msgstr ""
+
+#: templates/settings.php:52
+msgid "Newtwork "
+msgstr ""
+
+#: templates/settings.php:75
+msgid "Ropsten or Mainnet. We recommend to test on testnet with testnet tokens before launch"
+msgstr ""
+
+#: templates/settings.php:83
+msgid "Save settings"
+msgstr ""
