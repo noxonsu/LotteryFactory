@@ -1,19 +1,22 @@
 # Copyright (C) 2020 farmfactory
 # This file is distributed under the same license as the farmfactory package.
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: farmfactory\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2021-12-17 21:04+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;"
+"_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;"
+"esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -37,7 +40,9 @@ msgstr ""
 
 #: inc/metabox.php:104
 #, php-format
-msgid "ERC20 address of token&#039;s contract which users will be used for buy tickets. Press Fetch for get info about token. Free test tokens %s."
+msgid ""
+"ERC20 address of token&#039;s contract which users will be used for buy "
+"tickets. Press Fetch for get info about token. Free test tokens %s."
 msgstr ""
 
 #: inc/metabox.php:111
@@ -61,11 +66,18 @@ msgid "Deploy"
 msgstr ""
 
 #: inc/metabox.php:146
-msgid "Use \"Deploy\" button next to the field to create new Lottery contract. After deployment address will be automatically placed in the field above"
+msgid ""
+"Use \"Deploy\" button next to the field to create new Lottery contract. "
+"After deployment address will be automatically placed in the field above"
 msgstr ""
 
 #: inc/metabox.php:152
-msgid "If you have Lottery contract address then you can pass it to this field and press &quot;Fetch&quot;. NOTE: please be sure that you fill Lottery contract address! If you are not sure PLEASE PRESS \"Deploy\" button!!! Otherwise, this may lead to incorrect operations of the program and you may lose your tokens!\""
+msgid ""
+"If you have Lottery contract address then you can pass it to this field and "
+"press &quot;Fetch&quot;. NOTE: please be sure that you fill Lottery contract "
+"address! If you are not sure PLEASE PRESS \"Deploy\" button!!! Otherwise, "
+"this may lead to incorrect operations of the program and you may lose your "
+"tokens!\""
 msgstr ""
 
 #: inc/metabox.php:158
@@ -105,7 +117,9 @@ msgid "Generate random"
 msgstr ""
 
 #: inc/metabox.php:203
-msgid "Unique string. Used to generate random numbers within the blockchain. The uniqueness of the string guarantees protection against fraud"
+msgid ""
+"Unique string. Used to generate random numbers within the blockchain. The "
+"uniqueness of the string guarantees protection against fraud"
 msgstr ""
 
 #: inc/metabox.php:212
@@ -133,7 +147,9 @@ msgid "Time left"
 msgstr ""
 
 #: inc/metabox.php:241
-msgid "Time is over. Click to close the round and proceed to calculating the winning combination"
+msgid ""
+"Time is over. Click to close the round and proceed to calculating the "
+"winning combination"
 msgstr ""
 
 #: inc/metabox.php:249
@@ -153,7 +169,10 @@ msgid "Coznachey collection"
 msgstr ""
 
 #: inc/metabox.php:273
-msgid "Coznachey tax from 0% to 30%. After the completion of the lottery, this percentage will be sent to the treasury (the owner of the lottery). The remainder will be raffled among the players"
+msgid ""
+"Coznachey tax from 0% to 30%. After the completion of the lottery, this "
+"percentage will be sent to the treasury (the owner of the lottery). The "
+"remainder will be raffled among the players"
 msgstr ""
 
 #: inc/metabox.php:278
@@ -250,7 +269,9 @@ msgid "Newtwork "
 msgstr ""
 
 #: templates/settings.php:75
-msgid "Ropsten or Mainnet. We recommend to test on testnet with testnet tokens before launch"
+msgid ""
+"Ropsten or Mainnet. We recommend to test on testnet with testnet tokens "
+"before launch"
 msgstr ""
 
 #: templates/settings.php:83

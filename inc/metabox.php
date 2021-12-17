@@ -155,13 +155,13 @@ class LotteryFactory_Meta_Box {
           </p>
           <p class="description">
             <?php echo esc_html__(
-              'Нажмите &quot;Запросить статус лотереи&quot; чтобы управлять ей'
+              'Click &quot;Request lottery status &quot; to control her'
               )
             ?>
           </p>
           <p class="description" id="lottery_status_fetchholder" <?php echo (!($lottery['contract'] and $lottery['token_symbol'])) ? 'style="display: none;"' : ''?>>
             <a class="button button-secondary" id="lotteryfactory_fetchstatus">
-              <?php echo esc_html__( 'Запросить статус лотереи', 'lotteryfactory' ) ?>
+              <?php echo esc_html__( 'Request lottery status', 'lotteryfactory' ) ?>
             </a>
           </p>
         </td>
@@ -187,7 +187,7 @@ class LotteryFactory_Meta_Box {
       <tbody id="lottery_draw" style="display: none">
         <tr>
           <td colspan="2" align="center">
-            <strong class="lottery-status-header"><?php echo esc_html__( 'Лотерея завершена. Нужно расчитать выигрышную комбинацию' )?></strong></th>
+            <strong class="lottery-status-header"><?php echo esc_html__( 'The lottery is over. You need to calculate the winning combination' )?></strong></th>
           </td>
         </tr>
         <tr>
@@ -196,11 +196,11 @@ class LotteryFactory_Meta_Box {
             <p class="lotteryfactory-form-inline">
               <input type="text" id="lottery_draw_salt" class="large-text" value="<?php echo esc_attr(lotteryfactory_generate_salt())?>" />
               <a class="button button-secondary" id="lotteryfactory_gen_drawsalt">
-                <?php echo esc_html__( 'Сгенерировать случайное', 'lotteryfactory' ) ?>
+                <?php echo esc_html__( 'Generate random', 'lotteryfactory' ) ?>
               </a>
             </p>
             <p class="description">
-              <?php echo esc_html__( 'Уникальная строка. Используется для генерации случайных чисел внутри блокчейна. Уникальность строки гарантирует защиту от мошеничества. (ссылка на faq об особенностях random в блокчейне)' ) ?>
+              <?php echo esc_html__( 'Unique string. Used to generate random numbers within the blockchain. The uniqueness of the string guarantees protection against fraud' ) ?>
             </p>
           </td>
         </tr>
@@ -209,7 +209,7 @@ class LotteryFactory_Meta_Box {
           <td>
             <p class="description">
               <a class="button button-secondary" id="lotteryfactory_draw_numbers">
-                <?php echo esc_html__( 'Расчитать выигрышные числа', 'lotteryfactory' ) ?>
+                <?php echo esc_html__( 'Calculate winning numbers', 'lotteryfactory' ) ?>
               </a>
             </p>
           </td>
@@ -218,27 +218,27 @@ class LotteryFactory_Meta_Box {
       <tbody id="lottery_round" style="display: none">
         <tr>
           <td colspan="2" align="center">
-            <strong class="lottery-status-header"><?php echo esc_html__( 'Лотерея запущена' ) ?></strong>
+            <strong class="lottery-status-header"><?php echo esc_html__( 'Lottery started' ) ?></strong>
           </td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__( 'Банк' )?></label></th>
+          <th><label><?php echo esc_html__( 'Bank' )?></label></th>
           <td><strong id="lottery_current_bank">000</strong><strong>&nbsp;<?php echo $lottery['token_symbol']?></strong></td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__( 'Время старта' )?></label></th>
+          <th><label><?php echo esc_html__( 'Start time' )?></label></th>
           <td><strong id="lottery_current_starttime">000</strong></td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__( 'Время окончания' )?></label></th>
+          <th><label><?php echo esc_html__( 'End time' )?></label></th>
           <td><strong id="lottery_current_endtime">000</strong></td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__( 'Осталось времени' )?></label></th>
+          <th><label><?php echo esc_html__( 'Time left' )?></label></th>
           <td>
             <strong id="lottery_current_timeleft" style="display: none">000</strong>
             <a class="button button-secondary" id="lottery_current_close_goto_draw" style="display: none">
-              <?php echo esc_html__( 'Время вышло. Нажмите, чтобы закрыть раунт и перейти к расчёту выигрышной комбинации', 'lotteryfactory' ) ?>
+              <?php echo esc_html__( 'Time is over. Click to close the round and proceed to calculating the winning combination', 'lotteryfactory' ) ?>
             </a>
           </td>
         </tr>
@@ -246,43 +246,43 @@ class LotteryFactory_Meta_Box {
       <tbody id="lottery_start" style="display: none">
         <tr>
           <td colspan="2" align="center">
-            <strong class="lottery-status-header"><?php echo esc_html__( 'Нет запущенных лотерей. Заполните форму, чтобы начать лотерею', 'lotteryfactory' ) ?></strong>
+            <strong class="lottery-status-header"><?php echo esc_html__( 'There are no running lotteries. Fill out the form to start the lottery', 'lotteryfactory' ) ?></strong>
           </td>
         </tr>
         <tr>
           <th>
-            <label><?php echo esc_html__( 'Цена одного билета', 'lotteryfactory' ); ?></label>
+            <label><?php echo esc_html__( 'Price of one ticket', 'lotteryfactory' ); ?></label>
           </th>
           <td>
             <p class="lotteryfactory-form-inline">
               <input type="number" id="lottery_ticket_price" min="0" step="0.1" name="lottery_ticket_price" value="<?php echo esc_attr($lottery['last_ticket_price'])?>" />
               <strong><?php echo esc_html__( $lottery['token_symbol'] )?></strong>
             </p>
-            <p class="description"><?php echo esc_html__('Цена в токенах за один билет лотереи', 'lotteryfactory')?></p>
+            <p class="description"><?php echo esc_html__('Price in tokens for one lottery ticket', 'lotteryfactory')?></p>
           </td>
         </tr>
         <tr>
           <th>
-            <label><?php echo esc_html__( 'Козначейский сбор', 'lotteryfactory' ); ?></label>
+            <label><?php echo esc_html__( 'Coznachey collection', 'lotteryfactory' ); ?></label>
           </th>
           <td>
             <p class="lotteryfactory-form-inline">
               <input type="number" id="lottery_treasury_fee" min="0" max="30" name="lottery_treasury_fee" value="<?php echo esc_attr($lottery['last_treasury_fee'])?>" />
               <strong>%</strong>
             </p>
-            <p class="description"><?php echo esc_html__('Козначейский сбор от 0% до 30%. После завершения лотереи этот процент будет отправлен в козначейство (владельцу лотереи). Остаток будет разыгран между игроками', 'lotteryfactory')?></p>
+            <p class="description"><?php echo esc_html__('Coznachey tax from 0% to 30%. After the completion of the lottery, this percentage will be sent to the treasury (the owner of the lottery). The remainder will be raffled among the players', 'lotteryfactory')?></p>
           </td>
         </tr>
         <tr>
           <th>
-            <label><?php echo esc_html__( 'Дата и время завершения лотереи', 'lotteryfactory' ); ?></label>
+            <label><?php echo esc_html__( 'Date and time of the end of the lottery', 'lotteryfactory' ); ?></label>
           </th>
           <td>
             <div class="lotteryfactory-form-inline">
               <input id="lottery_enddate" type="date" />
               <input id="lottery_endtime" type="time" />
             </div>
-            <p class="description"><?php echo esc_html__("От 5 минут до 4 дней", "lotteryfactory") ?></p>
+            <p class="description"><?php echo esc_html__("5 minutes to 4 days", "lotteryfactory") ?></p>
           </td>
         </tr>
         <tr>
@@ -290,7 +290,7 @@ class LotteryFactory_Meta_Box {
           <td>
             <p class="description">
               <a class="button button-secondary" id="lotteryfactory_startlottery">
-                <?php echo esc_html__( 'Запустить лотерею', 'lotteryfactory' ) ?>
+                <?php echo esc_html__( 'Launch the lottery', 'lotteryfactory' ) ?>
               </a>
             </p>
           </td>
