@@ -101,115 +101,7 @@
 		}
 	});
 
-  $( startLottery ).on( 'click', function(e) {
-    e.preventDefault()
-    if (startLottery.disabled) return
-    const endDate = getValue('lottery_enddate')
-    const endTime = getValue('lottery_endtime')
-    let ticketPrice = getFloat('lottery_ticket_price')
-    let treasuryFee = getNumber('lottery_treasury_fee')
-    const tokenDecimals = getNumber('lottery_token_decimals')
-    const lotteryContract = getValue('lottery_address')
-
-    if (tokenDecimals === false)
-      return errMessage('Не удалось определить dicimals токена. Запросите информую о текене и попробуйте еще раз')
-    if (ticketPrice === false)
-      return errMessage('Укажите цену билета')
-    if (treasuryFee === false)
-      return errMessage('Укажите козначейский сбор')
-    if (ticketPrice <= 0)
-      return errMessage('Цена била должна быть больше нуля')
-    if (!(treasuryFee >= 0 && treasuryFee <= 30))
-      return errMessage('Козначейский сбор должен быть от 0% до 30%')
-    if (!endDate || endDate === '')
-      return errMessage('Enter date of lottery end')
-    if (!endTime || endTime === '')
-      return errMessage('Enter time of lottery end')
-    if (!lotteryContract)
-      return errMessage('Lottery contract not specified')
-
-
-    const lotteryEnd = new Date(endDate + ' ' + endTime).getTime() / 1000
-
-    ticketPrice = new BigNumber(ticketPrice).multipliedBy(10 ** tokenDecimals).toFixed()
-    treasuryFee = parseInt(treasuryFee*100, 10)
-    startLottery.disabled = true
-    lotteryDeployer.startLottery({
-      lotteryContract,
-      lotteryEnd,
-      ticketPrice,
-      treasuryFee,
-    })
-      .then((res) => {
-        console.log('>>> ok', res)
-        hideBlock('lottery_start')
-        showBlock('lottery_round')
-        hideLoader()
-      })
-      .catch((err) => {
-        console.log('>> fail', err)
-        startLottery.disabled = false
-        hideLoader()
-      })
-  })
-
-  $( drawNumbers ).on( 'click', function(e) {
-    e.preventDefault()
-    if (drawNumbers.disabled) return
-
-    const lotteryAddress = getValue('lottery_address')
-    const lotterySalt = getValue('lottery_draw_salt')
-    if (!lotteryAddress)
-      return errMessage('Lottery contract not specified')
-    if (!lotterySalt || lotterySalt.length < 128) {
-      // Не корректная соль. Соль должна быть 128 или больше символов. Нажмите Сгенерировать чтобы получить новую
-      return errMessage('Incorrect draw salt. Salt must be 128 chars or bigger length. Press Generate new salt')
-    }
-
-    drawNumbers.disabled = true
-    showLoader()
-    lotteryDeployer
-      .drawNumbers(lotteryAddress, lotterySalt)
-      .then((res) => {
-        console.log('>>> ok', res)
-        hideBlock('lottery_draw')
-        showBlock('lottery_start')
-        hideLoader()
-      })
-      .catch((err) => {
-        console.log('>> fail', err)
-        drawNumbers.disabled = false
-        hideLoader()
-      })
-  })
-
-  $( '#lotteryfactory_gen_drawsalt' ).on( 'click', function(e) {
-    e.preventDefault()
-    setValue('lottery_draw_salt', genSalt())
-  })
-
-  $( closeAndGoDraw ).on( 'click', function(e) {
-    e.preventDefault()
-    if (closeAndGoDraw.disabled) return
-
-    const lotteryContract = getValue('lottery_address')
-    if (!lotteryContract)
-      return errMessage('Lottery contract not specified')
-
-    lotteryDeployer
-      .closeLottery(lotteryContract)
-      .then((res) => {
-        console.log('>>> ok', res)
-        hideBlock('lottery_round')
-        showBlock('lottery_draw')
-      })
-      .catch((err) => {
-        console.log('>> fail', err)
-      })
-  })
-
-  $( fetchStatus ).on( 'click', function(e) {
-    e.preventDefault()
+  const fetchStatusFunc = () => {
     if (fetchStatus.disabled) return
     if (!lotteryAddress.value) return errMessage('No lottery address!')
 
@@ -276,6 +168,115 @@
         fetchStatus.disabled = false
         alert('Fail fetch contract info')
       })
+  }
+  $( startLottery ).on( 'click', function(e) {
+    e.preventDefault()
+    if (startLottery.disabled) return
+    const endDate = getValue('lottery_enddate')
+    const endTime = getValue('lottery_endtime')
+    let ticketPrice = getFloat('lottery_ticket_price')
+    let treasuryFee = getNumber('lottery_treasury_fee')
+    const tokenDecimals = getNumber('lottery_token_decimals')
+    const lotteryContract = getValue('lottery_address')
+
+    if (tokenDecimals === false)
+      return errMessage('Не удалось определить dicimals токена. Запросите информую о текене и попробуйте еще раз')
+    if (ticketPrice === false)
+      return errMessage('Укажите цену билета')
+    if (treasuryFee === false)
+      return errMessage('Укажите козначейский сбор')
+    if (ticketPrice <= 0)
+      return errMessage('Цена била должна быть больше нуля')
+    if (!(treasuryFee >= 0 && treasuryFee <= 30))
+      return errMessage('Козначейский сбор должен быть от 0% до 30%')
+    if (!endDate || endDate === '')
+      return errMessage('Enter date of lottery end')
+    if (!endTime || endTime === '')
+      return errMessage('Enter time of lottery end')
+    if (!lotteryContract)
+      return errMessage('Lottery contract not specified')
+
+
+    const lotteryEnd = new Date(endDate + ' ' + endTime).getTime() / 1000
+
+    ticketPrice = new BigNumber(ticketPrice).multipliedBy(10 ** tokenDecimals).toFixed()
+    treasuryFee = parseInt(treasuryFee*100, 10)
+    startLottery.disabled = true
+    lotteryDeployer.startLottery({
+      lotteryContract,
+      lotteryEnd,
+      ticketPrice,
+      treasuryFee,
+    })
+      .then((res) => {
+        console.log('>>> ok', res)
+        fetchStatusFunc()
+      })
+      .catch((err) => {
+        console.log('>> fail', err)
+        startLottery.disabled = false
+        hideLoader()
+      })
+  })
+
+  $( drawNumbers ).on( 'click', function(e) {
+    e.preventDefault()
+    if (drawNumbers.disabled) return
+
+    const lotteryAddress = getValue('lottery_address')
+    const lotterySalt = getValue('lottery_draw_salt')
+    if (!lotteryAddress)
+      return errMessage('Lottery contract not specified')
+    if (!lotterySalt || lotterySalt.length < 128) {
+      // Не корректная соль. Соль должна быть 128 или больше символов. Нажмите Сгенерировать чтобы получить новую
+      return errMessage('Incorrect draw salt. Salt must be 128 chars or bigger length. Press Generate new salt')
+    }
+
+    drawNumbers.disabled = true
+    showLoader()
+    lotteryDeployer
+      .drawNumbers(lotteryAddress, lotterySalt)
+      .then((res) => {
+        console.log('>>> ok', res)
+        hideBlock('lottery_draw')
+        showBlock('lottery_start')
+        hideLoader()
+      })
+      .catch((err) => {
+        console.log('>> fail', err)
+        drawNumbers.disabled = false
+        hideLoader()
+      })
+  })
+
+  $( '#lotteryfactory_gen_drawsalt' ).on( 'click', function(e) {
+    e.preventDefault()
+    setValue('lottery_draw_salt', genSalt())
+  })
+
+  $( closeAndGoDraw ).on( 'click', function(e) {
+    e.preventDefault()
+    if (closeAndGoDraw.disabled) return
+
+    const lotteryContract = getValue('lottery_address')
+    if (!lotteryContract)
+      return errMessage('Lottery contract not specified')
+
+    lotteryDeployer
+      .closeLottery(lotteryContract)
+      .then((res) => {
+        console.log('>>> ok', res)
+        hideBlock('lottery_round')
+        showBlock('lottery_draw')
+      })
+      .catch((err) => {
+        console.log('>> fail', err)
+      })
+  })
+
+  $( fetchStatus ).on( 'click', function(e) {
+    e.preventDefault()
+    fetchStatusFunc()
   })
 
   $( fetchButton ).on( 'click', function(e) {
