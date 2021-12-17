@@ -20,6 +20,7 @@ function lotteryfactory_post_type() {
 		'add_new'               => esc_html__( 'Add New', 'lotteryfactory' ),
 		'new_item'              => esc_html__( 'New Lottery', 'lotteryfactory' ),
 		'edit_item'             => esc_html__( 'Edit Lottery', 'lotteryfactory' ),
+    'view_item'             => esc_html__( 'View Lottery', 'lotteryfactory' ),
 		'update_item'           => esc_html__( 'Update Lottery', 'lotteryfactory' ),
 		'search_items'          => esc_html__( 'Search Lottery', 'lotteryfactory' ),
 		'not_found'             => esc_html__( 'Not found', 'lotteryfactory' ),

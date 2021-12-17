@@ -480,33 +480,6 @@ const fetchTokenInfo = (tokenAddress: string) => {
     }
   })
 }
-const startFarming = async ({ farmAddress, rewardsAddress, amount, onSuccess, onError }) => {
-  /*
-  const { abi } = json
-  const { web3 } = getState()
-
-  try {
-    const farmContract = new web3.eth.Contract(abi, farmAddress)
-    const rewardsContract = new web3.eth.Contract(rewardsAbi, rewardsAddress)
-
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' })
-    const rewardsDecimals = await rewardsContract.methods.decimals().call()
-
-    const value = formatAmount(amount, rewardsDecimals)
-
-    await farmContract.methods.notifyRewardAmount(value).send({ from: accounts[0] })
-
-    if (typeof onSuccess === 'function') {
-      onSuccess()
-    }
-  }
-  catch (err) {
-    if (typeof onError === 'function') {
-      onError(err)
-    }
-  }
-  */
-}
 
 const init = async (opts) => {
   setState({ opts })

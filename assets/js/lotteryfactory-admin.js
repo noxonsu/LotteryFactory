@@ -254,9 +254,7 @@
           .toNumber()
         setHtml('lottery_current_bank', bankAmount)
 
-        if ((lotteryInfo.currentLotteryNumber === "1")
-          || (lotteryInfo.currentLotteryInfo.status === "1")
-        ) {
+        if ((lotteryInfo.currentLotteryNumber !== "1") && (lotteryInfo.currentLotteryInfo.status === "1")) {
           showBlock('lottery_round')
         }
         if (current.status === "2") {
