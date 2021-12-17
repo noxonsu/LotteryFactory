@@ -6,8 +6,8 @@ namespace LOTTERYFACTORY\Controllers;
 
 class AutoUpdateController {
 
-	const INFO_URL = 'https://farm.wpmix.net/info.json';
-	const PLUGIN_SLUG = 'farmfactory';
+	const INFO_URL = 'https://lottery.wpmix.net/info.json';
+	const PLUGIN_SLUG = 'lotteryfactory';
 	const TRANSIENT_SLUG = 'LOTTERYFACTORY_upgrade_plugin';
 
 	public function __construct() {
@@ -29,8 +29,6 @@ class AutoUpdateController {
 	 * @return false|\stdClass
 	 */
 	public function setUpdateInfo( $res, $action, $args) {
-    return false;
-
 		// return false if this is not about getting plugin information.
 		if ( 'plugin_information' !== $action ) {
 			return false;
@@ -101,7 +99,6 @@ class AutoUpdateController {
 	 * @return mixed
 	 */
 	public function pushUpdate($transient){
-    return $transient;
 		if ( empty( $transient->checked ) ) {
 			return $transient;
 		}
@@ -133,7 +130,7 @@ class AutoUpdateController {
 			$remote = json_decode( $remote['body'] );
 
 			// your installed plugin version should be on the line below! You can obtain it dynamically of course
-			if ( $remote && version_compare( FARMFACTORY_VER, $remote->version, '<' ) && version_compare( $remote->requires, get_bloginfo('version'), '<' ) ) {
+			if ( $remote && version_compare( LOTTERYFACTORY_VER, $remote->version, '<' ) && version_compare( $remote->requires, get_bloginfo('version'), '<' ) ) {
 				$res                               = new \stdClass();
 				$res->slug                         = self::PLUGIN_SLUG;
 				$res->plugin                       = self::PLUGIN_SLUG . '/' . self::PLUGIN_SLUG . '.php';
