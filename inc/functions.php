@@ -24,6 +24,50 @@ function lotteryfactory_generate_salt() {
   return $randomString;
 }
 
+function lottery_get_data($lottery_id) {
+  $lottery = array();
+  foreach( array(
+    'blockchain'        => 'matic_testnet',
+    'token'             => '',
+    'token_name'        => '',
+    'token_symbol'      => '',
+    'token_decimals'    => '',
+    'contract'          => '',
+    'last_ticket_price' => '1',
+    'last_treasury_fee' => '2',
+    'hide_footer_header'=> 'true'
+  ) as $key => $default) {
+    $data = get_post_meta( $lottery_id, $key, true);
+    if ( empty( $data ) ) $data = $default;
+    $lottery[ $key ] = $data;
+  }
+  return $lottery;
+}
+
+function lottery_default_header() {
+  ?>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Title</title>
+      <style type="text/css">
+        * {
+          margin: 0;
+          padding: 0;
+        }
+      </style>
+    </head>
+    <body>
+  <?php
+}
+
+function lottery_default_footer() {
+  ?>
+    </body>
+  </html>
+  <?php
+}
+
 function lotteryfactory_prepare_vendor() {
   $version = (LOTTERYFACTORY_VER) ? LOTTERYFACTORY_VER : 'no';
   $SEP = DIRECTORY_SEPARATOR;

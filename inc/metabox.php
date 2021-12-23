@@ -55,25 +55,18 @@ class LotteryFactory_Meta_Box {
 		/* Add nonce for security and authentication */
 		wp_nonce_field( 'lotteryfactory_meta_action', 'lotteryfactory_meta_nonce' );
 
-    $lottery = array();
-    foreach( array(
-      'blockchain'        => 'matic_testnet',
-      'token'             => '',
-      'token_name'        => '',
-      'token_symbol'      => '',
-      'token_decimals'    => '',
-      'contract'          => '',
-      'last_ticket_price' => '1',
-      'last_treasury_fee' => '2'
-    ) as $key => $default) {
-      $data = get_post_meta( $post->ID, $key, true);
-      if ( empty( $data ) ) $data = $default;
-      $lottery[ $key ] = $data;
-    }
+    $lottery = lottery_get_data($post->ID);
 
 		// Form fields.
     ?>
     <table class="form-table">
+      <tr>
+        <th><label><?php echo esc_html__( 'Design', 'lotteryfactory' );?></label></th>
+        <td>
+          <input type="checkbox" id="lottery_hide_footer_header" value="<?php echo $lottery['hide_footer_header']?>" <?php echo ($lottery['show_footer_header'] === 'true') ? 'checked' : ''?> />
+          <label><?php echo esc_html__( 'Hide WP footer and header', 'lotteryfactory' ); ?></label>
+        </td>
+      </tr>
       <tr>
         <th><label><?php echo esc_html__( 'Blockchain', 'lotteryfactory' ); ?></label></th>
         <td>

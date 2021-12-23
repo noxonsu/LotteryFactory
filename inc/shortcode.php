@@ -24,7 +24,8 @@ function lotteryfactory_main_shortcode( $atts ) {
     'token_decimals'    => '',
     'contract'          => '',
     'last_ticket_price' => '1',
-    'last_treasury_fee' => '2'
+    'last_treasury_fee' => '2',
+    'hide_footer_header'=> 'true'
   ) as $key => $default) {
     $data = get_post_meta( $id, $key, true);
     if ( empty( $data ) ) $data = $default;

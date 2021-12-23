@@ -30,20 +30,37 @@ function lotteryfactory_post_type() {
 		'labels'             => $labels,
 		'supports'           => array( 'title', 'thumbnail' ),
 		'hierarchical'       => false,
-		'public'             => false,
+		'public'             => true,
 		'show_ui'            => true,
 		'show_in_menu'       => true,
 		'show_in_admin_bar'  => false,
 		'show_in_nav_menus'  => false,
 		'can_export'         => true,
-		'publicly_queryable' => false,
+		'publicly_queryable' => true,
 		'capability_type'    => 'post',
 		'menu_icon'          => 'dashicons-admin-site-alt3',
 	);
 	register_post_type( 'lotteryfactory', $args );
-
+  flush_rewrite_rules( false );
 }
 add_action( 'init', 'lotteryfactory_post_type' );
+
+function lottery_custom_template($single) {
+
+    global $post;
+
+    /* Checks for single template by post type */
+    if ( $post->post_type == 'lotteryfactory' ) {
+      return LOTTERYFACTORY_PATH . 'templates/singlepage.php';
+      //die('this');
+    }
+
+    return $single;
+
+}
+
+add_filter('single_template', 'lottery_custom_template');
+
 
 /**
  * Remove date from posts column
