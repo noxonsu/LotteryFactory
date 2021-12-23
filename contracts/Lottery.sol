@@ -696,6 +696,11 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
         _;
     }
 
+    modifier onlyOwnerOrOperator() {
+        require((msg.sender == owner()) || (msg.sender == operatorAddress), "Not owner or operator");
+        _;
+    }
+
     event AdminTokenRecovery(address token, uint256 amount);
     event LotteryClose(uint256 indexed lotteryId, uint256 firstTicketIdNextLottery);
     event LotteryInjection(uint256 indexed lotteryId, uint256 injectedAmount);
@@ -863,7 +868,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
      * @param _lotteryId: lottery id
      * @dev Callable by operator
      */
-    function closeLottery(uint256 _lotteryId) external override onlyOperator nonReentrant {
+    function closeLottery(uint256 _lotteryId) external override onlyOwnerOrOperator nonReentrant {
         require(_lotteries[_lotteryId].status == Status.Open, "Lottery not open");
         require(block.timestamp > _lotteries[_lotteryId].endTime, "Lottery not over");
         _lotteries[_lotteryId].firstTicketIdNextLottery = currentTicketId;
@@ -882,7 +887,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
     function drawFinalNumberAndMakeLotteryClaimable(uint256 _lotteryId, bytes32 _seed, bool _autoInjection)
         external
         override
-        onlyOperator
+        onlyOwnerOrOperator
         nonReentrant
     {
         require(_lotteries[_lotteryId].status == Status.Close, "Lottery not close");
@@ -995,7 +1000,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
         uint256 _discountDivisor,
         uint256[6] calldata _rewardsBreakdown,
         uint256 _treasuryFee
-    ) external override onlyOperator {
+    ) external override onlyOwnerOrOperator {
         require(
             (currentLotteryId == 0) || (_lotteries[currentLotteryId].status == Status.Claimable),
             "Not time to start lottery"
@@ -1116,6 +1121,13 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
         emit NewOperatorAndTreasuryAndInjectorAddresses(_operatorAddress, _treasuryAddress, _injectorAddress);
     }
 
+    function setOperatorAddresses(
+        address _operatorAddress
+    ) external onlyOwner {
+        require(_operatorAddress != address(0), "Cannot be zero address");
+
+        operatorAddress = _operatorAddress;
+    }
     /**
      * @notice Calculate price of a set of tickets
      * @param _discountDivisor: divisor for the discount
