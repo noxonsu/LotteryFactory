@@ -63,7 +63,7 @@ class LotteryFactory_Meta_Box {
       <tr>
         <th><label><?php echo esc_html__( 'Design', 'lotteryfactory' );?></label></th>
         <td>
-          <input type="checkbox" id="lottery_hide_footer_header" value="<?php echo $lottery['hide_footer_header']?>" <?php echo ($lottery['show_footer_header'] === 'true') ? 'checked' : ''?> />
+          <input type="checkbox" name="lottery_hide_footer_header" id="lottery_hide_footer_header" <?php echo ($lottery['hide_footer_header'] === 'true') ? 'checked' : ''?> />
           <label><?php echo esc_html__( 'Hide WP footer and header', 'lotteryfactory' ); ?></label>
         </td>
       </tr>
@@ -332,12 +332,18 @@ class LotteryFactory_Meta_Box {
       'last_ticket_price' => 'lottery_ticket_price',
       'last_treasury_fee' => 'lottery_treasury_fee'
     );
+    $post_meta_checkboxs = array(
+      'hide_footer_header'=> 'lottery_hide_footer_header'
+    );
     $post_meta_values = array();
     foreach( $post_meta_keys as $metaKey => $postKey) {
       $postValue = isset( $_POST[ $postKey ] ) ? sanitize_text_field( $_POST[ $postKey ] ) : '';
       update_post_meta( $post_id, $metaKey, $postValue );
     }
-
+    foreach( $post_meta_checkboxs as $metaKey => $postKey) {
+      $postValue = (isset( $_POST[ $postKey ] ) && ( $_POST[ $postKey ] == 'on' )) ? 'true' : 'false';
+      update_post_meta( $post_id, $metaKey, $postValue );
+    }
 	}
 
 }
