@@ -47,9 +47,12 @@ function lottery_get_data($lottery_id) {
 function lottery_default_header() {
   ?>
   <!DOCTYPE html>
-  <html>
+  <html class="no-js" <?php language_attributes(); ?>>
     <head>
-      <title>Title</title>
+      <meta charset="<?php bloginfo( 'charset' ); ?>">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+      <link rel="profile" href="https://gmpg.org/xfn/11">
+      <?php wp_head(); ?>
       <style type="text/css">
         * {
           margin: 0;
