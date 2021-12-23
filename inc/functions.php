@@ -109,12 +109,12 @@ function lotteryfactory_blockchains() {
     'xdai_testnet' => array(
       'chainId'   => 77,
       'rpc'       => 'https://sokol.poa.network',
-      'title'     => 'xDai Testnet (Sokol)'
+      'title'     => 'DAI Testnet (Sokol)'
     ),
     'xdai_mainnet' => array(
       'chainId'   => 100,
       'rpc'       => 'https://rpc.xdaichain.com/',
-      'title'     => 'xDai Mainnet (Gnosis)'
+      'title'     => 'DAI Mainnet (Gnosis)'
     )
   );
 }
