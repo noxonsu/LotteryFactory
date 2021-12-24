@@ -37,13 +37,13 @@ function lotteryfactory_main_shortcode( $atts ) {
   ob_start();
   ?>
   <style>
+    /*
     #root::before,
     #root::after,
     #root *::before,
     #root *::after {
       all: unset;
-    }
-    /*
+    }/*
     #root * {
       margin: 0;
       padding: 0;
