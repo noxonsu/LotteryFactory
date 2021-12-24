@@ -1,0 +1,4 @@
+// BNB
+export const DEFAULT_INPUT_CURRENCY = 'BNB'
+// BUSD
+export const DEFAULT_OUTPUT_CURRENCY = '0x703f112bda4cc6cb9c5fb4b2e6140f6d8374f10b'
