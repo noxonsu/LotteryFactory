@@ -35,7 +35,6 @@ const Page: React.FC<
 > = ({ children, removePadding = false, hideFooterOnDesktop = false, ...props }) => {
   return (
     <>
-      <PageMeta />
       <StyledPage $removePadding={removePadding} {...props}>
         {children}
         <Flex flexGrow={1} />
