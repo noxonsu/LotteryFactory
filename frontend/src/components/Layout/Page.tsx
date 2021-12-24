@@ -53,7 +53,6 @@ interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
 const Page: React.FC<PageProps> = ({ children, symbol, ...props }) => {
   return (
     <>
-      <PageMeta symbol={symbol} />
       <StyledPage {...props}>{children}</StyledPage>
     </>
   )
