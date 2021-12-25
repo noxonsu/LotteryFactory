@@ -39,6 +39,12 @@ A: yes!
 Q: Does it work with Bep20 tokens (binance smart chain)
 A: yes!
 
+Q: Is there a case when nobody wins?
+A: Yes, if no one has the winner ticket the bank stay on the contract. Admin can regenerate random numbers (?)  or use the bank in the next draw (?).
+
+Q: How many tickets can buy one user?
+A: unlimited, but it takes gas (?). 
+
 
 See also: 
 1. installation service https://www.fiverr.com/s2/c411885a6f
