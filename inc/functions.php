@@ -35,6 +35,7 @@ function lottery_get_data($lottery_id) {
     'contract'          => '',
     'last_ticket_price' => '1',
     'last_treasury_fee' => '2',
+    'numbers_count'     => '6',
     'hide_footer_header'=> 'true'
   ) as $key => $default) {
     $data = get_post_meta( $lottery_id, $key, true);

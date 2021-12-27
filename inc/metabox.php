@@ -177,6 +177,27 @@ class LotteryFactory_Meta_Box {
           <td><strong id="lottery_current"></strong></td>
         </tr>
       </tbody>
+      <tbody id="lottery_settings">
+        <tr>
+          <td colspan="2" align="center">
+            <strong class="lottery-status-header"><?php echo esc_html__( 'Settings' )?></strong></th>
+          </td>
+        </tr>
+        <tr>
+          <th><label><?php echo esc_html__('Кол-во шаров')?></label></th>
+          <td>
+            <p class="lotteryfactory-form-inline">
+              <input type="text" id="numbers_count" name="lottery_numbers_count" class="large-text" value="<?php echo $lottery['numbers_count']?>" />
+              <a class="button button-secondary" id="numbers_count_change">
+                <?php echo esc_html__( 'Change', 'lotteryfactory' ) ?>
+              </a>
+            </p>
+            <p class="description">
+              <?php echo esc_html__( 'Количество шаров, учавствующие в лотерее. От 2х до 6ти.' ) ?>
+            </p>
+          </td>
+        </tr>
+      </tbody>
       <tbody id="lottery_draw" style="display: none">
         <tr>
           <td colspan="2" align="center">
@@ -330,7 +351,8 @@ class LotteryFactory_Meta_Box {
       'token_decimals'    => 'lottery_token_decimals',
       'contract'          => 'lottery_address',
       'last_ticket_price' => 'lottery_ticket_price',
-      'last_treasury_fee' => 'lottery_treasury_fee'
+      'last_treasury_fee' => 'lottery_treasury_fee',
+      'numbers_count'     => 'lottery_numbers_count'
     );
     $post_meta_checkboxs = array(
       'hide_footer_header'=> 'lottery_hide_footer_header'
