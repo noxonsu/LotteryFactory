@@ -791,6 +791,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
         for (uint256 i = 0; i < _ticketNumbers.length; i++) {
             uint32 thisTicketNumber = _ticketNumbers[i];
 
+            thisTicketNumber = thisTicketNumber - uint32(10)**(numbersCount) + 1000000;
             require((thisTicketNumber >= 1000000) && (thisTicketNumber <= 1999999), "Outside range");
 
             _numberTicketsPerLotteryId[_lotteryId][1 + (thisTicketNumber % 10)]++;
