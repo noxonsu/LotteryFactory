@@ -637,6 +637,8 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
     uint256 public constant MAX_LENGTH_LOTTERY = 31 days + 5 minutes; // 31 days
     uint256 public constant MAX_TREASURY_FEE = 3000; // 30%
 
+    uint32 public numbersCount = 6; // Кол-во цифр в билете от 2х до 6ти
+
     IERC20 public cakeToken;
 
     enum Status {
@@ -913,14 +915,14 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
             block.difficulty,
             block.gaslimit,
             tx.gasprice
-        )));
+        )));        
         uint32 finalNumber = uint32(1000000 + (randomness % 1000000));
         // Initializes the amount to withdraw to treasury
         uint256 amountToWithdrawToTreasury;
 
         // Calculate prizes in CAKE for each bracket by starting from the highest one
-        for (uint32 i = 0; i < 6; i++) {
-            uint32 j = 5 - i;
+        for (uint32 i = 0; i < numbersCount; i++) {
+            uint32 j = numbersCount - 1 - i;
             uint32 transformedWinningNumber = _bracketCalculator[j] + (finalNumber % (uint32(10)**(j + 1)));
 
             _lotteries[_lotteryId].countWinnersPerBracket[j] =
@@ -1073,6 +1075,17 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
         emit AdminTokenRecovery(_tokenAddress, _tokenAmount);
     }
 
+    function setNumbersCount(uint32 _numbersCount) external onlyOwner
+    {
+        require(_numbersCount <=6, "numbersCount must be <= 6");
+        require(_numbersCount >=2, "numbersCount must be >= 2");
+        require(
+            (currentLotteryId == 0) || (_lotteries[currentLotteryId].status == Status.Claimable),
+            "Has not finished lottery"
+        );
+
+        numbersCount = _numbersCount;
+    }
     /**
      * @notice Set CAKE price ticket upper/lower limit
      * @dev Only callable by owner
