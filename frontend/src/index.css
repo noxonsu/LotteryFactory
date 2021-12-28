@@ -1,0 +1,36 @@
+.primaryButton {
+}
+
+.primaryButton:active,
+.primaryButton:hover,
+.primaryButton:focus {
+  color: white;
+  background-color: #1FC7D4;
+}
+
+.menuButton:active,
+.menuButton:hover,
+.menuButton:focus {
+  color: #7A6EAA;
+  background-color: transparent;
+}
+
+.menuButton.active:active,
+.menuButton.active:hover,
+.menuButton.active:focus {
+  color: white;
+  background-color: #7A6EAA;
+}
+
+.iconButton:active,
+.iconButton:hover,
+.iconButton:focus {
+  background-color: transparent;
+}
+
+.textButton:active,
+.textButton:hover,
+.textButton:focus {
+  color: #1FC7D4;
+  background-color: transparent;
+}
