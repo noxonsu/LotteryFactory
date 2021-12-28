@@ -130,7 +130,7 @@ const TicketContainer: React.FC<{
       const nextDigitId = digitId + 1
       // if we're not on the last digit - auto-tab
       const nextInput = digitRefs[nextDigitId]
-      if (nextDigitId !== 6 && nextInput.current) {
+      if (nextDigitId !== countNumbers && nextInput.current) {
         nextInput.current.focus()
       }
     }
@@ -167,7 +167,7 @@ const TicketContainer: React.FC<{
         const nextDigitId = digitId + 1
         const nextInput = digitRefs[nextDigitId]
         // prevent focusing on non-existent input
-        if (nextDigitId !== 6 && nextInput.current) {
+        if (nextDigitId !== countNumbers && nextInput.current) {
           nextInput.current.focus()
           const newNumbers = [...ticket.numbers]
           newNumbers[nextDigitId] = ''
@@ -191,7 +191,7 @@ const TicketContainer: React.FC<{
       const nextDigitId = digitId + 1
       const nextInput = digitRefs[nextDigitId]
       // prevent focusing on non-existent input
-      if (nextDigitId !== 6 && nextInput.current) {
+      if (nextDigitId !== countNumbers && nextInput.current) {
         nextInput.current.focus()
       }
     }

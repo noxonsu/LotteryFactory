@@ -37,6 +37,9 @@ const getInitialState = ({
   }
 }
 
+// @ts-ignore
+const countNumbers = window.SO_LotteryConfig.numbersCount
+
 const reducer = (state: TicketsState, action: any) => {
   switch (action.type) {
     case 'updateTicket': {
@@ -77,7 +80,7 @@ const reducer = (state: TicketsState, action: any) => {
         id: ticketId,
         numbers: newNumbers,
         duplicateWith: newDuplicates.map((ticket) => ticket.id),
-        isComplete: newNumbers.join('').length === 6,
+        isComplete: newNumbers.join('').length === countNumbers,
       }
       tickets[ticketId - 1] = updatedTicket
 
