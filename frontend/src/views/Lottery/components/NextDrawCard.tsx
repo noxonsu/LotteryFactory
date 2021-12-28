@@ -193,6 +193,7 @@ const NextDrawCard = () => {
                 )}
                 {!userTickets.isLoading && userTicketCount > 0 && (
                   <Button
+                    className='textButton'
                     onClick={onPresentViewTicketsModal}
                     height="auto"
                     width="fit-content"

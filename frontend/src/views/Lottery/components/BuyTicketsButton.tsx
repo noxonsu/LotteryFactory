@@ -28,7 +28,7 @@ const BuyTicketsButton: React.FC<BuyTicketsButtonProps> = ({ disabled, ...props 
   }
 
   return (
-    <Button {...props} disabled={disabled} onClick={onPresentBuyTicketsModal}>
+    <Button className='primaryButton' {...props} disabled={disabled} onClick={onPresentBuyTicketsModal}>
       {getBuyButtonText()}
     </Button>
   )
