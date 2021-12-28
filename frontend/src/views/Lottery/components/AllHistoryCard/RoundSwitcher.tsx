@@ -66,6 +66,7 @@ const RoundSwitcher: React.FC<RoundSwitcherProps> = ({
       </Flex>
       <Flex alignItems="center">
         <StyledIconButton
+          className="iconButton"
           disabled={!selectedRoundIdAsInt || selectedRoundIdAsInt <= 1}
           onClick={() => handleArrowButtonPress(selectedRoundIdAsInt - 1)}
           variant="text"
@@ -75,6 +76,7 @@ const RoundSwitcher: React.FC<RoundSwitcherProps> = ({
           <ArrowBackIcon />
         </StyledIconButton>
         <StyledIconButton
+          className="iconButton"
           disabled={selectedRoundIdAsInt >= mostRecentRound}
           onClick={() => handleArrowButtonPress(selectedRoundIdAsInt + 1)}
           variant="text"
@@ -84,6 +86,7 @@ const RoundSwitcher: React.FC<RoundSwitcherProps> = ({
           <ArrowForwardIcon />
         </StyledIconButton>
         <StyledIconButton
+          className="iconButton"
           disabled={selectedRoundIdAsInt >= mostRecentRound}
           onClick={() => handleArrowButtonPress(mostRecentRound)}
           variant="text"

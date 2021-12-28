@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Button as UIKitButton, Heading, Flex, useModal, AutoRenewIcon } from '@pancakeswap/uikit'
+import { Button, Heading, Flex, useModal, AutoRenewIcon } from '@pancakeswap/uikit'
 import { useWeb3React } from '@web3-react/core'
 import { LotteryStatus } from 'config/constants/types'
 import { useTranslation } from 'contexts/Localization'
@@ -8,13 +8,6 @@ import { useGetUserLotteriesGraphData, useLottery } from 'state/lottery/hooks'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import ClaimPrizesModal from './ClaimPrizesModal'
 import useGetUnclaimedRewards, { FetchStatus } from '../hooks/useGetUnclaimedRewards'
-
-const Button = styled(UIKitButton)`
-  &:hover {
-    color: white;
-    background-color: #1FC7D4;
-  }
-`
 
 const TicketImage = styled.img`
   height: 60px;
@@ -80,7 +73,7 @@ const CheckPrizesSection = () => {
             <Heading textAlign="center" color="#F4EEFF" mb="24px">
               {t("to check if you've won!")}
             </Heading>
-            <ConnectWalletButton width="190px" />
+            <ConnectWalletButton className="primaryButton" width="190px" />
           </Flex>
           <TicketImage src="./images/lottery/ticket-r.png" alt="lottery ticket" />
         </Flex>
@@ -135,6 +128,7 @@ const CheckPrizesSection = () => {
             {t('Are you a winner?')}
           </Heading>
           <Button
+            className="primaryButton"
             disabled={isCheckNowDisabled}
             onClick={fetchAllRewards}
             isLoading={isFetchingRewards}
