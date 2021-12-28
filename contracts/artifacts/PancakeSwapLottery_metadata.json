@@ -1432,7 +1432,7 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200000
+			"runs": 20000
 		},
 		"remappings": []
 	},
