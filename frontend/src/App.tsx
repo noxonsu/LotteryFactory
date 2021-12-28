@@ -1,7 +1,5 @@
 import React, { lazy } from 'react'
-import { Router, Redirect, Route, Switch } from 'react-router-dom'
-import { ResetCSS } from '@pancakeswap/uikit'
-import { useWeb3React } from '@web3-react/core'
+import { Router, Route, Switch } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import useUserAgent from 'hooks/useUserAgent'
@@ -11,10 +9,8 @@ import { usePollCoreFarmData } from 'state/farms/hooks'
 import { useFetchProfile } from 'state/profile/hooks'
 import { DatePickerPortal } from 'components/DatePicker'
 import GlobalStyle from './style/Global'
-import Menu from './components/Menu'
 import SuspenseWithChunkError from './components/SuspenseWithChunkError'
 import PageLoader from './components/Loader/PageLoader'
-import GlobalCheckClaimStatus from './components/GlobalCheckClaimStatus'
 import history from './routerHistory'
 import { ToastListener } from './contexts/ToastsContext'
 import { StyleSheetManager } from 'styled-components'
@@ -33,7 +29,6 @@ BigNumber.config({
 })
 
 const App: React.FC = () => {
-  const { account } = useWeb3React()
 
   usePollBlockNumber()
   useEagerConnect()

@@ -130,6 +130,7 @@ const PreviousRoundCardBody: React.FC<{ lotteryNodeData: LotteryRound; lotteryId
                 <Text display="inline">{ticketsThisRoundText}</Text>
               </Box>
               <Button
+                className="textButton"
                 onClick={onPresentViewTicketsModal}
                 height="auto"
                 width="fit-content"

@@ -10,9 +10,9 @@
  */
 function lotteryfactory_load_scripts() {
 
-	// $my_css_ver = gmdate( 'ymd-Gis', filemtime( LOTTERYFACTORY_PATH . 'assets/css/lotteryfactory.css' ) );
+	$my_css_ver = gmdate( 'ymd-Gis', filemtime( LOTTERYFACTORY_PATH . 'assets/css/lotteryfactory.css' ) );
 
-	// wp_enqueue_style( 'lotteryfactory-css', LOTTERYFACTORY_URL . 'assets/css/lotteryfactory.css', false, $my_css_ver );
+	wp_enqueue_style( 'lotteryfactory-css', LOTTERYFACTORY_URL . 'assets/css/lotteryfactory.css', false, $my_css_ver );
 
 }
 add_action('wp_enqueue_scripts', 'lotteryfactory_load_scripts');
