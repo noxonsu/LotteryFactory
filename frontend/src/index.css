@@ -1,6 +1,31 @@
 .primaryButton {
 }
 
+a:focus,
+a:hover {
+  color:white;
+}
+
+.inlineLink:active,
+.inlineLink:hover,
+.inlineLink:focus {
+  color:#1FC7D4;
+}
+
+
+button:hover,
+button:active,
+button:focus {
+  color: #1FC7D4;
+  background-color: transparent;
+}
+
+button[aria-label='Hide or show expandable content']:hover,
+button[aria-label='Hide or show expandable content']:active,
+button[aria-label='Hide or show expandable content']:focus {
+  color: #1FC7D4;
+}
+
 .primaryButton:active,
 .primaryButton:hover,
 .primaryButton:focus {
@@ -33,4 +58,11 @@
 .textButton:focus {
   color: #1FC7D4;
   background-color: transparent;
+}
+
+.numTicketsButton:active,
+.numTicketsButton:hover,
+.numTicketsButton:focus {
+  color: #1FC7D4;
+  background-color: #eff4f5;
 }
