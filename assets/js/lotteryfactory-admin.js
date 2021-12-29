@@ -17,6 +17,8 @@
   var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw')
   var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers')
 
+  const postId        = document.getElementById('lotteryfactory_post_id').value;
+
   var numbersCountChange = document.getElementById('lottery_numbers_count_change');
 
   var getValue = (id) => { return document.getElementById(id).value }
@@ -84,10 +86,9 @@
         data
       }
       $.post( lotteryfactory.ajaxurl, ajaxData, function(response) {
-        if( response.status == 'success' ) {
+        if( response.success) {
           resolve(response)
-        }
-        if ( response.status == 'false' ) {
+        } else {
           reject(response)
         }
       })
@@ -225,9 +226,13 @@
             ajaxSendData({
               action: 'lotteryfactory_update_options',
               data: {
-                numbersCount
+                postId,
+                options: {
+                  'numbers_count': numbersCount,
+                }
               }
-            }).then((isOk) => {
+            }).then((ajaxAnswer) => {
+              console.log('>> save result', ajaxAnswer)
               unlockButton()
             }).catch((isFail) => { unlockButton() })
           })

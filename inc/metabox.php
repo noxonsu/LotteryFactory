@@ -59,6 +59,7 @@ class LotteryFactory_Meta_Box {
 
 		// Form fields.
     ?>
+    <input type="hidden" id="lotteryfactory_post_id" value="<?php echo $post->ID?>" />
     <table class="form-table">
       <tr>
         <th><label><?php echo esc_html__( 'Design', 'lotteryfactory' );?></label></th>
