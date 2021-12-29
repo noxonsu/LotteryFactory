@@ -162,6 +162,7 @@
         hideBlock('lottery_start')
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
+        hideBlock('lottery_settings')
 
         const current = lotteryInfo.currentLotteryInfo
 
@@ -198,7 +199,7 @@
           showBlock('lottery_start')
         }
 
-        
+        showBlock('lottery_settings')
         fetchStatus.disabled = false
       })
       .catch((e) => {
@@ -207,6 +208,7 @@
         hideBlock('lottery_start')
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
+        hideBlock('lottery_settings')
         fetchStatus.disabled = false
         alert('Fail fetch contract info')
       })
@@ -249,7 +251,7 @@
     if (saveWinningPercents.disabled) return
     if (checkWinningPercentsState()) {
       showLoader()
-      setLoaderStatus( 'Saving changes... Plase wait.' )
+      setLoaderStatus( langMsg( 'Saving changes... Plase wait.' ) )
       saveWinningPercents.disabled = true
       const unlockButton = () => {
         saveWinningPercents.disabled = false
@@ -273,7 +275,7 @@
         unlockButton()
       }).catch((isFail) => { unlockButton() })
     } else {
-      errMessage( 'Сумма процентов должна быть 100%' )
+      errMessage( langMsg( 'The sum must be equal to 100%' ) )
     }
   })
 
@@ -323,11 +325,10 @@
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
-        console.log('>>> lotteryInfo', lotteryInfo)
         const current = lotteryInfo.currentLotteryInfo
         const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
         if ((current.status !== "3") && (lotteryInfo.currentLotteryNumber !== "1")) {
-          errMessage('Изменить количество шаров можно только, когда лотерея остановлена')
+          errMessage( langMsg( 'You can change the number of balls only when the lottery is stopped') )
           unlockButton()
           return
         }
@@ -335,7 +336,6 @@
         lotteryDeployer.setNumbersCount(lotteryAddress.value, numbersCount)
           .then((isOk) => {
             // call ajax save
-            console.log('>>> numbers count changed - ajax save', numbersCount)
             setLoaderStatus( langMsg( 'Save local WP configuration' ) )
             ajaxSendData({
               action: 'lotteryfactory_update_options',
@@ -346,7 +346,6 @@
                 }
               }
             }).then((ajaxAnswer) => {
-              console.log('>> save result', ajaxAnswer)
               unlockButton()
             }).catch((isFail) => { unlockButton() })
           })
@@ -356,7 +355,6 @@
           })
       })
       .catch((err) => {
-        console.log('>> fail', err)
         numbersCountChange.disabled = false
         hideLoader()
       })
@@ -366,7 +364,7 @@
     e.preventDefault()
     if (startLottery.disabled) return
     if (!checkWinningPercentsState()) {
-      return errMessage('Настройте проценты выиграша, чтобы сумма была равна 100%')
+      return errMessage( langMsg( 'Adjust the win percentage to be 100%') )
     }
     const endDate = getValue('lottery_enddate')
     const endTime = getValue('lottery_endtime')
@@ -376,21 +374,21 @@
     const lotteryContract = getValue('lottery_address')
 
     if (tokenDecimals === false)
-      return errMessage('Не удалось определить dicimals токена. Запросите информую о текене и попробуйте еще раз')
+      return errMessage( langMsg( 'Could not determine token dicimals. Inquire about teken and try again') )
     if (ticketPrice === false)
-      return errMessage('Укажите цену билета')
+      return errMessage( langMsg( 'Enter the ticket price') )
     if (treasuryFee === false)
-      return errMessage('Укажите козначейский сбор')
+      return errMessage( langMsg( 'Specify treasury fee') )
     if (ticketPrice <= 0)
-      return errMessage('Цена билета должна быть больше нуля')
+      return errMessage( langMsg( 'Ticket price must be greater than zero') )
     if (!(treasuryFee >= 0 && treasuryFee <= 30))
-      return errMessage('Козначейский сбор должен быть от 0% до 30%')
+      return errMessage( langMsg( 'The treasury tax must be between 0% and 30%') )
     if (!endDate || endDate === '')
-      return errMessage('Enter date of lottery end')
+      return errMessage( langMsg( 'Enter date of lottery end') )
     if (!endTime || endTime === '')
-      return errMessage('Enter time of lottery end')
+      return errMessage( langMsg( 'Enter time of lottery end') )
     if (!lotteryContract)
-      return errMessage('Lottery contract not specified')
+      return errMessage( langMsg( 'Lottery contract not specified') )
 
 
     const lotteryEnd = new Date(endDate + ' ' + endTime).getTime() / 1000
@@ -409,6 +407,7 @@
     ticketPrice = new BigNumber(ticketPrice).multipliedBy(10 ** tokenDecimals).toFixed()
     treasuryFee = parseInt(treasuryFee*100, 10)
     startLottery.disabled = true
+    showLoader()
     setLoaderStatus( langMsg( 'Starting lottery. Configm trasaction...' ) )
     lotteryDeployer.startLottery({
       lotteryContract,
@@ -418,7 +417,6 @@
       winningPercents,
     })
       .then((res) => {
-        console.log('>>> ok', res)
         fetchStatusFunc()
       })
       .catch((err) => {

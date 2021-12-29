@@ -178,14 +178,14 @@ class LotteryFactory_Meta_Box {
           <td><strong id="lottery_current"></strong></td>
         </tr>
       </tbody>
-      <tbody id="lottery_settings">
+      <tbody id="lottery_settings" style="display: none">
         <tr>
           <td colspan="2" align="center">
             <strong class="lottery-status-header"><?php echo esc_html__( 'Settings' )?></strong></th>
           </td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__('Кол-во шаров')?></label></th>
+          <th><label><?php echo esc_html__('Number of balls')?></label></th>
           <td>
             <p class="lotteryfactory-form-inline">
               <input type="number" min="2" max="6" step="1" id="lottery_numbers_count" name="lottery_numbers_count" class="large-text" value="<?php echo $lottery['numbers_count']?>" />
@@ -194,23 +194,23 @@ class LotteryFactory_Meta_Box {
               </a>
             </p>
             <p class="description">
-              <?php echo esc_html__( 'Количество шаров, учавствующие в лотерее. От 2х до 6ти.' ) ?>
+              <?php echo esc_html__( 'The number of balls participating in the lottery. From 2 to 6.' ) ?>
             </p>
           </td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__('Распределение призов %') ?></label></th>
+          <th><label><?php echo esc_html__('Distribution of prizes %') ?></label></th>
           <td>
             <table>
               <thead>
                 <tr>
-                  <td data-winning-number="1" class="lotteryfactory-winning-percent">1 шар</td>
-                  <td data-winning-number="2" class="lotteryfactory-winning-percent">2 шара</td>
-                  <td data-winning-number="3" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=3 ? '' : '-hidden'?>">3 шара</td>
-                  <td data-winning-number="4" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=4 ? '' : '-hidden'?>">4 шара</td>
-                  <td data-winning-number="5" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=5 ? '' : '-hidden'?>">5 шаров</td>
-                  <td data-winning-number="6" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=6 ? '' : '-hidden'?>">6 шаров</td>
-                  <td><?php echo esc_html__('Сумма'); ?></td>
+                  <td data-winning-number="1" class="lotteryfactory-winning-percent"><?php echo esc_html__('1 ball')?></td>
+                  <td data-winning-number="2" class="lotteryfactory-winning-percent"><?php echo esc_html__('2 balls')?></td>
+                  <td data-winning-number="3" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=3 ? '' : '-hidden'?>"><?php echo esc_html__('3 balls')?></td>
+                  <td data-winning-number="4" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=4 ? '' : '-hidden'?>"><?php echo esc_html__('4 balls')?></td>
+                  <td data-winning-number="5" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=5 ? '' : '-hidden'?>"><?php echo esc_html__('5 balls')?></td>
+                  <td data-winning-number="6" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=6 ? '' : '-hidden'?>"><?php echo esc_html__('6 balls')?></td>
+                  <td><?php echo esc_html__('Sum'); ?></td>
                 </tr>
               </thead>
               <tbody>
@@ -241,7 +241,7 @@ class LotteryFactory_Meta_Box {
                         data-lottery-action="fix-winning-percents"
                         data-winning-number="<?php echo $number?>"
                       >
-                        <?php echo esc_html__('+ / -') ?>
+                        <?php echo esc_html__('+&nbsp;/&nbsp;-') ?>
                       </a>
                     </div>
                   </td>
@@ -260,7 +260,7 @@ class LotteryFactory_Meta_Box {
                       <strong id="lotteryfactory-winning-percent-total"></strong>
                       <strong>%</strong>
                       <a class="button button-secondary" id="lottery-winning-percent-save">
-                        <?php echo esc_html__( "Сохранить") ?>
+                        <?php echo esc_html__( "Save" ) ?>
                       </a>
                     </p>
                   </td>
@@ -268,13 +268,13 @@ class LotteryFactory_Meta_Box {
               </tbody>
             </table>
             <div id="lotteryfactory-winning-percent-error" class="lotteryfactory-error -hidden">
-              <?php echo esc_html__( "Сумма процентов должна быть равно 100%" ); ?>
+              <?php echo esc_html__( "The sum must be equal to 100%" ); ?>
             </div>
             <div>
-              <label><?php echo esc_html__( "Распределите процент выигрыша в зависимости от количества совпавших шаров "); ?></label>
+              <label><?php echo esc_html__( "Distribute the winning percentage based on the number of matched balls"); ?></label>
             </div>
             <div>
-              <label><?php echo esc_html__( "Сумма должна быть равна 100%. Используйте кнопку &quot;+&nbsp;/&nbsp;&quot;, чтобы добавить или удалить проценты для нужной комбинации. Тогда сумма будет равна 100%"); ?></label>
+              <label><?php echo esc_html__( "The amount should be equal to 100%. Use the &quot;+&nbsp;/&nbsp;&quot; button to add or remove percentages for the combination you want. Then the amount will be equal to 100%"); ?></label>
             </div>
           </td>
         </tr>
@@ -358,14 +358,14 @@ class LotteryFactory_Meta_Box {
         </tr>
         <tr>
           <th>
-            <label><?php echo esc_html__( 'Coznachey collection', 'lotteryfactory' ); ?></label>
+            <label><?php echo esc_html__( 'Treasury fee', 'lotteryfactory' ); ?></label>
           </th>
           <td>
             <p class="lotteryfactory-form-inline">
               <input type="number" id="lottery_treasury_fee" min="0" max="30" name="lottery_treasury_fee" value="<?php echo esc_attr($lottery['last_treasury_fee'])?>" />
               <strong>%</strong>
             </p>
-            <p class="description"><?php echo esc_html__('Coznachey tax from 0% to 30%. After the completion of the lottery, this percentage will be sent to the treasury (the owner of the lottery). The remainder will be raffled among the players', 'lotteryfactory')?></p>
+            <p class="description"><?php echo esc_html__('Treasury fee from 0% to 30%. After the completion of the lottery, this percentage will be sent to the treasury (the owner of the lottery). The remainder will be raffled among the players', 'lotteryfactory')?></p>
           </td>
         </tr>
         <tr>
