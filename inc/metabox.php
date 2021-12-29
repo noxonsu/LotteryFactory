@@ -286,7 +286,7 @@ class LotteryFactory_Meta_Box {
           </td>
         </tr>
         <tr>
-          <th><label><?php echo esc_html__('Уникальная &quot;соль&quot;')?></label></th>
+          <th><label><?php echo esc_html__('Unique &quot;salt&quot;')?></label></th>
           <td>
             <p class="lotteryfactory-form-inline">
               <input type="text" id="lottery_draw_salt" class="large-text" value="<?php echo esc_attr(lotteryfactory_generate_salt())?>" />
