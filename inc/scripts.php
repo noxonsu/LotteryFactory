@@ -39,7 +39,12 @@ function lotteryfactory_admin_scripts( $hook ) {
 
 			$post_type_object = get_post_type_object( $typenow );
 
-      
+      wp_localize_script('lotteryfactory-admin', 'lotteryfactory',
+        array(
+          'ajaxurl' => admin_url( 'admin-ajax.php' ),
+          'nonce'   => wp_create_nonce( 'lotteryfactory-nonce' ),
+        )
+      );
 		}
 	}
 

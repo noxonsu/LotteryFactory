@@ -17,6 +17,8 @@
   var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw')
   var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers')
 
+  var numbersCountChange = document.getElementById('lottery_numbers_count_change');
+
   var getValue = (id) => { return document.getElementById(id).value }
   var setValue = (id, value) => { document.getElementById(id).value = value }
   var setHtml = (id, value) => { document.getElementById(id).innerHTML = value }
@@ -68,6 +70,31 @@
       return false
     }
   }
+
+  const ajaxSendData = (options) => {
+    return new Promise((resolve, reject) => {
+      const {
+        action,
+        data
+      } = options
+
+      const ajaxData = {
+        action,
+        nonce: lotteryfactory.nonce,
+        data
+      }
+      $.post( lotteryfactory.ajaxurl, ajaxData, function(response) {
+        if( response.status == 'success' ) {
+          resolve(response)
+        }
+        if ( response.status == 'false' ) {
+          reject(response)
+        }
+      })
+    })
+  }
+
+  window.testLotteryAjax = ajaxSendData
 
   var setTokenInfo = function (tokenInfo) {
     setHtml('lottery_token_name_view', tokenInfo.name)
@@ -169,6 +196,53 @@
         alert('Fail fetch contract info')
       })
   }
+
+  $( numbersCountChange ).on('click', function (e) {
+    e.preventDefault();
+    if (numbersCountChange.disabled) return
+
+    showLoader()
+    numbersCountChange.disabled = true
+    const unlockButton = () => {
+      numbersCountChange.disabled = false
+      hideLoader()
+    }
+    lotteryDeployer
+      .fetchLotteryInfo(lotteryAddress.value)
+      .then( (lotteryInfo) => {
+        console.log('>>> lotteryInfo', lotteryInfo)
+        const current = lotteryInfo.currentLotteryInfo
+        const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+        if ((current.status !== "3") && (lotteryInfo.currentLotteryNumber !== "1")) {
+          errMessage('Изменить количество шаров можно только, когда лотерея остановлена')
+          unlockButton()
+          return
+        }
+        lotteryDeployer.setNumbersCount(lotteryAddress.value, numbersCount)
+          .then((isOk) => {
+            // call ajax save
+            console.log('>>> numbers count changed - ajax save', numbersCount)
+            ajaxSendData({
+              action: 'lotteryfactory_update_options',
+              data: {
+                numbersCount
+              }
+            }).then((isOk) => {
+              unlockButton()
+            }).catch((isFail) => { unlockButton() })
+          })
+          .catch((errMsg) => {
+            errMessage(errMsg)
+            unlockButton()
+          })
+      })
+      .catch((err) => {
+        console.log('>> fail', err)
+        numbersCountChange.disabled = false
+        hideLoader()
+      })
+  })
+
   $( startLottery ).on( 'click', function(e) {
     e.preventDefault()
     if (startLottery.disabled) return
@@ -186,7 +260,7 @@
     if (treasuryFee === false)
       return errMessage('Укажите козначейский сбор')
     if (ticketPrice <= 0)
-      return errMessage('Цена била должна быть больше нуля')
+      return errMessage('Цена билета должна быть больше нуля')
     if (!(treasuryFee >= 0 && treasuryFee <= 30))
       return errMessage('Козначейский сбор должен быть от 0% до 30%')
     if (!endDate || endDate === '')

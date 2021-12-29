@@ -187,8 +187,8 @@ class LotteryFactory_Meta_Box {
           <th><label><?php echo esc_html__('Кол-во шаров')?></label></th>
           <td>
             <p class="lotteryfactory-form-inline">
-              <input type="text" id="numbers_count" name="lottery_numbers_count" class="large-text" value="<?php echo $lottery['numbers_count']?>" />
-              <a class="button button-secondary" id="numbers_count_change">
+              <input type="number" min="2" max="6" step="1" id="lottery_numbers_count" name="lottery_numbers_count" class="large-text" value="<?php echo $lottery['numbers_count']?>" />
+              <a class="button button-secondary" id="lottery_numbers_count_change">
                 <?php echo esc_html__( 'Change', 'lotteryfactory' ) ?>
               </a>
             </p>
