@@ -142,6 +142,10 @@
 	z-index: 10000;
 	background-color: rgb(255 255 255 / 80%);
 }
+
+.lotteryfactory-winning-percent.-hidden {
+  display: none;
+}
 .lotteryfactory-loader-status {
   display: block;
   margin-top: 33px;

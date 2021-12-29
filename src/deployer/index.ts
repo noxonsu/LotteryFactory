@@ -174,6 +174,7 @@ const startLottery = (params) => {
         ticketPrice,
         treasuryFee,
       } = params
+      const winningPercents = params.winningPercents || [ 250, 375, 625, 1250, 2500, 5000 ]
 
       const { web3 } = getState()
 
@@ -202,7 +203,7 @@ const startLottery = (params) => {
         lotteryEnd,
         ticketPrice,
         2000,
-        [ 250, 375, 625, 1250, 2500, 5000 ],
+        winningPercents,
         treasuryFee,
       ]
 

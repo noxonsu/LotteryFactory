@@ -198,6 +198,53 @@ class LotteryFactory_Meta_Box {
             </p>
           </td>
         </tr>
+        <tr>
+          <th><label><?php echo esc_html__('Распределение призов %') ?></label></th>
+          <td>
+            <table>
+              <thead>
+                <tr>
+                  <td data-winning-number="1" class="lotteryfactory-winning-percent">1 шар</td>
+                  <td data-winning-number="2" class="lotteryfactory-winning-percent">2 шара</td>
+                  <td data-winning-number="3" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=3 ? '' : '-hidden'?>">3 шара</td>
+                  <td data-winning-number="4" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=4 ? '' : '-hidden'?>">4 шара</td>
+                  <td data-winning-number="5" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=5 ? '' : '-hidden'?>">5 шаров</td>
+                  <td data-winning-number="6" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=6 ? '' : '-hidden'?>">6 шаров</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <?php
+                  function render_lottery_winning_percent_input($number, $value, $numbers_count) {
+                    ?>
+                  <td
+                    data-winning-number="<?php echo $number?>"
+                    class="lotteryfactory-winning-percent <?php echo $numbers_count >= $number ? '' : '-hidden'?>"
+                  >
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      step="0.1"
+                      value="<?php echo $value?>"
+                      data-winning-number="<?php echo $number?>"
+                    />
+                    <label>%</label>
+                  </td>
+                    <?php
+                  }
+                  render_lottery_winning_percent_input(1, $lottery['winning_1'], $lottery['numbers_count']);
+                  render_lottery_winning_percent_input(2, $lottery['winning_2'], $lottery['numbers_count']);
+                  render_lottery_winning_percent_input(3, $lottery['winning_3'], $lottery['numbers_count']);
+                  render_lottery_winning_percent_input(4, $lottery['winning_4'], $lottery['numbers_count']);
+                  render_lottery_winning_percent_input(5, $lottery['winning_5'], $lottery['numbers_count']);
+                  render_lottery_winning_percent_input(6, $lottery['winning_6'], $lottery['numbers_count']);
+                  ?>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
       </tbody>
       <tbody id="lottery_draw" style="display: none">
         <tr>
