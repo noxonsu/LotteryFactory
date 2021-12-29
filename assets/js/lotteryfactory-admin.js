@@ -17,6 +17,7 @@
   var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw');
   var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers');
   var selectedChain    = document.getElementById('lottery_blockchain');
+  var saveWinningPercents = document.getElementById('lottery-winning-percent-save');
 
   var loaderStatusText = document.getElementById('lotteryfactory_loaderStatus')
 
@@ -105,8 +106,6 @@
       })
     })
   }
-
-  window.testLotteryAjax = ajaxSendData
 
   var setTokenInfo = function (tokenInfo) {
     setHtml('lottery_token_name_view', tokenInfo.name)
@@ -243,6 +242,38 @@
 
   $( 'INPUT.lottery-winning-percent-input[data-winning-number]' ).on('keyup', function (e) {
     checkWinningPercentsState()
+  })
+
+  $( saveWinningPercents ).on('click', function (e) {
+    e.preventDefault()
+    if (checkWinningPercentsState()) {
+      showLoader()
+      setLoaderStatus( 'Saving changes... Plase wait.' )
+      saveWinningPercents.disabled = true
+      const unlockButton = () => {
+        saveWinningPercents.disabled = false
+        hideLoader()
+      }
+      ajaxSendData({
+        action: 'lotteryfactory_update_options',
+        data: {
+          postId,
+          options: {
+            'winning_1': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="1"]').val()),
+            'winning_2': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="2"]').val()),
+            'winning_3': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="3"]').val()),
+            'winning_4': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="4"]').val()),
+            'winning_5': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="5"]').val()),
+            'winning_6': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="6"]').val()),
+          }
+        }
+      }).then((ajaxAnswer) => {
+        console.log('>> save result', ajaxAnswer)
+        unlockButton()
+      }).catch((isFail) => { unlockButton() })
+    } else {
+      errMessage( 'Сумма процентов должна быть 100%' )
+    }
   })
 
   $( 'A[data-lottery-action="fix-winning-percents"]').on('click', function (e) {
