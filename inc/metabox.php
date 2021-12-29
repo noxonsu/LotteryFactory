@@ -224,10 +224,11 @@ class LotteryFactory_Meta_Box {
                   >
                     <p class="lotteryfactory-form-inline">
                       <input
-                        type="number"
+                        type="<?php echo $numbers_count >= $number ? 'number' : 'hidden'?>"
                         min="0"
                         max="100"
                         step="0.1"
+                        novalidate
                         value="<?php echo $value?>"
                         class="lottery-winning-percent-input"
                         data-winning-number="<?php echo $number?>"

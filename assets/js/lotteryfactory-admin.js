@@ -246,6 +246,7 @@
 
   $( saveWinningPercents ).on('click', function (e) {
     e.preventDefault()
+    if (saveWinningPercents.disabled) return
     if (checkWinningPercentsState()) {
       showLoader()
       setLoaderStatus( 'Saving changes... Plase wait.' )
@@ -297,8 +298,10 @@
       const holderNumber = parseInt($(holder).data('winning-number'), 10)
       if (holderNumber > numbersCount ) {
         $(holder).addClass('-hidden')
+        $($(holder).find('INPUT.lottery-winning-percent-input')).attr('type', 'hidden')
       } else {
         $(holder).removeClass('-hidden')
+        $($(holder).find('INPUT.lottery-winning-percent-input')).attr('type', 'number')
       }
     })
     checkWinningPercentsState()
@@ -362,6 +365,9 @@
   $( startLottery ).on( 'click', function(e) {
     e.preventDefault()
     if (startLottery.disabled) return
+    if (!checkWinningPercentsState()) {
+      return errMessage('Настройте проценты выиграша, чтобы сумма была равна 100%')
+    }
     const endDate = getValue('lottery_enddate')
     const endTime = getValue('lottery_endtime')
     let ticketPrice = getFloat('lottery_ticket_price')
@@ -389,6 +395,17 @@
 
     const lotteryEnd = new Date(endDate + ' ' + endTime).getTime() / 1000
 
+    // winningPercents
+    const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+    const winningPercents = [
+      (numbersCount >= 1) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="1"]').val()) * 100, 10) : 0,
+      (numbersCount >= 2) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="2"]').val()) * 100, 10) : 0,
+      (numbersCount >= 3) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="3"]').val()) * 100, 10) : 0,
+      (numbersCount >= 4) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="4"]').val()) * 100, 10) : 0,
+      (numbersCount >= 5) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="5"]').val()) * 100, 10) : 0,
+      (numbersCount >= 6) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="6"]').val()) * 100, 10) : 0,
+    ]
+
     ticketPrice = new BigNumber(ticketPrice).multipliedBy(10 ** tokenDecimals).toFixed()
     treasuryFee = parseInt(treasuryFee*100, 10)
     startLottery.disabled = true
@@ -398,6 +415,7 @@
       lotteryEnd,
       ticketPrice,
       treasuryFee,
+      winningPercents,
     })
       .then((res) => {
         console.log('>>> ok', res)
