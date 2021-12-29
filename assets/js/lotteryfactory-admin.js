@@ -4,7 +4,7 @@
 (function( $ ){
 	"use strict";
 
-  const getUnixTimeStamp = () => Math.floor(new Date().getTime() / 1000)
+  const getUnixTimeStamp = () => Math.floor(new Date().getTime() / 1000);
 
   var deployButton    = document.getElementById('lotteryfactory_deploy_button');
   var fetchButton     = document.getElementById('lotteryfactory_fetchcontract_button');
@@ -13,9 +13,10 @@
   var tokenAddress    = document.getElementById('lottery_token');
   var fetchToken      = document.getElementById('lotteryfactory_fetchtoken_button');
   var lotteryAddress  = document.getElementById('lottery_address');
-  var startLottery    = document.getElementById('lotteryfactory_startlottery')
-  var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw')
-  var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers')
+  var startLottery    = document.getElementById('lotteryfactory_startlottery');
+  var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw');
+  var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers');
+  var selectedChain    = document.getElementById('lottery_blockchain');
 
   var loaderStatusText = document.getElementById('lotteryfactory_loaderStatus')
 
@@ -138,6 +139,9 @@
 			alert(err);
 		}
 	});
+
+  lotteryDeployer
+    .setSelectedChain(selectedChain.value)
 
   const fetchStatusFunc = () => {
     if (fetchStatus.disabled) return
@@ -475,4 +479,12 @@
         alert('Fail fetch token info')
       })
 	});
+
+  $( selectedChain ).on( 'change', function(e) {
+		e.preventDefault();
+
+    lotteryDeployer
+      .setSelectedChain(e.target.value)
+  });
+
 })( jQuery );

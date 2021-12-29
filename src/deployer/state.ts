@@ -8,12 +8,14 @@ export type State = {
   opts: Opts
   web3: any
   account: any
+  selectedChain: string
 }
 
 let state: State = {
   opts: null,
   web3: null,
   account: null,
+  selectedChain: ''
 }
 
 export const getState = (): State => state

@@ -3,7 +3,7 @@ import formatAmount from './formatAmount'
 import { injectModalsRoot } from './modals'
 import infoModal from './infoModal'
 import connectModal from './connectModal'
-import { accountUnlockedStorageKey } from './constants'
+import { accountUnlockedStorageKey, AVAILABLE_NETWORKS_INFO } from './constants'
 import { getState, setState } from './state'
 import setupWeb3 from './setupWeb3'
 import TokenAbi from 'human-standard-token-abi'
@@ -152,7 +152,7 @@ const connectMetamask = async () => {
     return Promise.reject()
   }
 
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     const interval = setInterval(async () => {
       if (window.ethereum.networkVersion) {
         clearInterval(interval)
@@ -544,29 +544,92 @@ window.lotteryContract = lottery
 const waitMetamask = (callback) => {
   const {
     web3: checkWeb3,
-    account: checkAccount
   } = getState()
 
   if (!checkWeb3) {
     console.log(' not connected')
     connectMetamask().then(() => {
       console.log('connected')
-      callback()
+
+      checkSelectedChain().then(() => {
+        callback()
+      })
     })
   } else {
     console.log('connected - call')
-    callback()
+
+    checkSelectedChain().then(() => {
+      callback()
+    })
   }
 }
 
+const checkSelectedChain = async () => {
+  const {
+    web3,
+    selectedChain,
+  } = getState()
+
+  const { networkVersion } = getChainInfoBySlug(selectedChain)
+
+  if (web3?.currentProvider?.networkVersion !== networkVersion.toString()) {
+    await switchOrAddChain()
+  } else {
+    console.log('Selected Chain checked successfully')
+  }
+}
+
+const switchOrAddChain = async () => {
+  const {
+    selectedChain,
+  } = getState()
+
+  const {
+    chainId,
+    chainName,
+    rpcUrls,
+    blockExplorerUrls,
+    nativeCurrency,
+  } = getChainInfoBySlug(selectedChain)
+
+  const params = [
+    {
+      chainId,
+      chainName,
+      rpcUrls,
+      blockExplorerUrls,
+      nativeCurrency,
+    }
+  ]
+
+  try {
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: `0x${Number(chainId).toString(16)}` }],
+    });
+  } catch (switchError) {
+    // This error code indicates that the chain has not been added to MetaMask.
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params,
+        });
+      } catch (addError) {
+        // handle "add" error
+      }
+    } else {
+      console.error('Switch chain error: ', switchError.message)
+    }
+
+  }
+}
+
+const getChainInfoBySlug = (chainSlug: string) => AVAILABLE_NETWORKS_INFO.find(networkInfo => networkInfo.slug === chainSlug)
+
 const fetchTokenInfo = (tokenAddress: string) => {
   return new Promise((resolve, reject) => {
-    const {
-      web3: checkWeb3,
-      account: checkAccount
-    } = getState()
-
-    const fetchCallback = async () => {
+    waitMetamask(async () => {
       const {
         web3,
         account
@@ -586,14 +649,7 @@ const fetchTokenInfo = (tokenAddress: string) => {
           decimals
         })
       } catch (e) { reject() }
-    }
-    if (!checkWeb3) {
-      connectMetamask().then(() => {
-        fetchCallback()
-      })
-    } else {
-      fetchCallback()
-    }
+    })
   })
 }
 
@@ -622,6 +678,11 @@ const init = async (opts) => {
   }
 }
 
+const setSelectedChain = (selectedChain: string) => {
+  setState({ selectedChain })
+
+  waitMetamask(()=> console.log('Successfully set', selectedChain, 'chain'))
+}
 
 export default {
   init,
@@ -633,4 +694,5 @@ export default {
   fetchLotteryInfo,
   getNumbersCount,
   setNumbersCount,
+  setSelectedChain,
 }
