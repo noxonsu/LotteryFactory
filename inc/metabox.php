@@ -75,7 +75,7 @@ class LotteryFactory_Meta_Box {
             <?php
             foreach ( lotteryfactory_blockchains() as $key => $value) {
               ?>
-              <option value="<?php echo $key?>" <?php echo ($key === $lottery['blockchain']) ? 'selected' : ''?>>
+              <option data-chain="<?php echo $value['chainId']?>" value="<?php echo $key?>" <?php echo ($key === $lottery['blockchain']) ? 'selected' : ''?>>
                 <?php echo esc_html__($value['title'], 'lotteryfactory');?>
               </option>
               <?php
