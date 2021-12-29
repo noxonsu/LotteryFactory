@@ -296,6 +296,7 @@
     ticketPrice = new BigNumber(ticketPrice).multipliedBy(10 ** tokenDecimals).toFixed()
     treasuryFee = parseInt(treasuryFee*100, 10)
     startLottery.disabled = true
+    setLoaderStatus( langMsg( 'Starting lottery. Configm trasaction...' ) )
     lotteryDeployer.startLottery({
       lotteryContract,
       lotteryEnd,
@@ -328,6 +329,7 @@
 
     drawNumbers.disabled = true
     showLoader()
+    setLoaderStatus( langMsg( 'Drawing final numbers... confirm trasaction' ) )
     lotteryDeployer
       .drawNumbers(lotteryAddress, lotterySalt)
       .then((res) => {
@@ -356,6 +358,7 @@
     if (!lotteryContract)
       return errMessage('Lottery contract not specified')
 
+    setLoaderStatus( langMsg( 'Closing lottery round. Confirm trasaction') )
     lotteryDeployer
       .closeLottery(lotteryContract)
       .then((res) => {
@@ -382,6 +385,7 @@
     hideBlock('lottery_info')
     showLoader()
     fetchButton.disabled = true
+    setLoaderStatus( langMsg( 'Fetching current lottery status from contract' ) )
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
@@ -411,7 +415,8 @@
 
     if (!tokenAddress.value) return errMessage('Enter token address')
 
-    loaderOverlay.classList.add('visible');
+    showLoader()
+    setLoaderStatus( langMsg( 'Fetching information about token' ) )
     fetchToken.disabled = true
     lotteryDeployer
       .fetchTokenInfo(tokenAddress.value)
@@ -439,6 +444,7 @@
 
     deployButton.disabled = true;
     showLoader()
+    setLoaderStatus( langMsg( 'Deploying lottery contract to blockchain. Confirm transaction' ) )
     lotteryDeployer
       .fetchTokenInfo(tokenAddress.value)
       .then((tokenInfo) => {
