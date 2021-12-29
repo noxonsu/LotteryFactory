@@ -210,6 +210,7 @@ class LotteryFactory_Meta_Box {
                   <td data-winning-number="4" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=4 ? '' : '-hidden'?>">4 шара</td>
                   <td data-winning-number="5" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=5 ? '' : '-hidden'?>">5 шаров</td>
                   <td data-winning-number="6" class="lotteryfactory-winning-percent <?php echo ($lottery['numbers_count']) >=6 ? '' : '-hidden'?>">6 шаров</td>
+                  <td><?php echo esc_html__('Сумма'); ?></td>
                 </tr>
               </thead>
               <tbody>
@@ -221,15 +222,27 @@ class LotteryFactory_Meta_Box {
                     data-winning-number="<?php echo $number?>"
                     class="lotteryfactory-winning-percent <?php echo $numbers_count >= $number ? '' : '-hidden'?>"
                   >
-                    <input
-                      type="number"
-                      min="0"
-                      max="100"
-                      step="0.1"
-                      value="<?php echo $value?>"
-                      data-winning-number="<?php echo $number?>"
-                    />
-                    <label>%</label>
+                    <p class="lotteryfactory-form-inline">
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="<?php echo $value?>"
+                        class="lottery-winning-percent-input"
+                        data-winning-number="<?php echo $number?>"
+                      />
+                      <label>%</label>
+                    </p>
+                    <div style="text-align: center;">
+                      <a
+                        class="button button-secondary"
+                        data-lottery-action="fix-winning-percents"
+                        data-winning-number="<?php echo $number?>"
+                      >
+                        <?php echo esc_html__('+ / -') ?>
+                      </a>
+                    </div>
                   </td>
                     <?php
                   }
@@ -240,9 +253,28 @@ class LotteryFactory_Meta_Box {
                   render_lottery_winning_percent_input(5, $lottery['winning_5'], $lottery['numbers_count']);
                   render_lottery_winning_percent_input(6, $lottery['winning_6'], $lottery['numbers_count']);
                   ?>
+                  <td style="vertical-align: top;">
+                    <p class="lotteryfactory-form-inline">
+                      <strong>=</strong>
+                      <strong id="lotteryfactory-winning-percent-total"></strong>
+                      <strong>%</strong>
+                      <a class="button button-secondary" id="lottery-winning-percent-save">
+                        <?php echo esc_html__( "Сохранить") ?>
+                      </a>
+                    </p>
+                  </td>
                 </tr>
               </tbody>
             </table>
+            <div id="lotteryfactory-winning-percent-error" class="lotteryfactory-error -hidden">
+              <?php echo esc_html__( "Сумма процентов должна быть равно 100%" ); ?>
+            </div>
+            <div>
+              <label><?php echo esc_html__( "Распределите процент выигрыша в зависимости от количества совпавших шаров "); ?></label>
+            </div>
+            <div>
+              <label><?php echo esc_html__( "Сумма должна быть равна 100%. Используйте кнопку &quot;+&nbsp;/&nbsp;&quot;, чтобы добавить или удалить проценты для нужной комбинации. Тогда сумма будет равна 100%"); ?></label>
+            </div>
           </td>
         </tr>
       </tbody>

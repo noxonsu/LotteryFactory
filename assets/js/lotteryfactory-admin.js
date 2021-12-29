@@ -213,6 +213,52 @@
       })
   }
 
+  const calcWinningPercentsIsCorrect = () => {
+    const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+    const inputs = $('INPUT[data-winning-number]')
+    let totalPercents = 0
+    inputs.each((i, input) => {
+      const $input = $(input)
+      const inputNumber = parseInt($input.data('winning-number'), 10)
+      
+      if (numbersCount >= inputNumber) {
+        const inputPercent = parseFloat($input.val())
+        totalPercents = totalPercents + inputPercent
+      }
+    })
+    return totalPercents
+  }
+
+  const checkWinningPercentsState = () => {
+    const totalPercents = calcWinningPercentsIsCorrect()
+    $('#lotteryfactory-winning-percent-total').html(totalPercents.toFixed(2))
+    if (totalPercents != 100) {
+      $('#lotteryfactory-winning-percent-error').removeClass('-hidden')
+    } else {
+      $('#lotteryfactory-winning-percent-error').addClass('-hidden')
+    }
+    return (totalPercents == 100)
+  }
+  checkWinningPercentsState()
+
+  $( 'INPUT.lottery-winning-percent-input[data-winning-number]' ).on('keyup', function (e) {
+    checkWinningPercentsState()
+  })
+
+  $( 'A[data-lottery-action="fix-winning-percents"]').on('click', function (e) {
+    const $button = $(e.target)
+    const winningNumber = parseInt( $button.data('winning-number'), 10)
+    const $percentInput = $('INPUT.lottery-winning-percent-input[data-winning-number="' + winningNumber + '"]')
+    const totalPercents = calcWinningPercentsIsCorrect()
+    const percentDelta = 100 - totalPercents
+    const ballPercent = parseFloat( $percentInput.val() )
+    $percentInput.val( parseFloat(ballPercent + percentDelta).toFixed(2) )
+    checkWinningPercentsState()
+  })
+  $( 'INPUT.lottery-winning-percent-input[data-winning-number]' ).on('change', function (e) {
+    checkWinningPercentsState()
+  })
+
   $( '#lottery_numbers_count' ).on('change', function (e) {
     const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
     const winningPercentsHolders = $('.lotteryfactory-winning-percent')
@@ -224,7 +270,9 @@
         $(holder).removeClass('-hidden')
       }
     })
+    checkWinningPercentsState()
   })
+
 
   $( numbersCountChange ).on('click', function (e) {
     e.preventDefault();
