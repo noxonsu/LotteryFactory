@@ -314,6 +314,7 @@ class LotteryFactory_Meta_Box {
     </table>
     <div id="lotteryfactory_loaderOverlay" class="lotteryfactory-overlay">
 			<div class="lotteryfactory-loader"></div>
+      <div class="lotteryfactory-loader-status" id="lotteryfactory_loaderStatus">Loading...</div>
 		</div>
     <?php
 	}

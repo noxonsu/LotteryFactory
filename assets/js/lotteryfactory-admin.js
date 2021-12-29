@@ -17,6 +17,8 @@
   var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw')
   var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers')
 
+  var loaderStatusText = document.getElementById('lotteryfactory_loaderStatus')
+
   const postId        = document.getElementById('lotteryfactory_post_id').value;
 
   var numbersCountChange = document.getElementById('lottery_numbers_count_change');
@@ -26,7 +28,13 @@
   var setHtml = (id, value) => { document.getElementById(id).innerHTML = value }
   var showBlock = (id) => { document.getElementById(id).style.display = '' }
   var hideBlock = (id) => { document.getElementById(id).style.display = 'none' }
-  var showLoader = () => { loaderOverlay.classList.add('visible') }
+  var showLoader = () => {
+    loaderStatusText.innerText = ''
+    loaderOverlay.classList.add('visible')
+  }
+  var setLoaderStatus = (message) => {
+    loaderStatusText.innerText = message
+  }
   var hideLoader = () => { loaderOverlay.classList.remove('visible') }
 
   var genSalt = () => {
@@ -38,6 +46,8 @@
     }
     return result
   }
+
+  const langMsg = (msg) => { return msg }
 
   var getDateDiffText = (dateStart, dateEnd) => {
     var diff = dateEnd - dateStart
@@ -135,6 +145,7 @@
 
     fetchStatus.disabled = true
     showLoader()
+    setLoaderStatus( langMsg( 'Fetch lottery status' ) )
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
@@ -208,6 +219,8 @@
       numbersCountChange.disabled = false
       hideLoader()
     }
+
+    setLoaderStatus( langMsg( 'Fetch lottery status' ) )
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
@@ -219,10 +232,12 @@
           unlockButton()
           return
         }
+        setLoaderStatus( langMsg( 'Save information abount numbers counts to contract' ) )
         lotteryDeployer.setNumbersCount(lotteryAddress.value, numbersCount)
           .then((isOk) => {
             // call ajax save
             console.log('>>> numbers count changed - ajax save', numbersCount)
+            setLoaderStatus( langMsg( 'Save local WP configuration' ) )
             ajaxSendData({
               action: 'lotteryfactory_update_options',
               data: {
