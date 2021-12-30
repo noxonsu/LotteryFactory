@@ -62,6 +62,8 @@ const DigitInput = styled.input`
   -moz-appearance: textfield; /* Firefox */
 `
 
+// @ts-ignore
+const countNumbers = window.SO_LotteryConfig.numbersCount
 const getIdLabel = (id: number): string => {
   if (id < 10) return `#00${id}`
   if (id < 100) return `#0${id}`
@@ -128,7 +130,7 @@ const TicketContainer: React.FC<{
       const nextDigitId = digitId + 1
       // if we're not on the last digit - auto-tab
       const nextInput = digitRefs[nextDigitId]
-      if (nextDigitId !== 6 && nextInput.current) {
+      if (nextDigitId !== countNumbers && nextInput.current) {
         nextInput.current.focus()
       }
     }
@@ -165,7 +167,7 @@ const TicketContainer: React.FC<{
         const nextDigitId = digitId + 1
         const nextInput = digitRefs[nextDigitId]
         // prevent focusing on non-existent input
-        if (nextDigitId !== 6 && nextInput.current) {
+        if (nextDigitId !== countNumbers && nextInput.current) {
           nextInput.current.focus()
           const newNumbers = [...ticket.numbers]
           newNumbers[nextDigitId] = ''
@@ -189,7 +191,7 @@ const TicketContainer: React.FC<{
       const nextDigitId = digitId + 1
       const nextInput = digitRefs[nextDigitId]
       // prevent focusing on non-existent input
-      if (nextDigitId !== 6 && nextInput.current) {
+      if (nextDigitId !== countNumbers && nextInput.current) {
         nextInput.current.focus()
       }
     }
@@ -210,84 +212,96 @@ const TicketContainer: React.FC<{
         focused={focused}
         isDuplicate={duplicateWith.length !== 0}
       >
-        <DigitInput
-          ref={digit1}
-          type="number"
-          value={ticket.numbers[0]}
-          onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 0)}
-          placeholder="_"
-          onChange={(e) => e.preventDefault()}
-          disabled={disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPaste={onPasteHandler}
-          inputMode="numeric"
-        />
-        <DigitInput
-          ref={digit2}
-          type="number"
-          value={ticket.numbers[1]}
-          onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 1)}
-          placeholder="_"
-          onChange={(e) => e.preventDefault()}
-          disabled={disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPaste={onPasteHandler}
-          inputMode="numeric"
-        />
-        <DigitInput
-          ref={digit3}
-          type="number"
-          value={ticket.numbers[2]}
-          onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 2)}
-          placeholder="_"
-          onChange={(e) => e.preventDefault()}
-          disabled={disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPaste={onPasteHandler}
-          inputMode="numeric"
-        />
-        <DigitInput
-          ref={digit4}
-          type="number"
-          value={ticket.numbers[3]}
-          onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 3)}
-          placeholder="_"
-          onChange={(e) => e.preventDefault()}
-          disabled={disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPaste={onPasteHandler}
-          inputMode="numeric"
-        />
-        <DigitInput
-          ref={digit5}
-          type="number"
-          value={ticket.numbers[4]}
-          onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 4)}
-          placeholder="_"
-          onChange={(e) => e.preventDefault()}
-          disabled={disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPaste={onPasteHandler}
-          inputMode="numeric"
-        />
-        <DigitInput
-          ref={digit6}
-          type="number"
-          value={ticket.numbers[5]}
-          onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 5)}
-          placeholder="_"
-          onChange={(e) => e.preventDefault()}
-          disabled={disabled}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-          onPaste={onPasteHandler}
-          inputMode="numeric"
-        />
+        {countNumbers >= 1 && (
+          <DigitInput
+            ref={digit1}
+            type="number"
+            value={ticket.numbers[0]}
+            onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 0)}
+            placeholder="_"
+            onChange={(e) => e.preventDefault()}
+            disabled={disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onPaste={onPasteHandler}
+            inputMode="numeric"
+          />
+        )}
+        {countNumbers >= 2 && (
+          <DigitInput
+            ref={digit2}
+            type="number"
+            value={ticket.numbers[1]}
+            onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 1)}
+            placeholder="_"
+            onChange={(e) => e.preventDefault()}
+            disabled={disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onPaste={onPasteHandler}
+            inputMode="numeric"
+          />
+        )}
+        {countNumbers >= 3 && (
+          <DigitInput
+            ref={digit3}
+            type="number"
+            value={ticket.numbers[2]}
+            onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 2)}
+            placeholder="_"
+            onChange={(e) => e.preventDefault()}
+            disabled={disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onPaste={onPasteHandler}
+            inputMode="numeric"
+          />
+        )}
+        {countNumbers >= 4 && (
+          <DigitInput
+            ref={digit4}
+            type="number"
+            value={ticket.numbers[3]}
+            onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 3)}
+            placeholder="_"
+            onChange={(e) => e.preventDefault()}
+            disabled={disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onPaste={onPasteHandler}
+            inputMode="numeric"
+          />
+        )}
+        {countNumbers >= 5 && (
+          <DigitInput
+            ref={digit5}
+            type="number"
+            value={ticket.numbers[4]}
+            onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 4)}
+            placeholder="_"
+            onChange={(e) => e.preventDefault()}
+            disabled={disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onPaste={onPasteHandler}
+            inputMode="numeric"
+          />
+        )}
+        {countNumbers >= 6 && (
+          <DigitInput
+            ref={digit6}
+            type="number"
+            value={ticket.numbers[5]}
+            onKeyDown={(e: React.KeyboardEvent) => onChangeHandler(e, 5)}
+            placeholder="_"
+            onChange={(e) => e.preventDefault()}
+            disabled={disabled}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+            onPaste={onPasteHandler}
+            inputMode="numeric"
+          />
+        )}
       </InputsContainer>
     </>
   )

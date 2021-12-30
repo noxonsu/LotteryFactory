@@ -6,6 +6,8 @@ import styled from 'styled-components'
 import _uniqueId from 'lodash/uniqueId'
 import { parseRetrievedNumber } from '../helpers'
 
+// @ts-ignore
+const maxNumbers = window.SO_LotteryConfig.numbersCount
 const StyledNumberWrapper = styled(Flex)`
   position: relative;
   padding: 4px 16px;
@@ -17,7 +19,7 @@ const StyledNumberWrapper = styled(Flex)`
 
 const RewardHighlighter = styled.div<{ numberMatches: number }>`
   z-index: 1;
-  width: ${({ numberMatches }) => `${numberMatches < 6 ? numberMatches * 17.66 : 100}%`};
+  width: ${({ numberMatches }) => `${numberMatches < maxNumbers ? numberMatches * (100 / maxNumbers) : 100}%`};
   height: 34px;
   border-radius: ${({ theme }) => theme.radii.default};
   top: 0;
@@ -34,7 +36,8 @@ interface TicketNumberProps extends LotteryTicket {
 const TicketNumber: React.FC<TicketNumberProps> = ({ localId, id, number, rewardBracket }) => {
   const { t } = useTranslation()
   const reversedNumber = parseRetrievedNumber(number)
-  const numberAsArray = reversedNumber.split('')
+  // @ts-ignore
+  const numberAsArray = reversedNumber.split('').slice(0, window.SO_LotteryConfig.numbersCount)
   const numberMatches = rewardBracket + 1
 
   return (

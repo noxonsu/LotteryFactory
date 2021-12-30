@@ -16,6 +16,11 @@ require LOTTERYFACTORY_PATH . 'App/autoload.php';
 require LOTTERYFACTORY_PATH . 'inc/functions.php';
 
 /**
+ * Ajax
+ */
+require LOTTERYFACTORY_PATH . 'inc/admin-ajax.php';
+
+/**
  * Enqueue Scripts
  */
 require LOTTERYFACTORY_PATH . 'inc/scripts.php';

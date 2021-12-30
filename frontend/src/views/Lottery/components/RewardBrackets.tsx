@@ -77,7 +77,8 @@ const RewardBrackets: React.FC<RewardMatchesProps> = ({ lotteryNodeData, isHisto
 
   const { isLoading, countWinnersPerBracket, cakeToBurn } = state
 
-  const rewardBrackets = [0, 1, 2, 3, 4, 5]
+  // @ts-ignore
+  const rewardBrackets = [0, 1, 2, 3, 4, 5].slice(0, window.SO_LotteryConfig.numbersCount)
 
   return (
     <Wrapper>

@@ -3,7 +3,7 @@ import formatAmount from './formatAmount'
 import { injectModalsRoot } from './modals'
 import infoModal from './infoModal'
 import connectModal from './connectModal'
-import { accountUnlockedStorageKey } from './constants'
+import { accountUnlockedStorageKey, AVAILABLE_NETWORKS_INFO } from './constants'
 import { getState, setState } from './state'
 import setupWeb3 from './setupWeb3'
 import TokenAbi from 'human-standard-token-abi'
@@ -152,7 +152,7 @@ const connectMetamask = async () => {
     return Promise.reject()
   }
 
-  return new Promise((resolve) => {
+  return new Promise<void>((resolve) => {
     const interval = setInterval(async () => {
       if (window.ethereum.networkVersion) {
         clearInterval(interval)
@@ -174,6 +174,7 @@ const startLottery = (params) => {
         ticketPrice,
         treasuryFee,
       } = params
+      const winningPercents = params.winningPercents || [ 250, 375, 625, 1250, 2500, 5000 ]
 
       const { web3 } = getState()
 
@@ -202,7 +203,7 @@ const startLottery = (params) => {
         lotteryEnd,
         ticketPrice,
         2000,
-        [ 250, 375, 625, 1250, 2500, 5000 ],
+        winningPercents,
         treasuryFee,
       ]
 
@@ -305,6 +306,34 @@ const closeLottery = (lotteryContract) => {
   })
 }
 
+const getContract = (lotteryContract: string): Promise<any> => {
+  return new Promise(async (resolve, reject) => {
+    const { abi } = json
+
+    const { web3 } = getState()
+
+    let contract
+    let accounts
+
+    try {
+      contract = new web3.eth.Contract(abi, lotteryContract)
+      accounts = await window.ethereum.request({ method: 'eth_accounts' })
+    } catch (err) {
+      reject(err)
+      return
+    }
+
+    if (!accounts || !accounts[0]) {
+      reject('Wallet account is undefined.')
+      return
+    }
+    resolve({
+      contract,
+      account: accounts[0],
+    })
+  })
+}
+
 const drawNumbers = (lotteryContract, userSalt) => {
   return new Promise((resolve, reject) => {
     waitMetamask(async () => {
@@ -375,6 +404,91 @@ const drawNumbers = (lotteryContract, userSalt) => {
   })
 }
 
+const callLotteryMethod = (lotteryAddress, method, args: any[], callbacks: any = {}) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      try {
+        const { contract, account } = await getContract(lotteryAddress)
+        const {
+          transactionHash,
+          onError,
+          onReceipt,
+        } = callbacks
+
+        const txArguments = {
+          from: account,
+          gas: '0'
+        }
+        const gasAmountCalculated = await contract.methods
+          [method](...args)
+          .estimateGas(txArguments)
+
+        const gasAmounWithPercentForSuccess = new BigNumber(
+          new BigNumber(gasAmountCalculated)
+            .multipliedBy(1.05) // + 5% -  множитель добавочного газа, если будет фейл транзакции - увеличит (1.05 +5%, 1.1 +10%)
+            .toFixed(0)
+        ).toString(16)
+
+        txArguments.gas = '0x' + gasAmounWithPercentForSuccess
+
+        contract.methods
+          [method](...args)
+          .send(txArguments)
+          .on('transactionHash', (hash) => {
+            if (typeof transactionHash === 'function') {
+              transactionHash(hash)
+            }
+          })
+          .on('error', (error) => {
+            if (typeof onError === 'function') {
+              console.log('transaction error:', error)
+              onError(error)
+            }
+          })
+          .on('receipt', (receipt) => {
+            if (typeof onReceipt === 'function') {
+              console.log('transaction receipt:', receipt)
+              onReceipt(receipt)
+            }
+          })
+          .then(() => {
+            console.log('all ready')
+            resolve(true)
+          })
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
+}
+
+const setNumbersCount = (lotteryAddress: string, numbersCount: number, callbacks: any = {}) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      try {
+        const result = await callLotteryMethod(lotteryAddress, 'setNumbersCount', [ numbersCount ], callbacks)
+        resolve(result)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
+}
+
+const getNumbersCount = (lotteryAddress: string) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      try {
+        const { contract, address } = await getContract(lotteryAddress)
+        const numbersCount = await contract.methods.numbersCount().call()
+        resolve(parseInt(numbersCount, 10))
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
+}
+
 const fetchLotteryInfo = (lotteryAddress: string) => {
   return new Promise((resolve, reject) => {
     const {
@@ -397,6 +511,7 @@ window.lotteryContract = lottery
         const owner = await lottery.methods.owner().call()
         const operator = await lottery.methods.operatorAddress().call()
         const treasury = await lottery.methods.treasuryAddress().call()
+        const numbersCount = await lottery.methods.numbersCount().call()
         const currentLotteryNumber = await lottery.methods.viewCurrentLotteryId().call()
         const currentLotteryInfo = await lottery.methods.viewLottery(currentLotteryNumber).call()
         const tokenAddress = await lottery.methods.cakeToken().call()
@@ -409,7 +524,8 @@ window.lotteryContract = lottery
             treasury: treasury,
             currentLotteryNumber: currentLotteryNumber,
             currentLotteryInfo: currentLotteryInfo,
-            token: tokenInfo
+            token: tokenInfo,
+            numbersCount: parseInt( numbersCount, 10)
           })
         } else {
           reject()
@@ -429,28 +545,92 @@ window.lotteryContract = lottery
 const waitMetamask = (callback) => {
   const {
     web3: checkWeb3,
-    account: checkAccount
   } = getState()
 
   if (!checkWeb3) {
     console.log(' not connected')
     connectMetamask().then(() => {
       console.log('connected')
-      callback()
+
+      checkSelectedChain().then(() => {
+        callback()
+      })
     })
   } else {
     console.log('connected - call')
-    callback()
+
+    checkSelectedChain().then(() => {
+      callback()
+    })
   }
 }
+
+const checkSelectedChain = async () => {
+  const {
+    web3,
+    selectedChain,
+  } = getState()
+
+  const { networkVersion } = getChainInfoBySlug(selectedChain)
+
+  if (web3?.currentProvider?.networkVersion !== networkVersion.toString()) {
+    await switchOrAddChain()
+  } else {
+    console.log('Selected Chain checked successfully')
+  }
+}
+
+const switchOrAddChain = async () => {
+  const {
+    selectedChain,
+  } = getState()
+
+  const {
+    chainId,
+    chainName,
+    rpcUrls,
+    blockExplorerUrls,
+    nativeCurrency,
+  } = getChainInfoBySlug(selectedChain)
+
+  const params = [
+    {
+      chainId,
+      chainName,
+      rpcUrls,
+      blockExplorerUrls,
+      nativeCurrency,
+    }
+  ]
+
+  try {
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: `0x${Number(chainId).toString(16)}` }],
+    });
+  } catch (switchError) {
+    // This error code indicates that the chain has not been added to MetaMask.
+    if (switchError.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params,
+        });
+      } catch (addError) {
+        // handle "add" error
+      }
+    } else {
+      console.error('Switch chain error: ', switchError.message)
+    }
+
+  }
+}
+
+const getChainInfoBySlug = (chainSlug: string) => AVAILABLE_NETWORKS_INFO.find(networkInfo => networkInfo.slug === chainSlug)
+
 const fetchTokenInfo = (tokenAddress: string) => {
   return new Promise((resolve, reject) => {
-    const {
-      web3: checkWeb3,
-      account: checkAccount
-    } = getState()
-
-    const fetchCallback = async () => {
+    waitMetamask(async () => {
       const {
         web3,
         account
@@ -470,14 +650,7 @@ const fetchTokenInfo = (tokenAddress: string) => {
           decimals
         })
       } catch (e) { reject() }
-    }
-    if (!checkWeb3) {
-      connectMetamask().then(() => {
-        fetchCallback()
-      })
-    } else {
-      fetchCallback()
-    }
+    })
   })
 }
 
@@ -506,6 +679,11 @@ const init = async (opts) => {
   }
 }
 
+const setSelectedChain = (selectedChain: string) => {
+  setState({ selectedChain })
+
+  waitMetamask(()=> console.log('Successfully set', selectedChain, 'chain'))
+}
 
 export default {
   init,
@@ -515,4 +693,7 @@ export default {
   drawNumbers,
   fetchTokenInfo,
   fetchLotteryInfo,
+  getNumbersCount,
+  setNumbersCount,
+  setSelectedChain,
 }

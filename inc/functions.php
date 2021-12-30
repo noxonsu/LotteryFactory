@@ -35,7 +35,15 @@ function lottery_get_data($lottery_id) {
     'contract'          => '',
     'last_ticket_price' => '1',
     'last_treasury_fee' => '2',
-    'hide_footer_header'=> 'true'
+    'numbers_count'     => '6',
+    'hide_footer_header'=> 'true',
+    // default winning percents
+    'winning_1'         => '2.5',
+    'winning_2'         => '3.75',
+    'winning_3'         => '6.25',
+    'winning_4'         => '12.5',
+    'winning_5'         => '25',
+    'winning_6'         => '50'
   ) as $key => $default) {
     $data = get_post_meta( $lottery_id, $key, true);
     if ( empty( $data ) ) $data = $default;

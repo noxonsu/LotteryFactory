@@ -22,7 +22,8 @@ const WinningNumbers: React.FC<WinningNumbersProps> = ({
 }) => {
   const [rotationValues, setRotationValues] = useState([])
   const reversedNumber = parseRetrievedNumber(number)
-  const numAsArray = reversedNumber.split('')
+  // @ts-ignore
+  const numAsArray = reversedNumber.split('').slice(0, window.SO_LotteryConfig.numbersCount)
   const colors: BallColor[] = ['pink', 'lilac', 'teal', 'aqua', 'green', 'yellow']
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const WinningNumbers: React.FC<WinningNumbersProps> = ({
   }, [rotateText, numAsArray, rotationValues])
 
   return (
-    <Flex justifyContent="space-between" {...containerProps}>
+    <Flex justifyContent="left" maxHeight="71px" {...containerProps}>
       {numAsArray.map((num, index) => {
         return (
           <BallWithNumber

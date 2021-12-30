@@ -3,7 +3,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: farmfactory\n"
+"Project-Id-Version: lotteryfactory\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
@@ -13,170 +13,248 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;langMsg\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Poedit 3.0.1\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: assets/js/lotteryfactory-admin.js\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: frontend\n"
 
 #: inc/metabox.php:40
 msgid "Lottery Factory Details"
 msgstr ""
 
-#: inc/metabox.php:78
+#: inc/metabox.php:65
+msgid "Design"
+msgstr ""
+
+#: inc/metabox.php:68
+msgid "Hide WP footer and header"
+msgstr ""
+
+#: inc/metabox.php:72
 msgid "Blockchain"
 msgstr ""
 
-#: inc/metabox.php:94
+#: inc/metabox.php:88
 msgid "Lottery token Address"
 msgstr ""
 
-#: inc/metabox.php:99 inc/metabox.php:138
+#: inc/metabox.php:93 inc/metabox.php:132
 msgid "Fetch"
 msgstr ""
 
-#: inc/metabox.php:104
+#: inc/metabox.php:98
 #, php-format
 msgid "ERC20 address of token&#039;s contract which users will be used for buy tickets. Press Fetch for get info about token. Free test tokens %s."
 msgstr ""
 
-#: inc/metabox.php:111
+#: inc/metabox.php:105
 msgid "Token name"
 msgstr ""
 
-#: inc/metabox.php:118
+#: inc/metabox.php:112
 msgid "Token symbol"
 msgstr ""
 
-#: inc/metabox.php:125
+#: inc/metabox.php:119
 msgid "Token decimals"
 msgstr ""
 
-#: inc/metabox.php:133
+#: inc/metabox.php:127
 msgid "Lottery contract"
 msgstr ""
 
-#: inc/metabox.php:141
+#: inc/metabox.php:135
 msgid "Deploy"
 msgstr ""
 
-#: inc/metabox.php:146
+#: inc/metabox.php:140
 msgid "Use \"Deploy\" button next to the field to create new Lottery contract. After deployment address will be automatically placed in the field above"
 msgstr ""
 
-#: inc/metabox.php:152
+#: inc/metabox.php:146
 msgid "If you have Lottery contract address then you can pass it to this field and press &quot;Fetch&quot;. NOTE: please be sure that you fill Lottery contract address! If you are not sure PLEASE PRESS \"Deploy\" button!!! Otherwise, this may lead to incorrect operations of the program and you may lose your tokens!\""
 msgstr ""
 
-#: inc/metabox.php:158
+#: inc/metabox.php:152
 msgid "Click &quot;Request lottery status &quot; to control her"
 msgstr ""
 
-#: inc/metabox.php:164
+#: inc/metabox.php:158
 msgid "Request lottery status"
 msgstr ""
 
-#: inc/metabox.php:171
+#: inc/metabox.php:165
 msgid "Lottery owner"
 msgstr ""
 
-#: inc/metabox.php:175
+#: inc/metabox.php:169
 msgid "Lottery Operator"
 msgstr ""
 
-#: inc/metabox.php:179
+#: inc/metabox.php:173
 msgid "Treasury address"
 msgstr ""
 
-#: inc/metabox.php:183
+#: inc/metabox.php:177
 msgid "Current lottery #"
 msgstr ""
 
-#: inc/metabox.php:190
-msgid "The lottery is over. You need to calculate the winning combination"
+#: inc/metabox.php:184
+msgid "Settings"
 msgstr ""
 
-#: inc/metabox.php:194
-msgid "Уникальная &quot;соль&quot;"
+#: inc/metabox.php:188
+msgid "Number of balls"
 msgstr ""
 
-#: inc/metabox.php:199
-msgid "Generate random"
+#: inc/metabox.php:193
+msgid "Change"
 msgstr ""
 
-#: inc/metabox.php:203
-msgid "Unique string. Used to generate random numbers within the blockchain. The uniqueness of the string guarantees protection against fraud"
+#: inc/metabox.php:197
+msgid "The number of balls participating in the lottery. From 2 to 6."
+msgstr ""
+
+#: inc/metabox.php:202
+msgid "Distribution of prizes %"
+msgstr ""
+
+#: inc/metabox.php:207
+msgid "1 ball"
+msgstr ""
+
+#: inc/metabox.php:208
+msgid "2 balls"
+msgstr ""
+
+#: inc/metabox.php:209
+msgid "3 balls"
+msgstr ""
+
+#: inc/metabox.php:210
+msgid "4 balls"
+msgstr ""
+
+#: inc/metabox.php:211
+msgid "5 balls"
 msgstr ""
 
 #: inc/metabox.php:212
-msgid "Calculate winning numbers"
+msgid "6 balls"
 msgstr ""
 
-#: inc/metabox.php:221
-msgid "Lottery started"
+#: inc/metabox.php:213
+msgid "Sum"
 msgstr ""
 
-#: inc/metabox.php:225
-msgid "Bank"
+#: inc/metabox.php:244
+msgid "+&nbsp;/&nbsp;-"
 msgstr ""
 
-#: inc/metabox.php:229
-msgid "Start time"
+#: inc/metabox.php:263
+msgid "Save"
 msgstr ""
 
-#: inc/metabox.php:233
-msgid "End time"
+#: inc/metabox.php:271
+msgid "The sum must be equal to 100%"
 msgstr ""
 
-#: inc/metabox.php:237
-msgid "Time left"
+#: inc/metabox.php:274
+msgid "Distribute the winning percentage based on the number of matched balls"
 msgstr ""
 
-#: inc/metabox.php:241
-msgid "Time is over. Click to close the round and proceed to calculating the winning combination"
-msgstr ""
-
-#: inc/metabox.php:249
-msgid "There are no running lotteries. Fill out the form to start the lottery"
-msgstr ""
-
-#: inc/metabox.php:254
-msgid "Price of one ticket"
-msgstr ""
-
-#: inc/metabox.php:261
-msgid "Price in tokens for one lottery ticket"
-msgstr ""
-
-#: inc/metabox.php:266
-msgid "Coznachey collection"
-msgstr ""
-
-#: inc/metabox.php:273
-msgid "Coznachey tax from 0% to 30%. After the completion of the lottery, this percentage will be sent to the treasury (the owner of the lottery). The remainder will be raffled among the players"
-msgstr ""
-
-#: inc/metabox.php:278
-msgid "Date and time of the end of the lottery"
+#: inc/metabox.php:277
+msgid "The amount should be equal to 100%. Use the &quot;+&nbsp;/&nbsp;&quot; button to add or remove percentages for the combination you want. Then the amount will be equal to 100%"
 msgstr ""
 
 #: inc/metabox.php:285
-msgid "5 minutes to 4 days"
+msgid "The lottery is over. You need to calculate the winning combination"
 msgstr ""
 
-#: inc/metabox.php:293
-msgid "Launch the lottery"
+#: inc/metabox.php:289
+msgid "Unique &quot;salt&quot;"
+msgstr ""
+
+#: inc/metabox.php:294
+msgid "Generate random"
+msgstr ""
+
+#: inc/metabox.php:298
+msgid "Unique string. Used to generate random numbers within the blockchain. The uniqueness of the string guarantees protection against fraud"
+msgstr ""
+
+#: inc/metabox.php:307
+msgid "Calculate winning numbers"
+msgstr ""
+
+#: inc/metabox.php:316
+msgid "Lottery started"
+msgstr ""
+
+#: inc/metabox.php:320
+msgid "Bank"
+msgstr ""
+
+#: inc/metabox.php:324
+msgid "Start time"
+msgstr ""
+
+#: inc/metabox.php:328
+msgid "End time"
+msgstr ""
+
+#: inc/metabox.php:332
+msgid "Time left"
+msgstr ""
+
+#: inc/metabox.php:336
+msgid "Time is over. Click to close the round and proceed to calculating the winning combination"
+msgstr ""
+
+#: inc/metabox.php:344
+msgid "There are no running lotteries. Fill out the form to start the lottery"
+msgstr ""
+
+#: inc/metabox.php:349
+msgid "Price of one ticket"
+msgstr ""
+
+#: inc/metabox.php:356
+msgid "Price in tokens for one lottery ticket"
 msgstr ""
 
 #: inc/metabox.php:361
+msgid "Treasury fee"
+msgstr ""
+
+#: inc/metabox.php:368
+msgid "Treasury fee from 0% to 30%. After the completion of the lottery, this percentage will be sent to the treasury (the owner of the lottery). The remainder will be raffled among the players"
+msgstr ""
+
+#: inc/metabox.php:373
+msgid "Date and time of the end of the lottery"
+msgstr ""
+
+#: inc/metabox.php:380
+msgid "5 minutes to 4 days"
+msgstr ""
+
+#: inc/metabox.php:388
+msgid "Launch the lottery"
+msgstr ""
+
+#: inc/metabox.php:464
 msgid "Shortcode"
 msgstr ""
 
-#: inc/metabox.php:364
+#: inc/metabox.php:467
 msgid "Copy Shortcode to clipboard"
 msgstr ""
 
-#: inc/metabox.php:365
+#: inc/metabox.php:468
 msgid "Copied!"
 msgstr ""
 

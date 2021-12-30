@@ -4,7 +4,7 @@
 (function( $ ){
 	"use strict";
 
-  const getUnixTimeStamp = () => Math.floor(new Date().getTime() / 1000)
+  const getUnixTimeStamp = () => Math.floor(new Date().getTime() / 1000);
 
   var deployButton    = document.getElementById('lotteryfactory_deploy_button');
   var fetchButton     = document.getElementById('lotteryfactory_fetchcontract_button');
@@ -13,16 +13,30 @@
   var tokenAddress    = document.getElementById('lottery_token');
   var fetchToken      = document.getElementById('lotteryfactory_fetchtoken_button');
   var lotteryAddress  = document.getElementById('lottery_address');
-  var startLottery    = document.getElementById('lotteryfactory_startlottery')
-  var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw')
-  var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers')
+  var startLottery    = document.getElementById('lotteryfactory_startlottery');
+  var closeAndGoDraw  = document.getElementById('lottery_current_close_goto_draw');
+  var drawNumbers     = document.getElementById('lotteryfactory_draw_numbers');
+  var selectedChain    = document.getElementById('lottery_blockchain');
+  var saveWinningPercents = document.getElementById('lottery-winning-percent-save');
+
+  var loaderStatusText = document.getElementById('lotteryfactory_loaderStatus')
+
+  const postId        = document.getElementById('lotteryfactory_post_id').value;
+
+  var numbersCountChange = document.getElementById('lottery_numbers_count_change');
 
   var getValue = (id) => { return document.getElementById(id).value }
   var setValue = (id, value) => { document.getElementById(id).value = value }
   var setHtml = (id, value) => { document.getElementById(id).innerHTML = value }
   var showBlock = (id) => { document.getElementById(id).style.display = '' }
   var hideBlock = (id) => { document.getElementById(id).style.display = 'none' }
-  var showLoader = () => { loaderOverlay.classList.add('visible') }
+  var showLoader = () => {
+    loaderStatusText.innerText = ''
+    loaderOverlay.classList.add('visible')
+  }
+  var setLoaderStatus = (message) => {
+    loaderStatusText.innerText = message
+  }
   var hideLoader = () => { loaderOverlay.classList.remove('visible') }
 
   var genSalt = () => {
@@ -34,6 +48,8 @@
     }
     return result
   }
+
+  const langMsg = (msg) => { return msg }
 
   var getDateDiffText = (dateStart, dateEnd) => {
     var diff = dateEnd - dateStart
@@ -69,6 +85,28 @@
     }
   }
 
+  const ajaxSendData = (options) => {
+    return new Promise((resolve, reject) => {
+      const {
+        action,
+        data
+      } = options
+
+      const ajaxData = {
+        action,
+        nonce: lotteryfactory.nonce,
+        data
+      }
+      $.post( lotteryfactory.ajaxurl, ajaxData, function(response) {
+        if( response.success) {
+          resolve(response)
+        } else {
+          reject(response)
+        }
+      })
+    })
+  }
+
   var setTokenInfo = function (tokenInfo) {
     setHtml('lottery_token_name_view', tokenInfo.name)
     setValue('lottery_token_name', tokenInfo.name)
@@ -101,12 +139,16 @@
 		}
 	});
 
+  lotteryDeployer
+    .setSelectedChain(selectedChain.value)
+
   const fetchStatusFunc = () => {
     if (fetchStatus.disabled) return
     if (!lotteryAddress.value) return errMessage('No lottery address!')
 
     fetchStatus.disabled = true
     showLoader()
+    setLoaderStatus( langMsg( 'Fetch lottery status' ) )
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
@@ -120,6 +162,7 @@
         hideBlock('lottery_start')
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
+        hideBlock('lottery_settings')
 
         const current = lotteryInfo.currentLotteryInfo
 
@@ -156,7 +199,7 @@
           showBlock('lottery_start')
         }
 
-        
+        showBlock('lottery_settings')
         fetchStatus.disabled = false
       })
       .catch((e) => {
@@ -165,13 +208,164 @@
         hideBlock('lottery_start')
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
+        hideBlock('lottery_settings')
         fetchStatus.disabled = false
         alert('Fail fetch contract info')
       })
   }
+
+  const calcWinningPercentsIsCorrect = () => {
+    const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+    const inputs = $('INPUT[data-winning-number]')
+    let totalPercents = 0
+    inputs.each((i, input) => {
+      const $input = $(input)
+      const inputNumber = parseInt($input.data('winning-number'), 10)
+      
+      if (numbersCount >= inputNumber) {
+        const inputPercent = parseFloat($input.val())
+        totalPercents = totalPercents + inputPercent
+      }
+    })
+    return totalPercents
+  }
+
+  const checkWinningPercentsState = () => {
+    const totalPercents = calcWinningPercentsIsCorrect()
+    $('#lotteryfactory-winning-percent-total').html(totalPercents.toFixed(2))
+    if (totalPercents != 100) {
+      $('#lotteryfactory-winning-percent-error').removeClass('-hidden')
+    } else {
+      $('#lotteryfactory-winning-percent-error').addClass('-hidden')
+    }
+    return (totalPercents == 100)
+  }
+  checkWinningPercentsState()
+
+  $( 'INPUT.lottery-winning-percent-input[data-winning-number]' ).on('keyup', function (e) {
+    checkWinningPercentsState()
+  })
+
+  $( saveWinningPercents ).on('click', function (e) {
+    e.preventDefault()
+    if (saveWinningPercents.disabled) return
+    if (checkWinningPercentsState()) {
+      showLoader()
+      setLoaderStatus( langMsg( 'Saving changes... Plase wait.' ) )
+      saveWinningPercents.disabled = true
+      const unlockButton = () => {
+        saveWinningPercents.disabled = false
+        hideLoader()
+      }
+      ajaxSendData({
+        action: 'lotteryfactory_update_options',
+        data: {
+          postId,
+          options: {
+            'winning_1': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="1"]').val()),
+            'winning_2': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="2"]').val()),
+            'winning_3': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="3"]').val()),
+            'winning_4': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="4"]').val()),
+            'winning_5': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="5"]').val()),
+            'winning_6': parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="6"]').val()),
+          }
+        }
+      }).then((ajaxAnswer) => {
+        console.log('>> save result', ajaxAnswer)
+        unlockButton()
+      }).catch((isFail) => { unlockButton() })
+    } else {
+      errMessage( langMsg( 'The sum must be equal to 100%' ) )
+    }
+  })
+
+  $( 'A[data-lottery-action="fix-winning-percents"]').on('click', function (e) {
+    const $button = $(e.target)
+    const winningNumber = parseInt( $button.data('winning-number'), 10)
+    const $percentInput = $('INPUT.lottery-winning-percent-input[data-winning-number="' + winningNumber + '"]')
+    const totalPercents = calcWinningPercentsIsCorrect()
+    const percentDelta = 100 - totalPercents
+    const ballPercent = parseFloat( $percentInput.val() )
+    $percentInput.val( parseFloat(ballPercent + percentDelta).toFixed(2) )
+    checkWinningPercentsState()
+  })
+  $( 'INPUT.lottery-winning-percent-input[data-winning-number]' ).on('change', function (e) {
+    checkWinningPercentsState()
+  })
+
+  $( '#lottery_numbers_count' ).on('change', function (e) {
+    const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+    const winningPercentsHolders = $('.lotteryfactory-winning-percent')
+    winningPercentsHolders.each((i, holder) => {
+      const holderNumber = parseInt($(holder).data('winning-number'), 10)
+      if (holderNumber > numbersCount ) {
+        $(holder).addClass('-hidden')
+        $($(holder).find('INPUT.lottery-winning-percent-input')).attr('type', 'hidden')
+      } else {
+        $(holder).removeClass('-hidden')
+        $($(holder).find('INPUT.lottery-winning-percent-input')).attr('type', 'number')
+      }
+    })
+    checkWinningPercentsState()
+  })
+
+
+  $( numbersCountChange ).on('click', function (e) {
+    e.preventDefault();
+    if (numbersCountChange.disabled) return
+
+    showLoader()
+    numbersCountChange.disabled = true
+    const unlockButton = () => {
+      numbersCountChange.disabled = false
+      hideLoader()
+    }
+
+    setLoaderStatus( langMsg( 'Fetch lottery status' ) )
+    lotteryDeployer
+      .fetchLotteryInfo(lotteryAddress.value)
+      .then( (lotteryInfo) => {
+        const current = lotteryInfo.currentLotteryInfo
+        const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+        if ((current.status !== "3") && (lotteryInfo.currentLotteryNumber !== "1")) {
+          errMessage( langMsg( 'You can change the number of balls only when the lottery is stopped') )
+          unlockButton()
+          return
+        }
+        setLoaderStatus( langMsg( 'Save information abount numbers counts to contract' ) )
+        lotteryDeployer.setNumbersCount(lotteryAddress.value, numbersCount)
+          .then((isOk) => {
+            // call ajax save
+            setLoaderStatus( langMsg( 'Save local WP configuration' ) )
+            ajaxSendData({
+              action: 'lotteryfactory_update_options',
+              data: {
+                postId,
+                options: {
+                  'numbers_count': numbersCount,
+                }
+              }
+            }).then((ajaxAnswer) => {
+              unlockButton()
+            }).catch((isFail) => { unlockButton() })
+          })
+          .catch((errMsg) => {
+            errMessage(errMsg)
+            unlockButton()
+          })
+      })
+      .catch((err) => {
+        numbersCountChange.disabled = false
+        hideLoader()
+      })
+  })
+
   $( startLottery ).on( 'click', function(e) {
     e.preventDefault()
     if (startLottery.disabled) return
+    if (!checkWinningPercentsState()) {
+      return errMessage( langMsg( 'Adjust the win percentage to be 100%') )
+    }
     const endDate = getValue('lottery_enddate')
     const endTime = getValue('lottery_endtime')
     let ticketPrice = getFloat('lottery_ticket_price')
@@ -180,36 +374,49 @@
     const lotteryContract = getValue('lottery_address')
 
     if (tokenDecimals === false)
-      return errMessage('Не удалось определить dicimals токена. Запросите информую о текене и попробуйте еще раз')
+      return errMessage( langMsg( 'Could not determine token dicimals. Inquire about teken and try again') )
     if (ticketPrice === false)
-      return errMessage('Укажите цену билета')
+      return errMessage( langMsg( 'Enter the ticket price') )
     if (treasuryFee === false)
-      return errMessage('Укажите козначейский сбор')
+      return errMessage( langMsg( 'Specify treasury fee') )
     if (ticketPrice <= 0)
-      return errMessage('Цена била должна быть больше нуля')
+      return errMessage( langMsg( 'Ticket price must be greater than zero') )
     if (!(treasuryFee >= 0 && treasuryFee <= 30))
-      return errMessage('Козначейский сбор должен быть от 0% до 30%')
+      return errMessage( langMsg( 'The treasury tax must be between 0% and 30%') )
     if (!endDate || endDate === '')
-      return errMessage('Enter date of lottery end')
+      return errMessage( langMsg( 'Enter date of lottery end') )
     if (!endTime || endTime === '')
-      return errMessage('Enter time of lottery end')
+      return errMessage( langMsg( 'Enter time of lottery end') )
     if (!lotteryContract)
-      return errMessage('Lottery contract not specified')
+      return errMessage( langMsg( 'Lottery contract not specified') )
 
 
     const lotteryEnd = new Date(endDate + ' ' + endTime).getTime() / 1000
 
+    // winningPercents
+    const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+    const winningPercents = [
+      (numbersCount >= 1) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="1"]').val()) * 100, 10) : 0,
+      (numbersCount >= 2) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="2"]').val()) * 100, 10) : 0,
+      (numbersCount >= 3) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="3"]').val()) * 100, 10) : 0,
+      (numbersCount >= 4) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="4"]').val()) * 100, 10) : 0,
+      (numbersCount >= 5) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="5"]').val()) * 100, 10) : 0,
+      (numbersCount >= 6) ? parseInt(parseFloat($('INPUT.lottery-winning-percent-input[data-winning-number="6"]').val()) * 100, 10) : 0,
+    ]
+
     ticketPrice = new BigNumber(ticketPrice).multipliedBy(10 ** tokenDecimals).toFixed()
     treasuryFee = parseInt(treasuryFee*100, 10)
     startLottery.disabled = true
+    showLoader()
+    setLoaderStatus( langMsg( 'Starting lottery. Configm trasaction...' ) )
     lotteryDeployer.startLottery({
       lotteryContract,
       lotteryEnd,
       ticketPrice,
       treasuryFee,
+      winningPercents,
     })
       .then((res) => {
-        console.log('>>> ok', res)
         fetchStatusFunc()
       })
       .catch((err) => {
@@ -234,6 +441,7 @@
 
     drawNumbers.disabled = true
     showLoader()
+    setLoaderStatus( langMsg( 'Drawing final numbers... confirm trasaction' ) )
     lotteryDeployer
       .drawNumbers(lotteryAddress, lotterySalt)
       .then((res) => {
@@ -262,6 +470,7 @@
     if (!lotteryContract)
       return errMessage('Lottery contract not specified')
 
+    setLoaderStatus( langMsg( 'Closing lottery round. Confirm trasaction') )
     lotteryDeployer
       .closeLottery(lotteryContract)
       .then((res) => {
@@ -288,6 +497,7 @@
     hideBlock('lottery_info')
     showLoader()
     fetchButton.disabled = true
+    setLoaderStatus( langMsg( 'Fetching current lottery status from contract' ) )
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
@@ -317,7 +527,8 @@
 
     if (!tokenAddress.value) return errMessage('Enter token address')
 
-    loaderOverlay.classList.add('visible');
+    showLoader()
+    setLoaderStatus( langMsg( 'Fetching information about token' ) )
     fetchToken.disabled = true
     lotteryDeployer
       .fetchTokenInfo(tokenAddress.value)
@@ -345,6 +556,7 @@
 
     deployButton.disabled = true;
     showLoader()
+    setLoaderStatus( langMsg( 'Deploying lottery contract to blockchain. Confirm transaction' ) )
     lotteryDeployer
       .fetchTokenInfo(tokenAddress.value)
       .then((tokenInfo) => {
@@ -375,4 +587,12 @@
         alert('Fail fetch token info')
       })
 	});
+
+  $( selectedChain ).on( 'change', function(e) {
+		e.preventDefault();
+
+    lotteryDeployer
+      .setSelectedChain(e.target.value)
+  });
+
 })( jQuery );

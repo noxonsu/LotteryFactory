@@ -23,6 +23,7 @@ const getInitialState = ({
   userCurrentTickets: LotteryTicket[]
 }): TicketsState => {
   const randomTickets = generateTicketNumbers(amount, userCurrentTickets)
+  // @ts-ignore
   const randomTicketsAsStringArray = randomTickets.map((ticket) => parseRetrievedNumber(ticket.toString()).split(''))
   const tickets = Array.from({ length: amount }, (_, i) => i + 1).map((index) => ({
     id: index,
@@ -35,6 +36,9 @@ const getInitialState = ({
     allComplete: true,
   }
 }
+
+// @ts-ignore
+const countNumbers = window.SO_LotteryConfig.numbersCount
 
 const reducer = (state: TicketsState, action: any) => {
   switch (action.type) {
@@ -76,7 +80,7 @@ const reducer = (state: TicketsState, action: any) => {
         id: ticketId,
         numbers: newNumbers,
         duplicateWith: newDuplicates.map((ticket) => ticket.id),
-        isComplete: newNumbers.join('').length === 6,
+        isComplete: newNumbers.join('').length === countNumbers,
       }
       tickets[ticketId - 1] = updatedTicket
 
