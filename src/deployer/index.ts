@@ -77,7 +77,7 @@ const deploy = async (params: Params) => {
   })
     .send({
       from: accounts[0],
-      gas: 5000000,
+      gas: 6000000,
     })
     .on('transactionHash', (hash) => {
       console.log('transaction hash:', hash)

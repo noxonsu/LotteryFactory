@@ -163,6 +163,7 @@
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
         hideBlock('lottery_settings')
+        $('INPUT.lottery-winning-percent-input').attr('type', 'hidden')
 
         const current = lotteryInfo.currentLotteryInfo
 
@@ -200,11 +201,13 @@
         }
 
         showBlock('lottery_settings')
+        reinit_winningPercents()
         fetchStatus.disabled = false
       })
       .catch((e) => {
         console.log(e)
         hideLoader()
+        $('INPUT.lottery-winning-percent-input').attr('type', 'hidden')
         hideBlock('lottery_start')
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
@@ -240,7 +243,6 @@
     }
     return (totalPercents == 100)
   }
-  checkWinningPercentsState()
 
   $( 'INPUT.lottery-winning-percent-input[data-winning-number]' ).on('keyup', function (e) {
     checkWinningPercentsState()
@@ -293,6 +295,21 @@
     checkWinningPercentsState()
   })
 
+  const reinit_winningPercents = () => {
+    const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
+    const winningPercentsHolders = $('.lotteryfactory-winning-percent')
+    winningPercentsHolders.each((i, holder) => {
+      const holderNumber = parseInt($(holder).data('winning-number'), 10)
+      if (holderNumber > numbersCount ) {
+        $(holder).addClass('-hidden')
+        $($(holder).find('INPUT.lottery-winning-percent-input')).attr('type', 'hidden')
+      } else {
+        $(holder).removeClass('-hidden')
+        $($(holder).find('INPUT.lottery-winning-percent-input')).attr('type', 'number')
+      }
+    })
+    checkWinningPercentsState()
+  }
   $( '#lottery_numbers_count' ).on('change', function (e) {
     const numbersCount = parseInt( $('#lottery_numbers_count').val(), 10)
     const winningPercentsHolders = $('.lotteryfactory-winning-percent')

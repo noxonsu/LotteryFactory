@@ -224,7 +224,7 @@ class LotteryFactory_Meta_Box {
                   >
                     <p class="lotteryfactory-form-inline">
                       <input
-                        type="<?php echo $numbers_count >= $number ? 'number' : 'hidden'?>"
+                        type="hidden"
                         min="0"
                         max="100"
                         step="0.1"
