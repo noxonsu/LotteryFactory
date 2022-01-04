@@ -6,6 +6,10 @@ import useTheme from 'hooks/useTheme'
 import * as token from 'config/constants/tokens.lottery'
 import { BallWithNumber, MatchExampleA, MatchExampleB, PoolAllocationChart } from '../svgs'
 
+
+// @ts-ignore
+const numbersCount = window.SO_LotteryConfig.numbersCount
+
 const Divider = styled.div`
   background-color: ${({ theme }) => theme.colors.cardBorder};
   height: 1px;
@@ -341,21 +345,6 @@ const HowToPlay: React.FC = () => {
           <PoolAllocations />
         </Flex>
       </GappedFlex>
-      <Divider />
-      <Flex justifyContent="center" alignItems="center" flexDirection={['column', 'column', 'row']}>
-        <Image width={240} height={172} src="./images/lottery/tombola.png" alt="tombola bunny" mr="8px" mb="16px" />
-        <Flex maxWidth="300px" flexDirection="column">
-          <Heading mb="16px" scale="md">
-            {t('Still got questions?')}
-          </Heading>
-          <Text>
-            {t('Check our in-depth guide on')}{' '}
-            <InlineLink className='inlineLink' href="https://docs.pancakeswap.finance/products/lottery/lottery-guide">
-              {t('how to play the PancakeSwap lottery!')}
-            </InlineLink>
-          </Text>
-        </Flex>
-      </Flex>
     </Box>
   )
 }
