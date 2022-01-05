@@ -227,10 +227,11 @@ class LotteryFactory_Meta_Box {
                         type="hidden"
                         min="0"
                         max="100"
-                        step="0.1"
+                        step="0.01"
                         novalidate
                         value="<?php echo $value?>"
                         class="lottery-winning-percent-input"
+                        name="lottery_winning_percent_<?php echo $number?>"
                         data-winning-number="<?php echo $number?>"
                       />
                       <label>%</label>
@@ -434,7 +435,12 @@ class LotteryFactory_Meta_Box {
       'contract'          => 'lottery_address',
       'last_ticket_price' => 'lottery_ticket_price',
       'last_treasury_fee' => 'lottery_treasury_fee',
-      'numbers_count'     => 'lottery_numbers_count'
+      'numbers_count'     => 'lottery_numbers_count',
+      'winning_1'         => 'lottery_winning_percent_1',
+      'winning_2'         => 'lottery_winning_percent_2',
+      'winning_3'         => 'lottery_winning_percent_3',
+      'winning_4'         => 'lottery_winning_percent_4',
+      'winning_5'         => 'lottery_winning_percent_5'
     );
     $post_meta_checkboxs = array(
       'hide_footer_header'=> 'lottery_hide_footer_header'

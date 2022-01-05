@@ -505,6 +505,15 @@
     fetchStatusFunc()
   })
 
+  const fillLotteryData = (lotteryInfo) => {
+    const breakDowns = lotteryInfo.currentLotteryInfo.rewardsBreakdown
+    $('INPUT[data-winning-number="1"]').val(breakDowns[0]/ 100)
+    $('INPUT[data-winning-number="2"]').val(breakDowns[1]/ 100)
+    $('INPUT[data-winning-number="3"]').val(breakDowns[2]/ 100)
+    $('INPUT[data-winning-number="4"]').val(breakDowns[3]/ 100)
+    $('INPUT[data-winning-number="5"]').val(breakDowns[4]/ 100)
+    $('#lottery_numbers_count').val(lotteryInfo.numbersCount)
+  }
   $( fetchButton ).on( 'click', function(e) {
     e.preventDefault();
     if (fetchButton.disabled) return
@@ -525,6 +534,12 @@
         setHtml('lottery_operator', lotteryInfo.operator)
         setHtml('lottery_treasury', lotteryInfo.treasury)
         setHtml('lottery_current', lotteryInfo.currentLotteryNumber)
+        // fill break downs
+        if (lotteryInfo.currentLotteryInfo
+          && lotteryInfo.currentLotteryNumber !== "1"
+        ) {
+          fillLotteryData(lotteryInfo)
+        }
         showBlock('lottery_info')
         hideLoader()
         fetchButton.disabled = false
