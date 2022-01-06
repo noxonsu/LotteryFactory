@@ -187,7 +187,7 @@ const NextDrawCard = () => {
                 alignItems={['center', null, null, 'flex-start']}
               >
                 {account && (
-                  <Flex justifyContent={['center', null, null, 'flex-start']}>
+                  <Flex justifyContent={['center', null, null, 'flex-start']} style={{ whiteSpace: `nowrap` }} >
                     <Text display="inline">{youHaveText} </Text>
                     {!userTickets.isLoading ? (
                       <Balance value={userTicketCount} decimals={0} display="inline" bold mx="4px" />

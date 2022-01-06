@@ -377,6 +377,34 @@
       })
   })
 
+  $( 'A[data-lottery-action="save-ajax-param"]' ).on('click', function (e) {
+    e.preventDefault()
+    const $button = $(e.target);
+    if ($button[0].disabled) return
+    const postTarget = $button.data('lottery-target')
+    const postValue = $($button.data('lottery-source')).val()
+    const unlockButton = () => {
+      $button[0].disabled = false
+      hideLoader()
+    }
+    $button[0].disabled = true
+    showLoader()
+    setLoaderStatus( langMsg( 'Saving chainges' ) )
+    const options = {}
+    options[postTarget] = postValue
+    
+    ajaxSendData({
+      action: 'lotteryfactory_update_options',
+      data: {
+        postId,
+        options
+      }
+    }).then((ajaxAnswer) => {
+      console.log('>> save result', ajaxAnswer)
+      unlockButton()
+    }).catch((isFail) => { unlockButton() })
+  })
+
   $( startLottery ).on( 'click', function(e) {
     e.preventDefault()
     if (startLottery.disabled) return

@@ -43,7 +43,9 @@ function lottery_get_data($lottery_id) {
     'winning_3'         => '6.25',
     'winning_4'         => '12.5',
     'winning_5'         => '25',
-    'winning_6'         => '50'
+    'winning_6'         => '50',
+    'token_price'       => '0',
+    'tokenbuy_link'     => ''
   ) as $key => $default) {
     $data = get_post_meta( $lottery_id, $key, true);
     if ( empty( $data ) ) $data = $default;
@@ -60,9 +62,10 @@ function lottery_default_header() {
       <meta charset="<?php bloginfo( 'charset' ); ?>">
       <meta name="viewport" content="width=device-width, initial-scale=1.0" >
       <link rel="profile" href="https://gmpg.org/xfn/11">
-      <?php wp_head(); ?>
+      <title><?php echo wp_get_document_title(); ?></title>
+      <?php wp_sensitive_page_meta(); ?>
       <style type="text/css">
-        * {
+        HTML, BODY {
           margin: 0;
           padding: 0;
         }
