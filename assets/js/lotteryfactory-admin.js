@@ -425,7 +425,7 @@
     treasuryFee = parseInt(treasuryFee*100, 10)
     startLottery.disabled = true
     showLoader()
-    setLoaderStatus( langMsg( 'Starting lottery. Configm trasaction...' ) )
+    setLoaderStatus( langMsg( 'Starting lottery. Confirm trasaction...' ) )
     lotteryDeployer.startLottery({
       lotteryContract,
       lotteryEnd,

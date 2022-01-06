@@ -12,6 +12,7 @@ interface CountdownProps {
 
 const Countdown: React.FC<CountdownProps> = ({ nextEventTime, preCountdownText, postCountdownText }) => {
   const secondsRemaining = useNextEventCountdown(nextEventTime)
+  console.log('>>>> Countdown', nextEventTime, secondsRemaining)
   const { days, hours, minutes } = getTimePeriods(secondsRemaining)
 
   return (
@@ -23,12 +24,19 @@ const Countdown: React.FC<CountdownProps> = ({ nextEventTime, preCountdownText, 
               {preCountdownText}
             </Heading>
           )}
-          <Timer
-            minutes={minutes + 1} // We don't show seconds - so values from 0 - 59s should be shown as 1 min
-            hours={hours}
-            days={days}
-          />
-          {postCountdownText && <Heading color="#ffff">{postCountdownText}</Heading>}
+          {secondsRemaining > 0 && (
+            <>
+              <Timer
+                minutes={minutes + 1} // We don't show seconds - so values from 0 - 59s should be shown as 1 min
+                hours={hours}
+                days={days}
+              />
+              {postCountdownText && <Heading color="#ffff">{postCountdownText}</Heading>}
+            </>
+          )}
+          {secondsRemaining < 0 && (
+            <Heading color="#ffff">Waiting to draw winning combinations</Heading>
+          )}
         </Flex>
       ) : (
         <Skeleton height="41px" width="250px" />

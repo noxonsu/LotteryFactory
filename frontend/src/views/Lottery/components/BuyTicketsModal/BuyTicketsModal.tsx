@@ -36,6 +36,7 @@ import ApproveConfirmButtons, { ButtonArrangement } from 'components/ApproveConf
 import NumTicketsToBuyButton from './NumTicketsToBuyButton'
 import EditNumbersModal from './EditNumbersModal'
 import { useTicketsReducer } from './useTicketsReducer'
+import BuyTokenButton from '../BuyTokenButton'
 
 const StyledModal = styled(Modal)`
   min-width: 280px;
@@ -447,6 +448,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
                 {t('View/Edit Numbers')}
               </Button>
             )}
+            <BuyTokenButton disabled={false} width="100%" />
           </>
         ) : (
           <ConnectWalletButton />

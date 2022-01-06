@@ -24,6 +24,7 @@ import { getBalanceNumber } from 'utils/formatBalance'
 import Balance from 'components/Balance'
 import ViewTicketsModal from './ViewTicketsModal'
 import BuyTicketsButton from './BuyTicketsButton'
+import BuyTokenButton from './BuyTokenButton'
 import { dateTimeOptions } from '../helpers'
 import RewardBrackets from './RewardBrackets'
 
@@ -35,6 +36,10 @@ const Grid = styled.div`
     grid-column-gap: 32px;
     grid-template-columns: auto 1fr;
   }
+`
+
+const HeadingText = styled(Text)`
+  margin-top: 14px;
 `
 
 const StyledCard = styled(Card)`
@@ -157,9 +162,10 @@ const NextDrawCard = () => {
       <CardHeader p="16px 24px">
         <Flex justifyContent="space-between">
           <Heading mr="12px">{t('Next Draw')}</Heading>
-          <Text>
+          { /* @ts-ignore */ }
+          <HeadingText>
             {currentLotteryId && `#${getNextDrawId()}`} {Boolean(endTime) && getNextDrawDateTime()}
-          </Text>
+          </HeadingText>
         </Flex>
       </CardHeader>
       <CardBody>
@@ -173,7 +179,7 @@ const NextDrawCard = () => {
           <Box display={['none', null, null, 'flex']}>
             <Heading>{t('Your tickets')}</Heading>
           </Box>
-          <Flex flexDirection={['column', null, null, 'row']} alignItems={['center', null, null, 'flex-start']}>
+          <Flex flexDirection={['column', null, null, 'row']} alignItems={['center', null, null, 'center']}>
             {isLotteryOpen && (
               <Flex
                 flexDirection="column"
@@ -208,6 +214,7 @@ const NextDrawCard = () => {
               </Flex>
             )}
             <BuyTicketsButton disabled={ticketBuyIsDisabled} maxWidth="280px" />
+            <BuyTokenButton disabled={false} maxWidth="280px" />
           </Flex>
         </Grid>
       </CardBody>
