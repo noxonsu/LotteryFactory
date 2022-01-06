@@ -68,7 +68,7 @@ function lotteryfactory_update_options() {
           if (isset($options_whitelist[$option_key])) {
             switch ($options_whitelist[$option_key]['type']) {
               case 'string':
-                $option_value = sanitize_text_field( $option_value );
+                $values_to_set[$option_key] = sanitize_text_field( $option_value );
                 break;
               case 'float':
                 if (is_float(floatval($option_value))) {
