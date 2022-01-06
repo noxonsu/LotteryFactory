@@ -63,7 +63,13 @@ function lottery_default_header() {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" >
       <link rel="profile" href="https://gmpg.org/xfn/11">
       <title><?php echo wp_get_document_title(); ?></title>
-      <?php wp_sensitive_page_meta(); ?>
+      <?php
+        if (function_exists( 'wp_robots_sensitive_page' )) {
+          wp_robots_sensitive_page();
+        } else {
+          wp_sensitive_page_meta();
+        }
+      ?>
       <style type="text/css">
         HTML, BODY {
           margin: 0;
