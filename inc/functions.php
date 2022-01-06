@@ -65,7 +65,7 @@ function lottery_default_header() {
       <title><?php echo wp_get_document_title(); ?></title>
       <?php
         if (function_exists( 'wp_robots_sensitive_page' )) {
-          wp_robots_sensitive_page();
+          // wp_robots_sensitive_page(); // @To-Do need params
         } else {
           wp_sensitive_page_meta();
         }
