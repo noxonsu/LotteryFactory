@@ -185,6 +185,42 @@ class LotteryFactory_Meta_Box {
           </td>
         </tr>
         <tr>
+          <th><label><?php echo esc_html__('Token price in USD');?></label></th>
+          <td>
+            <p class="lotteryfactory-form-inline">
+              <input type="number" min="0" step="any" id="lottery_token_price" name="lottery_token_price" value="<?php echo $lottery['token_price']?>" />
+              <a class="button button-secondary"
+                data-lottery-action="save-ajax-param"
+                data-lottery-target="token_price"
+                data-lottery-source="#lottery_token_price"
+              >
+                <?php echo esc_html__('Update'); ?>
+              </a>
+            </p>
+            <p class="description">
+              <?php echo esc_html__( 'Price of one token in USD. Set zero to hide price in USD' );?>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <th><label><?php echo esc_html__('Token Buy URL');?></label></th>
+          <td>
+            <p class="lotteryfactory-form-inline">
+              <input type="site" id="lottery_tokenbuy_link" class="large-text" name="lottery_tokenbuy_link" value="<?php echo $lottery['tokenbuy_link']?>" />
+              <a class="button button-secondary"
+                data-lottery-action="save-ajax-param"
+                data-lottery-target="tokenbuy_link"
+                data-lottery-source="#lottery_tokenbuy_link"
+              >
+                <?php echo esc_html__('Update'); ?>
+              </a>
+            </p>
+            <p class="description">
+              <?php echo esc_html__( 'Link to a site where a user can buy tokens to pay for a ticket'); ?>
+            </p>
+          </td>
+        </tr>
+        <tr>
           <th><label><?php echo esc_html__('Number of balls')?></label></th>
           <td>
             <p class="lotteryfactory-form-inline">
@@ -440,7 +476,9 @@ class LotteryFactory_Meta_Box {
       'winning_2'         => 'lottery_winning_percent_2',
       'winning_3'         => 'lottery_winning_percent_3',
       'winning_4'         => 'lottery_winning_percent_4',
-      'winning_5'         => 'lottery_winning_percent_5'
+      'winning_5'         => 'lottery_winning_percent_5',
+      'token_price'       => 'lottery_token_price',
+      'tokenbuy_link'     => 'lottery_tokenbuy_link'
     );
     $post_meta_checkboxs = array(
       'hide_footer_header'=> 'lottery_hide_footer_header'

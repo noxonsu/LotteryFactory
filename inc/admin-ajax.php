@@ -47,6 +47,13 @@ function lotteryfactory_update_options() {
       'type'  => 'float',
       'min'   => 0,
       'max'   => 100
+    ),
+    'token_price'   => array(
+      'type'  => 'float',
+      'min'   => 0
+    ),
+    'tokenbuy_link' => array(
+      'type'  => 'string'
     )
   );
   $error = false;
@@ -57,9 +64,12 @@ function lotteryfactory_update_options() {
       $postId = intval($indata['postId']);
       if (isset($indata['options']) and is_array($indata['options'])) {
         $continue_check = true;
-        foreach($indata['options'] as $option_key=>$option_value) {
+        foreach($indata['options'] as $option_key=>&$option_value) {
           if (isset($options_whitelist[$option_key])) {
             switch ($options_whitelist[$option_key]['type']) {
+              case 'string':
+                $option_value = sanitize_text_field( $option_value );
+                break;
               case 'float':
                 if (is_float(floatval($option_value))) {
                   $check_value = floatval($option_value);

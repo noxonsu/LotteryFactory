@@ -26,7 +26,9 @@ function lotteryfactory_main_shortcode( $atts ) {
     'last_ticket_price' => '1',
     'last_treasury_fee' => '2',
     'hide_footer_header'=> 'true',
-    'numbers_count'     => '6'
+    'numbers_count'     => '6',
+    'token_price'       => '0',
+    'tokenbuy_link'     => ''
   ) as $key => $default) {
     $data = get_post_meta( $id, $key, true);
     if ( empty( $data ) ) $data = $default;
@@ -148,8 +150,9 @@ function lotteryfactory_main_shortcode( $atts ) {
       address: "<?php echo $lottery['token']?>",
       decimals: "<?php echo $lottery['token_decimals']?>",
       title: "<?php echo $lottery['token_name']?>",
-      price: 1
+      price: <?php echo ($lottery['token_price'] !== '0') ? "parseFloat(${lottery['token_price']})" : "false"; ?>
     },
+    buyTokenLink: <?php echo ($lottery['tokenbuy_link'] !== '') ? '"' . $lottery['tokenbuy_link'] . '"' : "false"; ?>,
     numbersCount: parseInt("<?php echo $lottery['numbers_count']?>", 10)
   }
   </script>
