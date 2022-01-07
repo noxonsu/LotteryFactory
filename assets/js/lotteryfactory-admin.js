@@ -349,7 +349,7 @@
           unlockButton()
           return
         }
-        setLoaderStatus( langMsg( 'Save information abount numbers counts to contract' ) )
+        setLoaderStatus( langMsg( 'Save information about numbers counts to contract' ) )
         lotteryDeployer.setNumbersCount(lotteryAddress.value, numbersCount)
           .then((isOk) => {
             // call ajax save
@@ -453,22 +453,40 @@
     treasuryFee = parseInt(treasuryFee*100, 10)
     startLottery.disabled = true
     showLoader()
-    setLoaderStatus( langMsg( 'Starting lottery. Confirm trasaction...' ) )
-    lotteryDeployer.startLottery({
-      lotteryContract,
-      lotteryEnd,
-      ticketPrice,
-      treasuryFee,
-      winningPercents,
+    setLoaderStatus( langMsg( 'Saving lottery configuration' ) )
+    // save last ticket price, treasury fee and winning breaks
+    ajaxSendData({
+      action: 'lotteryfactory_update_options',
+      data: {
+        postId,
+        options: {
+          winning_1: $('INPUT.lottery-winning-percent-input[data-winning-number="1"]').val(),
+          winning_2: $('INPUT.lottery-winning-percent-input[data-winning-number="2"]').val(),
+          winning_3: $('INPUT.lottery-winning-percent-input[data-winning-number="3"]').val(),
+          winning_4: $('INPUT.lottery-winning-percent-input[data-winning-number="4"]').val(),
+          winning_5: $('INPUT.lottery-winning-percent-input[data-winning-number="5"]').val(),
+          last_ticket_price: $('INPUT#lottery_ticket_price').val(),
+          last_treasury_fee: $('INPUT#lottery_treasury_fee').val()
+        }
+      }
+    }).then((ajaxAnswer) => {
+      setLoaderStatus( langMsg( 'Starting lottery. Confirm trasaction...' ) )
+      lotteryDeployer.startLottery({
+        lotteryContract,
+        lotteryEnd,
+        ticketPrice,
+        treasuryFee,
+        winningPercents,
+      })
+        .then((res) => {
+          fetchStatusFunc()
+        })
+        .catch((err) => {
+          console.log('>> fail', err)
+          startLottery.disabled = false
+          hideLoader()
+        })
     })
-      .then((res) => {
-        fetchStatusFunc()
-      })
-      .catch((err) => {
-        console.log('>> fail', err)
-        startLottery.disabled = false
-        hideLoader()
-      })
   })
 
   $( drawNumbers ).on( 'click', function(e) {
@@ -515,16 +533,23 @@
     if (!lotteryContract)
       return errMessage('Lottery contract not specified')
 
-    setLoaderStatus( langMsg( 'Closing lottery round. Confirm trasaction') )
+    const unlockButton = () => {
+      closeAndGoDraw.disabled = false
+      hideLoader()
+    }
+    closeAndGoDraw.disabled = true
+    showLoader()
+    setLoaderStatus( langMsg( 'Closing lottery round. Confirm transaction') )
     lotteryDeployer
       .closeLottery(lotteryContract)
       .then((res) => {
-        console.log('>>> ok', res)
+        unlockButton()
         hideBlock('lottery_round')
         showBlock('lottery_draw')
       })
       .catch((err) => {
         console.log('>> fail', err)
+        unlockButton()
       })
   })
 

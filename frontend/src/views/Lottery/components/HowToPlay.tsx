@@ -167,12 +167,13 @@ const AllocationMatch: React.FC<{ color: string; text: string }> = ({ color, tex
 
 const PoolAllocations = () => {
   const { t } = useTranslation()
+  // @ts-ignore
+  const winPercents = window.SO_LotteryConfig.winPercents
+  // @ts-ignore
+  const numbersCount = window.SO_LotteryConfig.numbersCount
   return (
     <StyledStepCard width={['280px', '330px', '380px']}>
       <StepCardInner height="auto">
-        <Flex mb="32px" justifyContent="center">
-          <PoolAllocationChart width="100px" height="100px" />
-        </Flex>
         <Flex justifyContent="space-between">
           <Text fontSize="12px" color="secondary" bold textTransform="uppercase">
             {t('Digits matched')}
@@ -182,33 +183,57 @@ const PoolAllocations = () => {
           </Text>
         </Flex>
         <AllocationGrid>
-          <AllocationMatch color="#FFE362" text={t('Matches first %digits%', { digits: 1 })} />
-          <Text textAlign="right" bold>
-            2%
-          </Text>
-          <AllocationMatch color="#85C54E" text={t('Matches first %digits%', { digits: 2 })} />
-          <Text textAlign="right" bold>
-            3%
-          </Text>
-          <AllocationMatch color="#028E75" text={t('Matches first %digits%', { digits: 3 })} />
-          <Text textAlign="right" bold>
-            5%
-          </Text>
-          <AllocationMatch color="#36E8F5" text={t('Matches first %digits%', { digits: 4 })} />
-          <Text textAlign="right" bold>
-            10%
-          </Text>
-          <AllocationMatch color="#A881FC" text={t('Matches first %digits%', { digits: 5 })} />
-          <Text textAlign="right" bold>
-            20%
-          </Text>
-          <AllocationMatch color="#D750B2" text={t('Matches all 6')} />
-          <Text textAlign="right" bold>
-            40%
-          </Text>
+          {numbersCount >= 1 && (
+            <>
+              <AllocationMatch color="#FFE362" text={t((numbersCount == 1) ? 'Matches all %digits%': 'Matches first %digits%', { digits: 1 })} />
+              <Text textAlign="right" bold>
+                {parseFloat(winPercents.match_1.toFixed(2))}%
+              </Text>
+            </>
+          )}
+          {numbersCount >= 2 && (
+            <>
+              <AllocationMatch color="#85C54E" text={t((numbersCount == 2) ? 'Matches all %digits%': 'Matches first %digits%', { digits:2 })} />
+              <Text textAlign="right" bold>
+                {parseFloat(winPercents.match_2.toFixed(2))}%
+              </Text>
+            </>
+          )}
+          {numbersCount >= 3 && (
+            <>
+              <AllocationMatch color="#028E75" text={t((numbersCount == 3) ? 'Matches all %digits%': 'Matches first %digits%', { digits: 3 })} />
+              <Text textAlign="right" bold>
+                {parseFloat(winPercents.match_3.toFixed(2))}%
+              </Text>
+            </>
+          )}
+          {numbersCount >= 4 && (
+            <>
+              <AllocationMatch color="#36E8F5" text={t((numbersCount == 4) ? 'Matches all %digits%': 'Matches first %digits%', { digits: 4 })} />
+              <Text textAlign="right" bold>
+                {parseFloat(winPercents.match_4.toFixed(2))}%
+              </Text>
+            </>
+          )}
+          {numbersCount >= 5 && (
+            <>
+              <AllocationMatch color="#A881FC" text={t((numbersCount == 5) ? 'Matches all %digits%': 'Matches first %digits%', { digits: 5 })} />
+              <Text textAlign="right" bold>
+                {parseFloat(winPercents.match_5.toFixed(2))}%
+              </Text>
+            </>
+          )}
+          {numbersCount >= 6 && (
+            <>
+              <AllocationMatch color="#D750B2" text={t((numbersCount == 6) ? 'Matches all %digits%': 'Matches first %digits%', { digits: 6 })} />
+              <Text textAlign="right" bold>
+                {parseFloat(winPercents.match_6.toFixed(2))}%
+              </Text>
+            </>
+          )}
           <AllocationMatch color="#BDC2C4" text={t('Burn Pool')} />
           <Text textAlign="right" bold>
-            20%
+            {parseFloat(winPercents.burn.toFixed(2))}%
           </Text>
         </AllocationGrid>
       </StepCardInner>
@@ -298,7 +323,7 @@ const HowToPlay: React.FC = () => {
       </GappedFlex>
       <Divider />
       <GappedFlex flexDirection={['column', 'column', 'column', 'row']}>
-        <Flex flex="2" flexDirection="column">
+        <Flex flex="2" flexDirection="column" style={{display: 'none'}}>
           <Heading mb="24px" scale="lg" color="secondary">
             {t('Prize Funds')}
           </Heading>

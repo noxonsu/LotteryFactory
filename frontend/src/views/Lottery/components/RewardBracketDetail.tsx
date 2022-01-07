@@ -51,7 +51,7 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
         {isLoading || cakeAmount.isNaN() ? (
           <Skeleton my="4px" mr="10px" height={20} width={110} />
         ) : (
-          <Balance fontSize="20px" bold unit={` ${token.info().symbol}`} value={getBalanceNumber(cakeAmount, token.info().decimals)} decimals={0} />
+          <Balance fontSize="20px" bold unit={` ${token.info().symbol}`} value={getBalanceNumber(cakeAmount, token.info().decimals)} decimals={token.info().viewDecimals} />
         )}
         {isLoading || cakeAmount.isNaN() ? (
           <>
@@ -63,7 +63,7 @@ const RewardBracketDetail: React.FC<RewardBracketDetailProps> = ({
             color="textSubtle"
             prefix="~$"
             value={getBalanceNumber(cakeAmount.times(cakePriceBusd), token.info().decimals)}
-            decimals={0}
+            decimals={token.info().viewDecimals}
           />
         )}
         {isHistoricRound && cakeAmount && (

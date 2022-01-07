@@ -82,7 +82,7 @@ const NextDrawCard = () => {
   const getPrizeBalances = () => {
     if (status === LotteryStatus.CLOSE || status === LotteryStatus.CLAIMABLE) {
       return (
-        <Heading scale="xl" color="secondary" textAlign={['center', null, null, 'left']}>
+        <Heading scale="xl" color="secondary" style={{marginTop: '4px'}} textAlign={['center', null, null, 'left']}>
           {t('Calculating')}...
         </Heading>
       )
@@ -98,7 +98,7 @@ const NextDrawCard = () => {
           bold
           unit={` ${token.info().symbol}`}
           value={getBalanceNumber(amountCollectedInCake, token.info().decimals)}
-          decimals={0}
+          decimals={token.info().viewDecimals}
         />
       )
     }

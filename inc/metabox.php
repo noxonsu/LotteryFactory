@@ -203,6 +203,24 @@ class LotteryFactory_Meta_Box {
           </td>
         </tr>
         <tr>
+          <th><label><?php echo esc_html__('View token decimals'); ?></label></th>
+          <td>
+            <p class="lotteryfactory-form-inline">
+              <input type="number" min="0" step="any" id="lottery_token_viewdecimals" name="lottery_token_viewdecimals" value="<?php echo $lottery['token_viewdecimals']?>" />
+              <a class="button button-secondary"
+                data-lottery-action="save-ajax-param"
+                data-lottery-target="token_viewdecimals"
+                data-lottery-source="#lottery_token_viewdecimals"
+              >
+                <?php echo esc_html__('Update'); ?>
+              </a>
+            </p>
+            <p class="description">
+              <?php echo esc_html__( 'View amounts rounded to this decimals' );?>
+            </p>
+          </td>
+        </tr>
+        <tr>
           <th><label><?php echo esc_html__('Token Buy URL');?></label></th>
           <td>
             <p class="lotteryfactory-form-inline">
@@ -387,7 +405,7 @@ class LotteryFactory_Meta_Box {
           </th>
           <td>
             <p class="lotteryfactory-form-inline">
-              <input type="number" id="lottery_ticket_price" min="0" step="0.1" name="lottery_ticket_price" value="<?php echo esc_attr($lottery['last_ticket_price'])?>" />
+              <input type="number" id="lottery_ticket_price" min="0" step="any" name="lottery_ticket_price" value="<?php echo esc_attr($lottery['last_ticket_price'])?>" />
               <strong><?php echo esc_html__( $lottery['token_symbol'] )?></strong>
             </p>
             <p class="description"><?php echo esc_html__('Price in tokens for one lottery ticket', 'lotteryfactory')?></p>
