@@ -515,16 +515,21 @@
     if (!lotteryContract)
       return errMessage('Lottery contract not specified')
 
+    const unlockButton = () => {
+      closeAndGoDraw.disabled = false
+      hideLoader()
+    }
+    closeAndGoDraw.disabled = true
+    showLoader()
     setLoaderStatus( langMsg( 'Closing lottery round. Confirm trasaction') )
     lotteryDeployer
       .closeLottery(lotteryContract)
       .then((res) => {
-        console.log('>>> ok', res)
-        hideBlock('lottery_round')
-        showBlock('lottery_draw')
+        unlockButton()
       })
       .catch((err) => {
         console.log('>> fail', err)
+        unlockButton()
       })
   })
 
