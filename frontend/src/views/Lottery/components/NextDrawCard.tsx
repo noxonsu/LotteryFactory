@@ -82,7 +82,7 @@ const NextDrawCard = () => {
   const getPrizeBalances = () => {
     if (status === LotteryStatus.CLOSE || status === LotteryStatus.CLAIMABLE) {
       return (
-        <Heading scale="xl" color="secondary" textAlign={['center', null, null, 'left']}>
+        <Heading scale="xl" color="secondary" style={{marginTop: '4px'}} textAlign={['center', null, null, 'left']}>
           {t('Calculating')}...
         </Heading>
       )

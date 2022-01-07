@@ -45,7 +45,8 @@ function lottery_get_data($lottery_id) {
     'winning_5'         => '25',
     'winning_6'         => '50',
     'token_price'       => '0',
-    'tokenbuy_link'     => ''
+    'tokenbuy_link'     => '',
+    'token_viewdecimals'=> '2'
   ) as $key => $default) {
     $data = get_post_meta( $lottery_id, $key, true);
     if ( empty( $data ) ) $data = $default;

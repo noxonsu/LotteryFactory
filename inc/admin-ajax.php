@@ -54,6 +54,19 @@ function lotteryfactory_update_options() {
     ),
     'tokenbuy_link' => array(
       'type'  => 'string'
+    ),
+    'token_viewdecimals'  => array(
+      'type'  => 'number',
+      'min'   => 0,
+      'max'   => 18
+    ),
+    'last_ticket_price'        => array(
+      'type'  => 'float'
+    ),
+    'last_treasury_fee'        => array(
+      'type'  => 'number',
+      'min'   => 0,
+      'max'   => 30
     )
   );
   $error = false;
