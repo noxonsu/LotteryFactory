@@ -62,23 +62,37 @@ const PreviousRoundCardFooter: React.FC<{ lotteryNodeData: LotteryRound; lottery
   const getPrizeBalances = () => {
     return (
       <>
-        {prizeInBusd.isNaN() ? (
-          <Skeleton my="7px" height={40} width={200} />
+        {token.info().price ? (
+          <>
+            {prizeInBusd.isNaN() ? (
+              <Skeleton my="7px" height={40} width={200} />
+            ) : (
+              <Heading scale="xl" lineHeight="1" color="secondary">
+                ~${formatNumber(getBalanceNumber(prizeInBusd, token.info().decimals), 0, 0)}
+              </Heading>
+            )}
+            {prizeInBusd.isNaN() ? (
+              <Skeleton my="2px" height={14} width={90} />
+            ) : (
+              <Balance
+                fontSize="14px"
+                color="textSubtle"
+                unit={` ${token.info().symbol}`}
+                value={getBalanceNumber(lotteryNodeData?.amountCollectedInCake, token.info().decimals)}
+                decimals={token.info().viewDecimals}
+              />
+            )}
+          </>
         ) : (
           <Heading scale="xl" lineHeight="1" color="secondary">
-            ~${formatNumber(getBalanceNumber(prizeInBusd, token.info().decimals), 0, 0)}
+            <Balance
+              fontSize="14px"
+              color="textSubtle"
+              unit={` ${token.info().symbol}`}
+              value={getBalanceNumber(lotteryNodeData?.amountCollectedInCake, token.info().decimals)}
+              decimals={token.info().viewDecimals}
+            />
           </Heading>
-        )}
-        {prizeInBusd.isNaN() ? (
-          <Skeleton my="2px" height={14} width={90} />
-        ) : (
-          <Balance
-            fontSize="14px"
-            color="textSubtle"
-            unit={` ${token.info().symbol}`}
-            value={getBalanceNumber(lotteryNodeData?.amountCollectedInCake, token.info().decimals)}
-            decimals={0}
-          />
         )}
       </>
     )

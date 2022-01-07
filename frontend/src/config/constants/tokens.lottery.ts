@@ -18,6 +18,7 @@ interface TokenInfo {
   symbol: string
   title: string
   decimals: number
+  viewDecimals: number
   price: number | false
 }
 
@@ -50,6 +51,7 @@ export const info = (): TokenInfo => {
       symbol,
       address,
       decimals,
+      viewDecimals,
       title,
       price,
     },
@@ -60,6 +62,7 @@ export const info = (): TokenInfo => {
     symbol,
     title,
     decimals,
+    viewDecimals: (viewDecimals !== undefined) ? viewDecimals : 2,
     price: price || false
   }
 }

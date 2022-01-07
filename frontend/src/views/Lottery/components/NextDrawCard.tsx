@@ -98,7 +98,7 @@ const NextDrawCard = () => {
           bold
           unit={` ${token.info().symbol}`}
           value={getBalanceNumber(amountCollectedInCake, token.info().decimals)}
-          decimals={0}
+          decimals={token.info().viewDecimals}
         />
       )
     }
