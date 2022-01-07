@@ -6,9 +6,12 @@ import { BigNumber } from '@ethersproject/bignumber'
 import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
 import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@pancakeswap/sdk'
 import { ROUTER_ADDRESS } from '../config/constants'
-import { BASE_BSC_SCAN_URLS } from '../config'
+// import { BASE_BSC_SCAN_URLS } from '../config'
 import { TokenAddressMap } from '../state/lists/hooks'
 
+
+// @ts-ignore
+const BASE_BSC_SCAN_URL = window.SO_LotteryConfig.etherscan
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
   try {
@@ -25,19 +28,19 @@ export function getBscScanLink(
 ): string {
   switch (type) {
     case 'transaction': {
-      return `${BASE_BSC_SCAN_URLS[chainId]}/tx/${data}`
+      return `${BASE_BSC_SCAN_URL}/tx/${data}`
     }
     case 'token': {
-      return `${BASE_BSC_SCAN_URLS[chainId]}/token/${data}`
+      return `${BASE_BSC_SCAN_URL}/token/${data}`
     }
     case 'block': {
-      return `${BASE_BSC_SCAN_URLS[chainId]}/block/${data}`
+      return `${BASE_BSC_SCAN_URL}/block/${data}`
     }
     case 'countdown': {
-      return `${BASE_BSC_SCAN_URLS[chainId]}/block/countdown/${data}`
+      return `${BASE_BSC_SCAN_URL}/block/countdown/${data}`
     }
     default: {
-      return `${BASE_BSC_SCAN_URLS[chainId]}/address/${data}`
+      return `${BASE_BSC_SCAN_URL}/address/${data}`
     }
   }
 }
@@ -47,7 +50,7 @@ export function getBscScanLinkForNft(
   tokenId: string,
   chainId: ChainId = ChainId.MAINNET,
 ): string {
-  return `${BASE_BSC_SCAN_URLS[chainId]}/token/${collectionAddress}?a=${tokenId}`
+  return `${BASE_BSC_SCAN_URL}/token/${collectionAddress}?a=${tokenId}`
 }
 
 // add 10%

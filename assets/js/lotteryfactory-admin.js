@@ -349,7 +349,7 @@
           unlockButton()
           return
         }
-        setLoaderStatus( langMsg( 'Save information abount numbers counts to contract' ) )
+        setLoaderStatus( langMsg( 'Save information about numbers counts to contract' ) )
         lotteryDeployer.setNumbersCount(lotteryAddress.value, numbersCount)
           .then((isOk) => {
             // call ajax save
@@ -539,11 +539,13 @@
     }
     closeAndGoDraw.disabled = true
     showLoader()
-    setLoaderStatus( langMsg( 'Closing lottery round. Confirm trasaction') )
+    setLoaderStatus( langMsg( 'Closing lottery round. Confirm transaction') )
     lotteryDeployer
       .closeLottery(lotteryContract)
       .then((res) => {
         unlockButton()
+        hideBlock('lottery_round')
+        showBlock('lottery_draw')
       })
       .catch((err) => {
         console.log('>> fail', err)
