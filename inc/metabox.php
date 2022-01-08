@@ -408,6 +408,20 @@ class LotteryFactory_Meta_Box {
           <th><label><?php echo esc_html__( 'Bank' )?></label></th>
           <td><strong id="lottery_current_bank">000</strong><strong>&nbsp;<?php echo $lottery['token_symbol']?></strong></td>
         </tr>
+        <tr id="lottery_inject_funds_holder" style="display: none;">
+          <th><label><?php echo esc_html__( 'Inject funds' )?></label></th>
+          <td>
+            <p class="lotteryfactory-form-inline">
+              <input type="number" id="lottery_inject_funds_tobank" min="0" step="any" value="0" />
+              <a class="button button-secondary" id="lottery_inject_funds">
+                <?php echo esc_html__( 'Add to bank' ); ?>
+              </a>
+            </p>
+            <p class="description">
+              <?php echo esc_html__('You can add some amount of tokens to bank of current lottery round') ?>
+            </p>
+          </td>
+        </tr>
         <tr>
           <th><label><?php echo esc_html__( 'Start time' )?></label></th>
           <td><strong id="lottery_current_starttime">000</strong></td>
@@ -480,11 +494,11 @@ class LotteryFactory_Meta_Box {
         </tr>
       </tbody>
     </table>
-    <div class="notice lotteryfactory-notice hide-all"><p></p></div>
     <div id="lotteryfactory_loaderOverlay" class="lotteryfactory-overlay">
 			<div class="lotteryfactory-loader"></div>
       <div class="lotteryfactory-loader-status" id="lotteryfactory_loaderStatus">Loading...</div>
 		</div>
+    <div class="notice lotteryfactory-notice hide-all"><p></p></div>
     <?php
 	}
 
