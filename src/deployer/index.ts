@@ -104,6 +104,15 @@ const handleError = (err) => {
   }
 }
 
+const getActiveAccount = async () => {
+  try {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' })
+    return accounts[0]
+  } catch (err) {
+    return false
+  }
+}
+
 const initMetamask = async () => {
   const isAccountUnlocked = localStorage.getItem(accountUnlockedStorageKey) === 'true'
 
@@ -462,6 +471,27 @@ const callLotteryMethod = (lotteryAddress, method, args: any[], callbacks: any =
   })
 }
 
+const isCorrectAddress = (address: string): boolean => {
+  return window.Web3.utils.isAddress(address)
+}
+// setMinAndMaxTicketPriceInCake
+// setMaxNumberTicketsPerBuy
+// setOperatorAddresses
+// injectFunds
+
+const setOperatorAddress = (lotteryAddress: string, operatorAddress: string, callbacks: any = {}) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      try {
+        const result = await callLotteryMethod(lotteryAddress, 'setOperatorAddresses', [ operatorAddress ], callbacks)
+        resolve(result)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
+}
+
 const setNumbersCount = (lotteryAddress: string, numbersCount: number, callbacks: any = {}) => {
   return new Promise((resolve, reject) => {
     waitMetamask(async () => {
@@ -518,6 +548,7 @@ window.lotteryContract = lottery
         if (tokenAddress) {
           const tokenInfo = await fetchTokenInfo(tokenAddress)
           resolve({
+            activeAccount: account,
             contract: lotteryAddress,
             owner: owner,
             operator: operator,
@@ -696,4 +727,7 @@ export default {
   getNumbersCount,
   setNumbersCount,
   setSelectedChain,
+  isCorrectAddress,
+  setOperatorAddress,
+  getActiveAccount,
 }

@@ -170,11 +170,37 @@ class LotteryFactory_Meta_Box {
       <tbody id="lottery_info" style="display: none">
         <tr>
           <th><label><?php echo esc_html__( 'Lottery owner', 'lotteryfactory' ); ?></label></th>
-          <td><strong id="lottery_owner"></strong></td>
+          <td>
+            <p class="lotteryfactory-form-inline">
+              <strong id="lottery_owner"></strong>
+            </p>
+            <p class="description">
+              <?php echo esc_html__('Owner can do all operations with lottery'); ?>
+            </p>
+          </td>
         </tr>
         <tr>
           <th><label><?php echo esc_html__( 'Lottery Operator', 'lotteryfactory' ); ?></label></th>
-          <td><strong id="lottery_operator"></strong></td>
+          <td>
+            <p class="lotteryfactory-form-inline" id="lottery_operator_viewbox">
+              <a class="button button-secondary" id="lottery_operator_change">
+                <strong id="lottery_operator"></strong>
+                <span>(<?php echo esc_html__('Click for change', 'lotteryfactory');?>)</span>
+              </a>
+            </p>
+            <p class="lotteryfactory-form-inline" id="lottery_operator_changebox" style="display: none;">
+              <input type="text" class="large-text" />
+              <a class="button button-secondary" id="lottery_operator_do_change">
+                <?php echo esc_html__('Change', 'lotteryfactory');?>
+              </a>
+              <a class="button button-secondary" id="lottery_operator_cancel_change">
+                <?php echo esc_html__('Cancel', 'lotteryfactory');?>
+              </a>
+            </p>
+            <p class="description">
+              <?php echo esc_html__('Operator can only start, stop lottery and draw numbers', 'lotteryfactory');?>
+            </p>
+          </td>
         </tr>
         <tr>
           <th><label><?php echo esc_html__( 'Treasury address', 'lotteryfactory' ); ?></label></th>
@@ -454,6 +480,7 @@ class LotteryFactory_Meta_Box {
         </tr>
       </tbody>
     </table>
+    <div class="notice lotteryfactory-notice hide-all"><p></p></div>
     <div id="lotteryfactory_loaderOverlay" class="lotteryfactory-overlay">
 			<div class="lotteryfactory-loader"></div>
       <div class="lotteryfactory-loader-status" id="lotteryfactory_loaderStatus">Loading...</div>

@@ -25,6 +25,9 @@
 
   var numbersCountChange = document.getElementById('lottery_numbers_count_change');
 
+  let thisIsOperator = false
+  let thisIsOwner = false
+
   var getValue = (id) => { return document.getElementById(id).value }
   var setValue = (id, value) => { document.getElementById(id).value = value }
   var setHtml = (id, value) => { document.getElementById(id).innerHTML = value }
@@ -39,6 +42,18 @@
   }
   var hideLoader = () => { loaderOverlay.classList.remove('visible') }
 
+  var showNotice = ( text, status = 'success' ) => {
+    const noticeEl = $('.lotteryfactory-notice');
+		noticeEl.find('p').text( text );
+		noticeEl.addClass('notice-' + status ).fadeIn();
+		setTimeout(function(){
+			noticeEl.fadeOut(function(){
+				noticeEl.removeClass('notice-' . status );
+				noticeEl.removeClass('notice-success notice-error');
+			});
+		},6000);
+	}
+
   var genSalt = () => {
     var result           = ''
     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -49,7 +64,12 @@
     return result
   }
 
-  const langMsg = (msg) => { return msg }
+  const langMsg = (msg, replaces = {}) => {
+    Object.keys(replaces).forEach((key) => {
+      msg = msg.replaceAll(`{${key}}`, escape(replaces[key]))
+    })
+    return msg
+  }
 
   var getDateDiffText = (dateStart, dateEnd) => {
     var diff = dateEnd - dateStart
@@ -142,6 +162,58 @@
   lotteryDeployer
     .setSelectedChain(selectedChain.value)
 
+  // Change operator address
+  $('#lottery_operator_change').on('click', function (e) {
+    e.preventDefault()
+    $('#lottery_operator_changebox>INPUT').val($('#lottery_operator').html())
+    hideBlock('lottery_operator_viewbox')
+    showBlock('lottery_operator_changebox')
+  })
+  $('#lottery_operator_cancel_change').on('click', function (e) {
+    e.preventDefault()
+    hideBlock('lottery_operator_changebox')
+    showBlock('lottery_operator_viewbox')
+  })
+  $('#lottery_operator_do_change').on('click', function (e) {
+    e.preventDefault()
+    const unlockButton = () => {
+      $('#lottery_operator_do_change')[0].disabled = false
+      $('#lottery_operator_cancel_change')[0].disabled = false
+      hideLoader()
+    }
+    const operatorAddress = $('#lottery_operator_changebox>INPUT').val()
+    if (!lotteryDeployer.isCorrectAddress(operatorAddress)) {
+      return errMessage(langMsg('Not correct address'))
+    }
+    if (confirm(
+      langMsg(
+        'Change operator address to {operatorAddress}?',
+        { operatorAddress }
+      ))
+    ) {
+      $('#lottery_operator_do_change')[0].disabled = true
+      $('#lottery_operator_cancel_change')[0].disabled = true
+      showLoader()
+      setLoaderStatus(langMsg( 'Change lottery operator to {operatorAddress}. Confirm transaction' , {
+        operatorAddress
+      }))
+      lotteryDeployer
+        .setOperatorAddress(lotteryAddress.value, operatorAddress)
+        .then( (result) => {
+          $('#lottery_operator').html(operatorAddress)
+          hideBlock('lottery_operator_changebox')
+          showBlock('lottery_operator_viewbox')
+          unlockButton()
+          showNotice( langMsg( 'Operator address succesfull changed to {operatorAddress}', { operatorAddress } ) )
+        })
+        .catch( (err) => {
+          console.log('>>>fail', err)
+          unlockButton()
+        })
+    }
+  })
+  // << Change operator address
+
   const fetchStatusFunc = () => {
     if (fetchStatus.disabled) return
     if (!lotteryAddress.value) return errMessage('No lottery address!')
@@ -152,12 +224,17 @@
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
+        thisIsOperator = (
+          (lotteryInfo.operator.toUpperCase() == lotteryInfo.activeAccount.toUpperCase())
+          || (lotteryInfo.owner.toUpperCase() == lotteryInfo.activeAccount.toUpperCase())
+        )
+        thisIsOwner = (lotteryInfo.owner.toUpperCase() == lotteryInfo.activeAccount.toUpperCase())
         console.log('>>>> lotteryInfo', lotteryInfo)
         setHtml('lottery_owner', lotteryInfo.owner)
         setHtml('lottery_operator', lotteryInfo.operator)
         setHtml('lottery_treasury', lotteryInfo.treasury)
         setHtml('lottery_current', lotteryInfo.currentLotteryNumber)
-        showBlock('lottery_info')
+        if (thisIsOwner) showBlock('lottery_info')
         hideLoader()
         hideBlock('lottery_start')
         hideBlock('lottery_round')
@@ -200,9 +277,10 @@
           showBlock('lottery_start')
         }
 
-        showBlock('lottery_settings')
+        if (thisIsOwner) showBlock('lottery_settings')
         reinit_winningPercents()
         fetchStatus.disabled = false
+        showNotice( langMsg('Lottery status fetched') )
       })
       .catch((e) => {
         console.log(e)
@@ -275,6 +353,7 @@
       }).then((ajaxAnswer) => {
         console.log('>> save result', ajaxAnswer)
         unlockButton()
+        showNotice( langMsg( 'Changes saved' ) )
       }).catch((isFail) => { unlockButton() })
     } else {
       errMessage( langMsg( 'The sum must be equal to 100%' ) )
@@ -364,6 +443,7 @@
               }
             }).then((ajaxAnswer) => {
               unlockButton()
+              showNotice( langMsg( 'Count of balls changed' ) )
             }).catch((isFail) => { unlockButton() })
           })
           .catch((errMsg) => {
@@ -402,6 +482,7 @@
     }).then((ajaxAnswer) => {
       console.log('>> save result', ajaxAnswer)
       unlockButton()
+      showNotice( langMsg( 'Changes changed' ) )
     }).catch((isFail) => { unlockButton() })
   })
 
@@ -480,6 +561,7 @@
       })
         .then((res) => {
           fetchStatusFunc()
+          showNotice( langMsg( 'New lottery round started' ) )
         })
         .catch((err) => {
           console.log('>> fail', err)
@@ -512,6 +594,7 @@
         hideBlock('lottery_draw')
         showBlock('lottery_start')
         hideLoader()
+        showNotice( langMsg( 'Final numbers drawed' ) )
       })
       .catch((err) => {
         console.log('>> fail', err)
@@ -546,6 +629,7 @@
         unlockButton()
         hideBlock('lottery_round')
         showBlock('lottery_draw')
+        showNotice( langMsg( 'Lottery round closed. Draw round numbers' ) )
       })
       .catch((err) => {
         console.log('>> fail', err)
@@ -567,6 +651,7 @@
     $('INPUT[data-winning-number="5"]').val(breakDowns[4]/ 100)
     $('#lottery_numbers_count').val(lotteryInfo.numbersCount)
   }
+
   $( fetchButton ).on( 'click', function(e) {
     e.preventDefault();
     if (fetchButton.disabled) return
@@ -595,6 +680,7 @@
         }
         showBlock('lottery_info')
         hideLoader()
+        showNotice( langMsg( 'Lottery info fetched from contract {address}', { address: lotteryAddress.value } ) )
         fetchButton.disabled = false
       })
       .catch((e) => {
@@ -620,6 +706,7 @@
       .then((tokenInfo) => {
         setTokenInfo(tokenInfo)
         hideLoader()
+        showNotice( langMsg( 'Token info fetched from address {tokenAddress}', { tokenAddress: tokenAddress.value } ) )
         fetchToken.disabled = false
       })
       .catch((e) => {
@@ -649,13 +736,14 @@
         lotteryDeployer.deploy({
           tokenAddress: tokenAddress.value,
           onTrx: (trxHash) => {
-            alert(`Transaction hash: ${trxHash}. Send this hash to the support if you have a problem with deploy.`)
+            showNotice(`Transaction hash: ${trxHash}. Send this hash to the support if you have a problem with deploy.`)
           },
           onSuccess: (address) => {
             console.log('Contract address:', address);
             deployButton.disabled = false;
             hideLoader()
             lotteryAddress.value = address;
+            showNotice( langMsg( 'Lottery contract deployed' ) )
           },
           onError: (err) => {
             console.error(err);
