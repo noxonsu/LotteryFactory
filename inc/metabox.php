@@ -71,7 +71,7 @@ class LotteryFactory_Meta_Box {
       <tr>
         <th><label><?php echo esc_html__( 'As home page', 'lotteryfactory' ); ?></label></th>
         <td>
-          <input type="checkbox" name="lottery_at_homepage" id="lottery_at_homepage" <?php echo ($lottery_at_homepage === $post->ID) ? 'checked' : ''?>/>
+          <input type="checkbox" name="lottery_at_homepage" id="lottery_at_homepage" <?php echo ($lottery_at_homepage == $post->ID) ? 'checked' : ''?>/>
           <label for="lottery_at_homepage"><?php echo esc_html__( 'Show this lottery at home page' ); ?></label>
         </td>
       </tr>
@@ -521,7 +521,7 @@ class LotteryFactory_Meta_Box {
     $current_lottery_at_homepage = get_option( 'lotteryfactory_id_at_homepage', 'false');
     $set_this_at_homepage = ( isset( $_POST['lottery_at_homepage'] ) and ($_POST[ 'lottery_at_homepage' ] == 'on' )) ? true : false;
 
-    if (!$set_this_at_homepage and (intval($current_lottery_at_homepage) == $post_id)) {
+    if (!$set_this_at_homepage and ($current_lottery_at_homepage !== 'false') and (intval($current_lottery_at_homepage) == $post_id)) {
       delete_option('lotteryfactory_id_at_homepage');
     } else if ($set_this_at_homepage) {
       update_option('lotteryfactory_id_at_homepage', $post_id);
