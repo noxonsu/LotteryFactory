@@ -51,7 +51,7 @@ function lottery_custom_template($single) {
 
     /* Checks for single template by post type */
     if ( $post->post_type == 'lotteryfactory' ) {
-      return LOTTERYFACTORY_PATH . 'templates/singlepage.php';
+      return LOTTERYFACTORY_PATH . 'templates' . DIRECTORY_SEPARATOR . 'singlepage.php';
       //die('this');
     }
 

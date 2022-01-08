@@ -56,7 +56,7 @@ class LotteryFactory_Meta_Box {
 		wp_nonce_field( 'lotteryfactory_meta_action', 'lotteryfactory_meta_nonce' );
 
     $lottery = lottery_get_data($post->ID);
-
+    $lottery_at_homepage = get_option( 'lotteryfactory_id_at_homepage', 'false');
 		// Form fields.
     ?>
     <input type="hidden" id="lotteryfactory_post_id" value="<?php echo $post->ID?>" />
@@ -65,7 +65,14 @@ class LotteryFactory_Meta_Box {
         <th><label><?php echo esc_html__( 'Design', 'lotteryfactory' );?></label></th>
         <td>
           <input type="checkbox" name="lottery_hide_footer_header" id="lottery_hide_footer_header" <?php echo ($lottery['hide_footer_header'] === 'true') ? 'checked' : ''?> />
-          <label><?php echo esc_html__( 'Hide WP footer and header', 'lotteryfactory' ); ?></label>
+          <label for="lottery_hide_footer_header"><?php echo esc_html__( 'Hide WP footer and header', 'lotteryfactory' ); ?></label>
+        </td>
+      </tr>
+      <tr>
+        <th><label><?php echo esc_html__( 'As home page', 'lotteryfactory' ); ?></label></th>
+        <td>
+          <input type="checkbox" name="lottery_at_homepage" id="lottery_at_homepage" <?php echo ($lottery_at_homepage === $post->ID) ? 'checked' : ''?>/>
+          <label for="lottery_at_homepage"><?php echo esc_html__( 'Show this lottery at home page' ); ?></label>
         </td>
       </tr>
       <tr>
@@ -509,6 +516,15 @@ class LotteryFactory_Meta_Box {
     foreach( $post_meta_checkboxs as $metaKey => $postKey) {
       $postValue = (isset( $_POST[ $postKey ] ) && ( $_POST[ $postKey ] == 'on' )) ? 'true' : 'false';
       update_post_meta( $post_id, $metaKey, $postValue );
+    }
+    // Lottery at home page
+    $current_lottery_at_homepage = get_option( 'lotteryfactory_id_at_homepage', 'false');
+    $set_this_at_homepage = ( isset( $_POST['lottery_at_homepage'] ) and ($_POST[ 'lottery_at_homepage' ] == 'on' )) ? true : false;
+
+    if (!$set_this_at_homepage and (intval($current_lottery_at_homepage) == $post_id)) {
+      delete_option('lotteryfactory_id_at_homepage');
+    } else if ($set_this_at_homepage) {
+      update_option('lotteryfactory_id_at_homepage', $post_id);
     }
 	}
 
