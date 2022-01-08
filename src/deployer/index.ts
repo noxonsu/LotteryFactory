@@ -476,8 +476,23 @@ const isCorrectAddress = (address: string): boolean => {
 }
 // setMinAndMaxTicketPriceInCake
 // setMaxNumberTicketsPerBuy
-// setOperatorAddresses
+
 // injectFunds
+const injectFunds = (lotteryAddress: string, weiAmount: BigNumber, callbacks: any = {}) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      try {
+        // get current lottery
+        const { contract, account } = await getContract(lotteryAddress)
+        const currentLotteryId = await contract.methods.viewCurrentLotteryId().call()
+        const result = await callLotteryMethod(lotteryAddress, 'injectFunds', [ currentLotteryId, weiAmount ], callbacks)
+        resolve(result)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
+}
 
 const setOperatorAddress = (lotteryAddress: string, operatorAddress: string, callbacks: any = {}) => {
   return new Promise((resolve, reject) => {
@@ -730,4 +745,5 @@ export default {
   isCorrectAddress,
   setOperatorAddress,
   getActiveAccount,
+  injectFunds,
 }

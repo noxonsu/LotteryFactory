@@ -213,14 +213,54 @@
     }
   })
   // << Change operator address
+  // Inject funds to current lottery round
+  $('#lottery_inject_funds').on('click', function (e) {
+    e.preventDefault()
+    const unlockButton = () => {
+      hideLoader()
+      $('#lottery_inject_funds')[0].disabled = false
+    }
+    const tokenDecimals = getNumber('lottery_token_decimals')
+    const injectAmount = getFloat('lottery_inject_funds_tobank')
+    if (tokenDecimals === false) {
+      return errMessage( langMsg( 'Could not determine token dicimals. Inquire about token and try again') )
+    }
+    if (injectAmount > 0) {
+      if (confirm(langMsg(
+        'Inject {amount} {symbol} to current lottery round?',
+        {
+          amount: injectAmount,
+          symbol: $('#lottery_token_symbol').val()
+        }
+      ))) {
+        const injectAmountWei = new BigNumber(injectAmount).multipliedBy(10 ** tokenDecimals).toFixed()
+        $('#lottery_inject_funds')[0].disabled = true
+        showLoader()
+        setLoaderStatus( langMsg( 'Injecting current lottery bank amount. Confirm transaction' ) )
+        lotteryDeployer
+          .injectFunds(lotteryAddress.value, injectAmountWei)
+          .then( (result) => {
+            unlockButton()
+            fetchStatusFunc( langMsg( 'Fund injected. Fetching actual lottery status' ) )
+          })
+          .catch( (err) => {
+            console.log('>>> err', err)
+            unlockButton()
+          })
+      }
+    } else {
+      return errMessage( langMsg( 'Amount for inject must be greater than zero' ) )
+    }
+  })
+  // << Inject funds
 
-  const fetchStatusFunc = () => {
+  const fetchStatusFunc = (ownMessage = false) => {
     if (fetchStatus.disabled) return
     if (!lotteryAddress.value) return errMessage('No lottery address!')
 
     fetchStatus.disabled = true
     showLoader()
-    setLoaderStatus( langMsg( 'Fetch lottery status' ) )
+    setLoaderStatus( (ownMessage !== false) ? ownMessage : langMsg( 'Fetch lottery status' ) )
     lotteryDeployer
       .fetchLotteryInfo(lotteryAddress.value)
       .then( (lotteryInfo) => {
@@ -240,6 +280,7 @@
         hideBlock('lottery_round')
         hideBlock('lottery_draw')
         hideBlock('lottery_settings')
+        hideBlock('lottery_inject_funds_holder')
         $('INPUT.lottery-winning-percent-input').attr('type', 'hidden')
 
         const current = lotteryInfo.currentLotteryInfo
@@ -276,6 +317,7 @@
         if (current.status === "3") {
           showBlock('lottery_start')
         }
+        if (thisIsOwner) showBlock('lottery_inject_funds_holder')
 
         if (thisIsOwner) showBlock('lottery_settings')
         reinit_winningPercents()
@@ -500,7 +542,7 @@
     const lotteryContract = getValue('lottery_address')
 
     if (tokenDecimals === false)
-      return errMessage( langMsg( 'Could not determine token dicimals. Inquire about teken and try again') )
+      return errMessage( langMsg( 'Could not determine token dicimals. Inquire about token and try again') )
     if (ticketPrice === false)
       return errMessage( langMsg( 'Enter the ticket price') )
     if (treasuryFee === false)
