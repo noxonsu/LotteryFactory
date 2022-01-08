@@ -17,8 +17,13 @@ class HomePageController extends Controller {
 	}
 
 	public function template($template) {
-
-        return $template;
+    if (is_front_page() and is_home()) {
+      $lottery_at_homepage = get_option( 'lotteryfactory_id_at_homepage', 'false');
+      if ($lottery_at_homepage) {
+        return LOTTERYFACTORY_PATH . 'templates' . DIRECTORY_SEPARATOR . 'homepage.php';
+      }
+    }
+    return $template;
 	}
 
 
