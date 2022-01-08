@@ -318,12 +318,14 @@ const HowToPlay: React.FC = () => {
           </Text>
         </Flex>
         <Flex flex="1" justifyContent="center">
-          <MatchExampleCard />
+          {/*<MatchExampleCard />*/}
+          <PoolAllocations />
         </Flex>
       </GappedFlex>
       <Divider />
       <GappedFlex flexDirection={['column', 'column', 'column', 'row']}>
-        <Flex flex="2" flexDirection="column" style={{display: 'none'}}>
+        {/*
+        <Flex flex="2" flexDirection="column">
           <Heading mb="24px" scale="lg" color="secondary">
             {t('Prize Funds')}
           </Heading>
@@ -366,9 +368,12 @@ const HowToPlay: React.FC = () => {
             </li>
           </BulletList>
         </Flex>
+        */}
+        {/*
         <Flex flex="1" justifyContent="center">
           <PoolAllocations />
         </Flex>
+        */}
       </GappedFlex>
     </Box>
   )

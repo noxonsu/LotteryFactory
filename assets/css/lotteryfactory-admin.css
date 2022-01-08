@@ -181,6 +181,17 @@
 	background-color: #313131;
 	animation: rectangle 1.5s infinite ease-in-out;
 }
+.lotteryfactory-notice {
+	position: fixed;
+	top: 40px;
+	z-index: 101;
+}
+.lotteryfactory-notice.notice-success {
+	background-color: #d4e6d5;
+}
+.lotteryfactory-notice.notice-error {
+	background-color: #eed4d4;
+}
 @keyframes rectangle {
 	0% {
 		transform:perspective(12rem) rotateX(0deg) rotateY(0deg)
