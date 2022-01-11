@@ -44,7 +44,7 @@ const TicketNumber: React.FC<TicketNumberProps> = ({ localId, id, number, reward
     <Flex flexDirection="column" mb="12px">
       <Flex justifyContent="space-between">
         <Text fontSize="12px" color="textSubtle">
-          #{localId || id}
+          #{parseInt(id, 10) + 1}
         </Text>
         {rewardBracket >= 0 && (
           <Text fontSize="12px">
