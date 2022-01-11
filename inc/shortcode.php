@@ -5,6 +5,53 @@
  * @package Lottery Factory
  */
 
+function lotteryfactory_notconfigured($errors, $hide_footer_header) {
+  ob_start();
+  ?>
+  <style type="text/css">
+    .lottery-error-holder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      right: 0px;
+    }
+    .lottery-error-view {
+      display: block;
+      width: 100%;
+    }
+    .lottery-error-view SPAN {
+      display: block;
+      text-align: center;
+      font-size: 30pt;
+      font-family: Arial;
+      color: #c30303;
+    }
+    .lottery-error-view STRONG {
+      display: block;
+      text-align: center;
+      font-size: 14pt;
+      font-family: sans-serif;
+      color: #2c2c2c;
+    }
+  </style>
+  <?php echo (!$hide_footer_header) ? '<div class="lottery-error-holder">' : '' ?>
+    <div class="lottery-error-view">
+      <span><?php echo esc_html__( 'Lottery not configured' , 'lotteryfactory'); ?></span>
+      <?php
+      foreach ($errors as $k=>&$error) {
+        ?><strong><?php echo $error?></strong><?php
+      }
+      ?>
+    </div>
+  <?php echo (!$hide_footer_header) ? '</div>' : '' ?>
+  
+  <?php
+  return ob_get_clean();
+}
 /**
  * Main Shortcode
  */
@@ -43,6 +90,12 @@ function lotteryfactory_main_shortcode( $atts ) {
     if ( empty( $data ) ) $data = $default;
     $lottery[ $key ] = $data;
   }
+
+  $errors = array();
+  if (!$lottery['blockchain']) $errors[] = esc_html__( 'Blockchain not specified', 'lotteryfactory');
+  if (!$lottery['contract']) $errors[] = esc_html__( 'Lottery contract not deployed', 'lotteryfactory');
+  if (!$lottery['token']) $errors[] = esc_html__( 'Lottery token not specified', 'lotteryfactory');
+  if (count($errors)) return lotteryfactory_notconfigured($errors, ($lottery['hide_footer_header'] == 'false'));
   /*
     Формула расчета реальных процентов выиграша с учетом админ-фи
     admin_fee = last_treasury_fee = burn
