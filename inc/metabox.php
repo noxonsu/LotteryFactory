@@ -154,17 +154,19 @@ class LotteryFactory_Meta_Box {
               )
             ?>
           </p>
-          <p class="description">
-            <?php echo esc_html__(
-              'Click &quot;Request lottery status &quot; to control her'
-              )
-            ?>
-          </p>
-          <p class="description" id="lottery_status_fetchholder" <?php echo (!($lottery['contract'] and $lottery['token_symbol'])) ? 'style="display: none;"' : ''?>>
-            <a class="button button-secondary" id="lotteryfactory_fetchstatus">
-              <?php echo esc_html__( 'Request lottery status', 'lotteryfactory' ) ?>
-            </a>
-          </p>
+          <div id="lottery_status_fetchholder" <?php echo (!($lottery['contract'] and $lottery['token_symbol'])) ? 'style="display: none;"' : ''?>>
+            <p class="description">
+              <?php echo esc_html__(
+                'Click &quot;Request lottery status &quot; to control her'
+                )
+              ?>
+            </p>
+            <p class="description">
+              <a class="button button-secondary" id="lotteryfactory_fetchstatus">
+                <?php echo esc_html__( 'Request lottery status', 'lotteryfactory' ) ?>
+              </a>
+            </p>
+          </div>
         </td>
       </tr>
       <tbody id="lottery_info" style="display: none">

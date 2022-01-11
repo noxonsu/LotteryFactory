@@ -786,6 +786,7 @@
             hideLoader()
             lotteryAddress.value = address;
             showNotice( langMsg( 'Lottery contract deployed' ) )
+            showBlock( 'lottery_status_fetchholder' )
           },
           onError: (err) => {
             console.error(err);
