@@ -34,7 +34,7 @@ const Countdown: React.FC<CountdownProps> = ({ nextEventTime, preCountdownText, 
             </>
           )}
           {secondsRemaining < 0 && (
-            <Heading color="#ffff">Waiting to draw winning combinations</Heading>
+            <Heading color="#ffff">Waiting for draw winning combinations</Heading>
           )}
         </Flex>
       ) : (
