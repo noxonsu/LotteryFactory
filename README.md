@@ -26,8 +26,9 @@ User can buy tikect and earn x1-x100 from his bet.
 
 ## Videos
 
-1. admin panel video (soon)
-2. user panel video (soon)
+1. Intall plugin - https://drive.google.com/file/d/1_1LdHXkkKE-syIit6DZzHZdoysBV011j/view
+2. Create and set up lottery - https://drive.google.com/file/d/1YUrKxZhgfrH3-j91d5BklyflVffGD5S4/view
+3. Generate winning combination, calculate winning nubmers on admin side and check tikets and claim reward on user side - https://watch.screencastify.com/v/Rgvtvd2BLAyU8aBvePdY
 
 ## How it works?
 
