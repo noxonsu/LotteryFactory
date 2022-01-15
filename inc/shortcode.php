@@ -64,7 +64,7 @@ function lotteryfactory_main_shortcode( $atts ) {
 	$id             = $atts['id'];
   $lottery = array();
   foreach( array(
-    'blockchain'        => 'matic_testnet',
+    'blockchain'        => 'eth_rinkeby',
     'token'             => '',
     'token_name'        => '',
     'token_symbol'      => '',
