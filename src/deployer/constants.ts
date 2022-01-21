@@ -40,6 +40,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     nativeCurrency: CURRENCIES.BNB
   },
   {
+    slug: 'bsc_mainnet',
+    chainName: 'Binance Smart Chain',
+    chainId: '0x38',
+    networkVersion: 56,
+    rpcUrls: ['https://bsc-dataseed.binance.org/'],
+    blockExplorerUrls: ['https://bscscan.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.BNB
+  },
+  {
     slug: 'matic_testnet',
     chainName: 'Polygon - Testnet (mumbai)',
     chainId: '0x13881',
@@ -47,6 +57,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
     blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
     isTestnet: true,
+    nativeCurrency: CURRENCIES.MATIC
+  },
+  {
+    slug: 'matic_mainnet',
+    chainName: 'Polygon',
+    chainId: '0x89',
+    networkVersion: 137,
+    rpcUrls: ['https://rpc-mainnet.maticvigil.com'],
+    blockExplorerUrls: ['https://polygonscan.com'],
+    isTestnet: false,
     nativeCurrency: CURRENCIES.MATIC
   },
   {
@@ -60,6 +80,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     nativeCurrency: CURRENCIES.ETH
   },
   {
+    slug: 'eth_mainnet',
+    chainName: 'Ethereum',
+    chainId: '0x1',
+    networkVersion: 1,
+    rpcUrls: ['https://mainnet.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c'],
+    blockExplorerUrls: ['https://etherscan.io'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.ETH
+  },
+  {
     slug: 'arbeth_testnet',
     chainName: 'Arbitrum - Testnet (Rinkeby)',
     chainId: '0x66EEB',
@@ -70,6 +100,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     nativeCurrency: CURRENCIES.ARBETH
   },
   {
+    slug: 'arbeth_mainnet',
+    chainName: 'Arbitrum',
+    chainId: '0xA4B1',
+    networkVersion: 42161,
+    rpcUrls: ['https://arb1.arbitrum.io/rpc'],
+    blockExplorerUrls: ['https://explorer.arbitrum.io'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.ARBETH
+  },
+  {
     slug: 'xdai_testnet',
     chainName: 'xDai - Testnet (Sokol)',
     chainId: '0x4d',
@@ -77,6 +117,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     rpcUrls: ['https://sokol.poa.network'],
     blockExplorerUrls: ['https://blockscout.com/poa/sokol'],
     isTestnet: true,
+    nativeCurrency: CURRENCIES.XDAI
+  },
+  {
+    slug: 'xdai_mainnet',
+    chainName: 'xDai (Gnosis)',
+    chainId: '0x64',
+    networkVersion: 100,
+    rpcUrls: ['https://rpc.xdaichain.com/'],
+    blockExplorerUrls: ['https://blockscout.com/xdai/mainnet'],
+    isTestnet: false,
     nativeCurrency: CURRENCIES.XDAI
   },
 ];

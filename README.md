@@ -15,19 +15,20 @@ User can buy tikect and earn x1-x100 from his bet.
 
 ## Supported blockchains (token standards)
 
-1. Ethereum (Rinkeby)
-2. Binance Smart Chain (Testnet)
-3. Polygon or Matic (Testnet - Mumbai)
-4. Gnosis or xDai (Testnet - POA Sokol)
-5. Arbitrum (Rinkeby)
+1. Ethereum
+2. Binance Smart Chain
+3. Polygon (Matic)
+4. Gnosis (xDai)
+5. Arbitrum
+6. Testnet blockchains for the above
 
 **Supported tokens**: Any ERC20 (BEP20) tokens from supported blockchains.
 
 ## Videos
 
 1. Intall plugin - <https://drive.google.com/file/d/1_1LdHXkkKE-syIit6DZzHZdoysBV011j/view>
-2. Create and set up lottery - (soon)
-3. Generate winning combination, calculate winning nubmers on admin side and check tikets and claim reward on user side - (soon)
+2. Create and set up lottery - <https://drive.google.com/file/d/1YUrKxZhgfrH3-j91d5BklyflVffGD5S4/view>
+3. Generate winning combination, calculate winning nubmers on admin side and check tikets and claim reward on user side - <https://watch.screencastify.com/v/Rgvtvd2BLAyU8aBvePdY>
 
 ## How it works?
 
