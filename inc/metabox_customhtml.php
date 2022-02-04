@@ -43,7 +43,7 @@
       </tr>
     </tbody>
   </table>
-  <table class="form-table">
+  <table class="form-table" style="display: none">
     <tr>
       <th scope="row"></th>
       <td>
