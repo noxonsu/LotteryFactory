@@ -2,7 +2,7 @@
   $lottery = lottery_get_data(get_the_ID());
 
   if ($lottery['hide_footer_header'] === 'true') {
-    lottery_default_header();
+    lottery_default_header($lottery);
   } else {
     get_header();
   }
@@ -12,7 +12,7 @@
   echo $lottery_html;
 
   if ($lottery['hide_footer_header'] === 'true') {
-    lottery_default_footer();
+    lottery_default_footer($lottery);
   } else {
     get_footer();
   }
