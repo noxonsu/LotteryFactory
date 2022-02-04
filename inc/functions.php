@@ -59,7 +59,7 @@ function lottery_get_data($lottery_id) {
   return $lottery;
 }
 
-function lottery_default_header() {
+function lottery_default_header($lottery_data) {
   ?>
   <!DOCTYPE html>
   <html class="no-js" <?php language_attributes(); ?>>
@@ -81,12 +81,25 @@ function lottery_default_header() {
           padding: 0;
         }
       </style>
+      <?php
+      if (isset($lottery_data['custom_html_before_head_close'])) {
+        echo wp_specialchars_decode( $lottery_data[ 'custom_html_before_head_close' ], ENT_QUOTES );
+      }
+      ?>
     </head>
     <body>
+    <?php
+      if (isset($lottery_data['custom_html_after_body_open'])) {
+        echo wp_specialchars_decode( $lottery_data[ 'custom_html_after_body_open' ], ENT_QUOTES );
+      }
+    ?>
   <?php
 }
 
-function lottery_default_footer() {
+function lottery_default_footer($lottery_data) {
+  if (isset($lottery_data['custom_html_before_body_close'])) {
+    echo wp_specialchars_decode( $lottery_data[ 'custom_html_before_body_close' ], ENT_QUOTES );
+  }
   ?>
     </body>
   </html>
