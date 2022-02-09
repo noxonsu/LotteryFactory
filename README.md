@@ -56,3 +56,6 @@ A: Yes, if no one has the winner ticket the bank stay on the contract. Admin can
 
 Q: How many tickets can buy one user?
 A: unlimited, but it takes gas (?).
+
+Q: How to hide service link?
+A: In WP Admin Panel go to All Lotteries and select one, then in "Main settings and lottery control" and turn on Hide checkbox in "Service Link" option and click on the "Update" button.
