@@ -55,7 +55,6 @@ export const info = (): TokenInfo => {
       title,
       price,
     },
-  // @ts-ignore
   } = window.SO_LotteryConfig
   return {
     address,
@@ -77,7 +76,6 @@ const tokens = (): TokenList => {
       decimals,
       title
     },
-  // @ts-ignore
   } = window.SO_LotteryConfig
 
   tokensList.cake = new Token(

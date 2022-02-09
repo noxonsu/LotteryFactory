@@ -77,6 +77,13 @@ class LotteryFactory_Meta_Box {
           </td>
         </tr>
         <tr>
+          <th><label><?php echo esc_html__( 'Service Link', 'lotteryfactory' );?></label></th>
+          <td>
+            <input type="checkbox" name="lottery_hide_service_link" id="lottery_hide_service_link" <?php echo ($lottery['hide_service_link'] === 'true') ? 'checked' : ''?> />
+            <label for="lottery_hide_service_link"><?php echo esc_html__( 'Hide', 'lotteryfactory' ); ?></label>
+          </td>
+        </tr>
+        <tr>
           <th><label><?php echo esc_html__( 'As home page', 'lotteryfactory' ); ?></label></th>
           <td>
             <input type="checkbox" name="lottery_at_homepage" id="lottery_at_homepage" <?php echo ($lottery_at_homepage == $post->ID) ? 'checked' : ''?>/>
@@ -582,7 +589,8 @@ class LotteryFactory_Meta_Box {
       'lottery_custom_html_before_body_close'
     );
     $post_meta_checkboxs = array(
-      'hide_footer_header'=> 'lottery_hide_footer_header'
+      'hide_footer_header'=> 'lottery_hide_footer_header',
+      'hide_service_link'=> 'lottery_hide_service_link',
     );
     $post_meta_values = array();
 

@@ -37,6 +37,7 @@ function lottery_get_data($lottery_id) {
     'last_treasury_fee' => '2',
     'numbers_count'     => '6',
     'hide_footer_header'=> 'true',
+    'hide_service_link'=> 'false',
     // default winning percents
     'winning_1'         => '2.5',
     'winning_2'         => '3.75',
