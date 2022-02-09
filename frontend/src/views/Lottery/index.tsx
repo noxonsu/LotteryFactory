@@ -24,6 +24,7 @@ import AllHistoryCard from './components/AllHistoryCard'
 import CheckPrizesSection from './components/CheckPrizesSection'
 import HowToPlay from './components/HowToPlay'
 import useShowMoreUserHistory from './hooks/useShowMoreUserRounds'
+import ServiceLink from 'components/ServiceLink'
 
 const LotteryPage = styled.div`
   min-height: calc(100vh - 64px);
@@ -38,6 +39,7 @@ const Lottery = () => {
     currentRound: { status, endTime },
   } = useLottery()
   const [historyTabMenuIndex, setHistoryTabMenuIndex] = useState(0)
+  const showServiceLink = !window?.SO_LotteryConfig?.hideServiceLink
 
   const endTimeAsInt = parseInt(endTime, 10)
   const { nextEventTime, postCountdownText, preCountdownText } = useGetNextLotteryEvent(endTimeAsInt, status)
@@ -74,6 +76,7 @@ const Lottery = () => {
             )}
           </Flex>
           <NextDrawCard />
+          { showServiceLink && <ServiceLink /> }
         </Flex>
       </PageSection>
       <PageSection background={CHECK_PRIZES_BG} hasCurvedDivider={false} index={2}>
