@@ -1013,12 +1013,12 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
             ((_endTime - block.timestamp) > MIN_LENGTH_LOTTERY) && ((_endTime - block.timestamp) < MAX_LENGTH_LOTTERY),
             "Lottery length outside of range"
         );
-
+/*
         require(
             (_priceTicketInCake >= minPriceTicketInCake) && (_priceTicketInCake <= maxPriceTicketInCake),
             "Outside of limits"
         );
-
+*/
         require(_discountDivisor >= MIN_DISCOUNT_DIVISOR, "Discount divisor too low");
         require(_treasuryFee <= MAX_TREASURY_FEE, "Treasury fee too high");
 

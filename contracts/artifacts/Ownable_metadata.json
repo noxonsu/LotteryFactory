@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.7+commit.e28d00a7"
+		"version": "0.8.0+commit.c7dfd78e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -87,24 +87,24 @@
 		"compilationTarget": {
 			"Lottery.sol": "Ownable"
 		},
-		"evmVersion": "london",
+		"evmVersion": "istanbul",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 20000
+			"runs": 99999
 		},
 		"remappings": []
 	},
 	"sources": {
 		"Lottery.sol": {
-			"keccak256": "0x9f07022e7e7161dfbbc6881a21d619195faa5e4898fc5363706c631a0b292d7a",
+			"keccak256": "0x53ef5080266147d6bfa62cfc201125d2c7b6ee314f24cc4565c955df70214ff3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://617bfd8ef0dc8788db57346d569b414818fa8882a90b1c9ee8820304cccd7b6c",
-				"dweb:/ipfs/QmWMLygetPzW6chV4bJmXKiU6qEUTsr7yaeUZXgScJNQfd"
+				"bzz-raw://b5959ad83bc13c056dca9cbcd7ee4fb991c4e7e364891c5d5efd346d52327c3c",
+				"dweb:/ipfs/QmZJeLJGdTjiHwkp7pCw5tqtaU1wKMJVBjeuRJnSW71TQe"
 			]
 		}
 	},
