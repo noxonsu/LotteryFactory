@@ -26,6 +26,11 @@ export const CURRENCIES = {
     symbol: 'xDAI',
     decimals: 18
   },
+  FTM: {
+    name: "FTM",
+    symbol: 'FTM',
+    decimals: 18
+  }
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
@@ -128,5 +133,25 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://blockscout.com/xdai/mainnet'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.XDAI
+  },
+  {
+    slug: 'fantom_testnet',
+    chainName: 'Fantom testnet',
+    chainId: '0xfa2',
+    networkVersion: 4002,
+    rpcUrls: ['https://rpc.testnet.fantom.network/'],
+    blockExplorerUrls: ['https://testnet.ftmscan.com'],
+    isTestnet: true,
+    nativeCurrency: CURRENCIES.FTM
+  },
+  {
+    slug: 'fantom_mainnet',
+    chainName: 'Fantom',
+    chainId: '0xfa',
+    networkVersion: 250,
+    rpcUrls: ['https://rpc.ftm.tools/'],
+    blockExplorerUrls: ['https://ftmscan.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.FTM
   },
 ];

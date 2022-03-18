@@ -208,6 +208,18 @@ function lotteryfactory_blockchains() {
       'rpc'       => 'https://rpc.xdaichain.com/',
       'title'     => 'DAI Mainnet (Gnosis)',
       'etherscan' => 'https://blockscout.com/xdai/mainnet'
-    )
+    ),
+    'fantom_testnet' => array(
+      'chainId'   => 4002,
+      'rpc'       => 'https://rpc.testnet.fantom.network/',
+      'title'     => 'Fantom testnet',
+      'etherscan' => 'https://testnet.ftmscan.com'
+    ),
+    'fantom_mainnet' => array(
+      'chainId'   => 250,
+      'rpc'       => 'https://rpc.ftm.tools/',
+      'title'     => 'Fantom',
+      'etherscan' => 'https://ftmscan.com'
+    ),
   );
 }
