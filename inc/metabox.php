@@ -431,7 +431,7 @@ class LotteryFactory_Meta_Box {
               <p class="lotteryfactory-form-inline">
                 <input type="number" id="lottery_inject_funds_tobank" min="0" step="any" value="0" />
                 <a class="button button-secondary" id="lottery_inject_funds">
-                  <?php echo esc_html__( 'Add to bank' ); ?>
+                  <?php echo esc_html__( 'Approve and add to bank' ); ?>
                 </a>
               </p>
               <p class="description">

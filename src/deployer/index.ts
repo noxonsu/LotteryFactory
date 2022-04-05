@@ -343,6 +343,34 @@ const getContract = (lotteryContract: string): Promise<any> => {
   })
 }
 
+const getTokenContract = (tokenAddress: string): Promise<any> => {
+  return new Promise(async (resolve, reject) => {
+    const { abi } = json
+
+    const { web3 } = getState()
+
+    let contract
+    let accounts
+
+    try {
+      contract = new web3.eth.Contract(TokenAbi, tokenAddress)
+      accounts = await window.ethereum.request({ method: 'eth_accounts' })
+    } catch (err) {
+      reject(err)
+      return
+    }
+
+    if (!accounts || !accounts[0]) {
+      reject('Wallet account is undefined.')
+      return
+    }
+    resolve({
+      contract,
+      account: accounts[0],
+    })
+  })
+}
+
 const drawNumbers = (lotteryContract, userSalt) => {
   return new Promise((resolve, reject) => {
     waitMetamask(async () => {
@@ -471,6 +499,63 @@ const callLotteryMethod = (lotteryAddress, method, args: any[], callbacks: any =
   })
 }
 
+const callTokenMethod = (tokenAddress, method, args: any[], callbacks: any = {}) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      try {
+        const { contract, account } = await getTokenContract(tokenAddress)
+        const {
+          transactionHash,
+          onError,
+          onReceipt,
+        } = callbacks
+
+        const txArguments = {
+          from: account,
+          gas: '0'
+        }
+        const gasAmountCalculated = await contract.methods
+          [method](...args)
+          .estimateGas(txArguments)
+
+        const gasAmounWithPercentForSuccess = new BigNumber(
+          new BigNumber(gasAmountCalculated)
+            .multipliedBy(1.05) // + 5% -  множитель добавочного газа, если будет фейл транзакции - увеличит (1.05 +5%, 1.1 +10%)
+            .toFixed(0)
+        ).toString(16)
+
+        txArguments.gas = '0x' + gasAmounWithPercentForSuccess
+
+        contract.methods
+          [method](...args)
+          .send(txArguments)
+          .on('transactionHash', (hash) => {
+            if (typeof transactionHash === 'function') {
+              transactionHash(hash)
+            }
+          })
+          .on('error', (error) => {
+            if (typeof onError === 'function') {
+              console.log('transaction error:', error)
+              onError(error)
+            }
+          })
+          .on('receipt', (receipt) => {
+            if (typeof onReceipt === 'function') {
+              console.log('transaction receipt:', receipt)
+              onReceipt(receipt)
+            }
+          })
+          .then(() => {
+            console.log('all ready')
+            resolve(true)
+          })
+      } catch (err) {
+        reject(err)
+      }
+    })
+  })
+}
 const isCorrectAddress = (address: string): boolean => {
   return window.Web3.utils.isAddress(address)
 }
@@ -674,6 +759,67 @@ const switchOrAddChain = async () => {
 
 const getChainInfoBySlug = (chainSlug: string) => AVAILABLE_NETWORKS_INFO.find(networkInfo => networkInfo.slug === chainSlug)
 
+const fetchTokenAllowance = (tokenAddress: string, lotteryAddress: string) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      const {
+        web3,
+        account
+      } = getState()
+
+      try {
+        const tokenContract = new web3.eth.Contract(TokenAbi, tokenAddress, {
+          from: account,
+        })
+        const allowance = await tokenContract.methods.allowance(account, lotteryAddress).call()
+        resolve(allowance)
+      } catch (e) { reject() }
+    })
+  })
+}
+
+const approveInjectFunds = (tokenAddress: string, lotteryAddress: string, weiAmount: BigNumber, callbacks: any) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      const {
+        web3,
+        account
+      } = getState()
+      try {
+        try {
+          const result = await callTokenMethod(tokenAddress, 'approve', [ lotteryAddress, weiAmount ], callbacks)
+          resolve(result)
+        } catch (err) {
+          reject(err)
+        }
+        callTokenMethod
+        const tokenContract = new web3.eth.Contract(TokenAbi, tokenAddress, {
+          from: account,
+        })
+        const allowance = await tokenContract.methods.allowance(account, lotteryAddress).call()
+        resolve(allowance)
+      } catch (e) { reject() }
+    })
+  })
+}
+
+const checkNeedApprove = (tokenAddress: string, lotteryAddress: string, weiAmount: BigNumber) => {
+  return new Promise((resolve, reject) => {
+    waitMetamask(async () => {
+      const {
+        web3,
+        account
+      } = getState()
+      try {
+        const allowanceWei = await fetchTokenAllowance(tokenAddress, lotteryAddress)
+        // @ts-ignore
+        const needApprove = !weiAmount.isLessThan(allowanceWei)
+        resolve(needApprove)
+      } catch (e) { reject() }
+    })
+  })
+}
+
 const fetchTokenInfo = (tokenAddress: string) => {
   return new Promise((resolve, reject) => {
     waitMetamask(async () => {
@@ -746,4 +892,6 @@ export default {
   setOperatorAddress,
   getActiveAccount,
   injectFunds,
+  checkNeedApprove,
+  approveInjectFunds,
 }
