@@ -236,12 +236,39 @@
         const injectAmountWei = new BigNumber(injectAmount).multipliedBy(10 ** tokenDecimals).toFixed()
         $('#lottery_inject_funds')[0].disabled = true
         showLoader()
-        setLoaderStatus( langMsg( 'Injecting current lottery bank amount. Confirm transaction' ) )
+        setLoaderStatus( langMsg( 'Injecting current lottery bank amount. Check approve' ) )
+
+        const injectFundsDo = () => {
+          setLoaderStatus( langMsg( 'Injecting current lottery bank amount. Confirm transaction' ) )
+          lotteryDeployer
+            .injectFunds(lotteryAddress.value, injectAmountWei)
+            .then( (result) => {
+              unlockButton()
+              fetchStatusFunc( langMsg( 'Fund injected. Fetching actual lottery status' ) )
+            })
+            .catch( (err) => {
+              console.log('>>> err', err)
+              unlockButton()
+            })
+        }
         lotteryDeployer
-          .injectFunds(lotteryAddress.value, injectAmountWei)
-          .then( (result) => {
-            unlockButton()
-            fetchStatusFunc( langMsg( 'Fund injected. Fetching actual lottery status' ) )
+          .checkNeedApprove(tokenAddress.value, lotteryAddress.value, new BigNumber(injectAmountWei))
+          .then( (needApprove) => {
+            if (needApprove) {
+              console.log('>>> need approve')
+              setLoaderStatus( langMsg( 'Approve injecting funds. Confirm transaction' ) )
+              lotteryDeployer
+                .approveInjectFunds(tokenAddress.value, lotteryAddress.value, injectAmountWei)
+                .then(() => {
+                  injectFundsDo()
+                })
+                .catch( (err) => {
+                  console.log('>>> err', err)
+                  unlockButton()
+                })
+            } else {
+              injectFundsDo()
+            }
           })
           .catch( (err) => {
             console.log('>>> err', err)
