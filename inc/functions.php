@@ -205,7 +205,7 @@ function lotteryfactory_blockchains() {
     ),
     'xdai_mainnet' => array(
       'chainId'   => 100,
-      'rpc'       => 'https://rpc.xdaichain.com/',
+      'rpc'       => 'https://rpc.gnosischain.com',
       'title'     => 'DAI Mainnet (Gnosis)',
       'etherscan' => 'https://blockscout.com/xdai/mainnet'
     ),
