@@ -30,6 +30,11 @@ export const CURRENCIES = {
     name: "FTM",
     symbol: 'FTM',
     decimals: 18
+  },
+  AME: {
+    name: "AME",
+    symbol: 'AME',
+    decimals: 18
   }
 }
 
@@ -153,5 +158,15 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://ftmscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.FTM
+  },
+  {
+    slug: 'ame_mainnet',
+    chainName: 'AME chain',
+    chainId: '0xb4',
+    networkVersion: 180,
+    rpcUrls: ['https://node1.amechain.io/'],
+    blockExplorerUrls: ['https://amescan.io'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.AME
   },
 ];

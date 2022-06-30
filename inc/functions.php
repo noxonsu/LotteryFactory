@@ -163,14 +163,14 @@ function lotteryfactory_blockchains() {
     ),
     'matic_testnet' => array(
       'chainId'   => 80001,
-      'rpc'       => 'https://rpc-mumbai.maticvigil.com',
-      'title'     => 'Polygon Matic - Testnet (mumbai)',
+      'rpc'       => 'https://matic-mumbai.chainstacklabs.com',
+      'title'     => 'Polygon - Testnet (mumbai)',
       'etherscan' => 'https://mumbai.polygonscan.com'
     ),
     'matic_mainnet' => array(
       'chainId'   => 137,
-      'rpc'       => 'https://rpc-mainnet.maticvigil.com',
-      'title'     => 'Polygon Matic',
+      'rpc'       => 'https://polygon-rpc.com',
+      'title'     => 'Polygon',
       'etherscan' => 'https://polygonscan.com'
     ),
     'eth_rinkeby'   => array(
@@ -220,6 +220,12 @@ function lotteryfactory_blockchains() {
       'rpc'       => 'https://rpc.ftm.tools/',
       'title'     => 'Fantom',
       'etherscan' => 'https://ftmscan.com'
+    ),
+    'ame_mainnet' => array(
+      'chainId'   => 180,
+      'rpc'       => 'https://node1.amechain.io/',
+      'title'     => 'AME Chain',
+      'etherscan' => 'https://amescan.io'
     ),
   );
 }
