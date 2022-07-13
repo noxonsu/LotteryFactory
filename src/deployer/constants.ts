@@ -126,10 +126,10 @@ export const AVAILABLE_NETWORKS_INFO = [
   },
   {
     slug: 'xdai_mainnet',
-    chainName: 'xDai (Gnosis)',
+    chainName: 'Gnosis (xDai)',
     chainId: '0x64',
     networkVersion: 100,
-    rpcUrls: ['https://rpc.xdaichain.com/'],
+    rpcUrls: ['https://rpc.gnosischain.com'],
     blockExplorerUrls: ['https://blockscout.com/xdai/mainnet'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.XDAI
