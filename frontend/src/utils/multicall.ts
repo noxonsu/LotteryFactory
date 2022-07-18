@@ -40,6 +40,7 @@ export const multicallv2 = async <T = any>(
   calls: Call[],
   options: MulticallOptions = { requireSuccess: true },
 ): Promise<MultiCallResponse<T>> => {
+  if (true) return multicall(abi, calls)
   const { requireSuccess } = options
   const multi = getMulticallContract()
   const itf = new ethers.utils.Interface(abi)
