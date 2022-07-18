@@ -13,7 +13,7 @@ export const getMasterChefAddress = () => {
 }
 export const getMulticallAddress = () => {
   // @ts-ignore
-  return window.SO_LotteryConfig.contract
+  //return window.SO_LotteryConfig.contract
   return getAddress(addresses.multiCall)
 }
 export const getLotteryV2Address = () => {
