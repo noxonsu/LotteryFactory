@@ -18,10 +18,9 @@ import { useTranslation } from 'contexts/Localization'
 import { useWeb3React } from '@web3-react/core'
 import tokens from 'config/constants/tokens.lottery'
 import * as token from 'config/constants/tokens.lottery'
-import { getFullDisplayBalance } from 'utils/formatBalance'
+import { getDecimalAmount, getFullDisplayBalance } from 'utils/formatBalance'
 import { BIG_ZERO, ethersToBigNumber } from 'utils/bigNumber'
 import { useAppDispatch } from 'state'
-import { usePriceCakeBusd } from 'state/farms/hooks'
 import { useLottery } from 'state/lottery/hooks'
 import { fetchUserTicketsAndLotteries } from 'state/lottery'
 import useTheme from 'hooks/useTheme'
@@ -240,19 +239,27 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
     userCurrentTickets,
   )
 
+  const onRequiresApproval = useCallback(async () => {
+    try {
+      const response = await cakeContract.allowance(account, lotteryContract.address)
+
+      const currentAllowance = ethersToBigNumber(response)
+      const currentTotalCost = getDecimalAmount(new BigNumber(totalCost), token.info().decimals)
+
+      const isEnoughAllowance = currentAllowance.gte(currentTotalCost)
+
+      return isEnoughAllowance
+    } catch (error) {
+      return false
+    }
+  }, [totalCost, account])
+
   const { isApproving, isApproved, isConfirmed, isConfirming, handleApprove, handleConfirm } =
     useApproveConfirmTransaction({
-      onRequiresApproval: async () => {
-        try {
-          const response = await cakeContract.allowance(account, lotteryContract.address)
-          const currentAllowance = ethersToBigNumber(response)
-          return currentAllowance.gt(0)
-        } catch (error) {
-          return false
-        }
-      },
+      onRequiresApproval: useMemo(() => onRequiresApproval, [totalCost, account]),
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [lotteryContract.address, ethers.constants.MaxUint256])
+        const totalCostEthBN = ethers.BigNumber.from(getDecimalAmount(new BigNumber(totalCost), token.info().decimals).toString())
+        return callWithGasPrice(cakeContract, 'approve', [lotteryContract.address, totalCostEthBN])
       },
       onApproveSuccess: async ({ receipt }) => {
         toastSuccess(
