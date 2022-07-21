@@ -246,7 +246,7 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
       const currentAllowance = ethersToBigNumber(response)
       const currentTotalCost = getDecimalAmount(new BigNumber(totalCost), token.info().decimals)
 
-      const isEnoughAllowance = currentAllowance.gt(currentTotalCost)
+      const isEnoughAllowance = currentAllowance.gte(currentTotalCost)
 
       return isEnoughAllowance
     } catch (error) {
@@ -258,7 +258,8 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
     useApproveConfirmTransaction({
       onRequiresApproval: useMemo(() => onRequiresApproval, [totalCost, account]),
       onApprove: () => {
-        return callWithGasPrice(cakeContract, 'approve', [lotteryContract.address, ethers.constants.MaxUint256])
+        const totalCostEthBN = ethers.BigNumber.from(getDecimalAmount(new BigNumber(totalCost), token.info().decimals).toString())
+        return callWithGasPrice(cakeContract, 'approve', [lotteryContract.address, totalCostEthBN])
       },
       onApproveSuccess: async ({ receipt }) => {
         toastSuccess(
