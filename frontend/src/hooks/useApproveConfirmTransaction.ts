@@ -31,7 +31,7 @@ const reducer = (state: State, actions: Action): State => {
     case 'requires_approval':
       return {
         ...state,
-        approvalState: 'success',
+        approvalState: 'idle',
       }
     case 'approve_sending':
       return {
@@ -91,19 +91,20 @@ const useApproveConfirmTransaction = ({
   const { t } = useTranslation()
   const { account } = useWeb3React()
   const [state, dispatch] = useReducer(reducer, initialState)
-  const handlePreApprove = useRef(onRequiresApproval)
   const { toastError } = useToast()
 
-  // Check if approval is necessary, re-check if account changes
+  // Check if approval is necessary, re-check if account or totalCost in onRequiresApproval changes
   useEffect(() => {
-    if (account && handlePreApprove.current) {
-      handlePreApprove.current().then((result) => {
-        if (result) {
+    if (account && onRequiresApproval) {
+      onRequiresApproval().then((isEnoughAllowance) => {
+        if (isEnoughAllowance) {
+          dispatch({ type: 'approve_receipt' })
+        } else {
           dispatch({ type: 'requires_approval' })
         }
       })
     }
-  }, [account, handlePreApprove, dispatch])
+  }, [account, onRequiresApproval, dispatch])
 
   return {
     isApproving: state.approvalState === 'loading',
