@@ -44,32 +44,30 @@
     </script>
     <script type="text/javascript">
 
-      window.SO_LotteryConfig = {
-        chainId: 97,
-        rpc: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-        contract: '0x749b316EdCb15d3fd149473A6B80c44D343D9A73',
-        token: {
-          symbol: 'WEENUS',
-          address: '0x703f112bda4cc6cb9c5fb4b2e6140f6d8374f10b',
-          decimals: 18,
-          viewDecimals: 4,
-          title: 'Weenus',
-          price: false
-        },
-        buyTokenLink: 'https://some-site-where-your-can-buy.token',
-        numbersCount: 6,
-        hideServiceLink: false,
-        winPercents: {
-          burn: 2,
-          match_1: 2.45,
-          match_2: 3.675,
-          match_3: 6.125,
-          match_4: 12.25,
-          match_5: 24.5,
-          match_6: 49
-        },
-        etherscan: 'https://testnet.bscscan.com'
-      }
+    window.SO_LotteryConfig = {
+      chainId: 4,
+      rpc: "https://rinkeby.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c",
+      etherscan: "https://rinkeby.etherscan.io",
+      contract: "0x750be4210226349402142629c328E85512653362",
+      token: {
+        symbol: "YEENUS",
+        address: "0xc6fDe3FD2Cc2b173aEC24cc3f267cb3Cd78a26B7",
+        decimals: "8",
+        title: "Yeenus 💪",
+        price: false,
+        viewDecimals: 2      },
+      buyTokenLink: false,
+      numbersCount: parseInt("3", 10),
+      hideServiceLink: false,
+      winPercents: {
+        burn: 2,
+        match_1: 14.7,
+        match_2: 34.3,
+        match_3: 49,
+        match_4: 12.25,
+        match_5: 24.5,
+        match_6: 49      }
+    }
 
       // Matic
 /*
