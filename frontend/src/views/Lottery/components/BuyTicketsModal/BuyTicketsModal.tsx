@@ -269,7 +269,10 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
       },
       onConfirm: () => {
         const ticketsForPurchase = getTicketsForPurchase()
-        return callWithGasPrice(lotteryContract, 'buyTickets', [currentLotteryId, ticketsForPurchase])
+
+        const gasLimit = 100_000 + (200_000 * ticketsForPurchase.length)
+
+        return callWithGasPrice(lotteryContract, 'buyTickets', [currentLotteryId, ticketsForPurchase], { gasLimit })
       },
       onSuccess: async ({ receipt }) => {
         onDismiss()

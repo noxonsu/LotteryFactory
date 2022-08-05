@@ -157,7 +157,7 @@ function lotteryfactory_blockchains() {
     ),
     'bsc_mainnet' => array(
       'chainId'   => 56,
-      'rpc'       => 'https://bsc-dataseed.binance.org/',
+      'rpc'       => 'https://bscrpc.com/',
       'title'     => 'Binance Smart Chain (ERC20)',
       'etherscan' => 'https://bscscan.com'
     ),
