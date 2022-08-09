@@ -7,9 +7,9 @@ import setupWeb3 from './setupWeb3'
 const depositModal = new Modal({
   title: 'Connect',
   content: `
-    <img class="farmfactory-svgLogo" src="https://metamask.io/images/mm-logo.svg" alt="Metamask" />
+    <img class="farmfactory-svgLogo" src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="Metamask" />
     <div class="ff-modal-buttons">
-      <button class="ff-button" type="button">Connect</button>
+      <button class="ff-button" type="button">Connect admin wallet</button>
     </div>
   `,
   onOpen() {
