@@ -83,7 +83,7 @@ const Lottery = () => {
         <CheckPrizesSection />
       </PageSection>
       <PageSection
-        innerProps={{ style: { margin: '0', width: '100%' } }}
+        innerProps={{ style: { margin: '0', width: '100%', paddingLeft: '0px', paddingRight: '0px' } }}
         background={isDark ? FINISHED_ROUNDS_BG_DARK : FINISHED_ROUNDS_BG}
         hasCurvedDivider={false}
         index={2}
