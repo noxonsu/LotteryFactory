@@ -30,6 +30,16 @@ export const CURRENCIES = {
     name: "FTM",
     symbol: 'FTM',
     decimals: 18
+  },
+  CRO: {
+    name: "Cronos",
+    symbol: 'CRO',
+    decimals: 18
+  },
+  TCRO: {
+    name: "Test Cronos",
+    symbol: 'TCRO',
+    decimals: 18
   }
 }
 
@@ -59,7 +69,7 @@ export const AVAILABLE_NETWORKS_INFO = [
     chainName: 'Polygon - Testnet (mumbai)',
     chainId: '0x13881',
     networkVersion: 80001,
-    rpcUrls: ['https://rpc-mumbai.maticvigil.com'],
+    rpcUrls: ['https://matic-mumbai.chainstacklabs.com'],
     blockExplorerUrls: ['https://mumbai.polygonscan.com/'],
     isTestnet: true,
     nativeCurrency: CURRENCIES.MATIC
@@ -69,7 +79,7 @@ export const AVAILABLE_NETWORKS_INFO = [
     chainName: 'Polygon',
     chainId: '0x89',
     networkVersion: 137,
-    rpcUrls: ['https://rpc-mainnet.maticvigil.com'],
+    rpcUrls: ['https://polygon-rpc.com'],
     blockExplorerUrls: ['https://polygonscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.MATIC
@@ -153,5 +163,25 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://ftmscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.FTM
+  },
+  {
+    slug: 'cronos_testnet',
+    chainName: 'Cronos Testnet',
+    chainId: '0x152',
+    networkVersion: 338,
+    rpcUrls: ['https://cronos-testnet-3.crypto.org:8545/'],
+    blockExplorerUrls: ['https://testnet.cronoscan.com'],
+    isTestnet: true,
+    nativeCurrency: CURRENCIES.TCRO
+  },
+  {
+    slug: 'cronos_mainnet',
+    chainName: 'Cronos Mainnet',
+    chainId: '0x19',
+    networkVersion: 25,
+    rpcUrls: ['https://evm.cronos.org/'],
+    blockExplorerUrls: ['https://cronoscan.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.CRO
   },
 ];
