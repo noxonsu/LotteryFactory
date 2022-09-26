@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import ethers, { Contract, CallOverrides } from 'ethers'
 import { useGasPrice } from 'state/user/hooks'
+import { useWeb3React } from '@web3-react/core'
 import { get } from 'lodash'
 
 /**
@@ -14,6 +15,8 @@ import { get } from 'lodash'
 export function useCallWithGasPrice() {
   const gasPrice = useGasPrice()
 
+  const { library } = useWeb3React()
+
   const callWithGasPrice = useCallback(
     async (
       contract: Contract,
@@ -23,10 +26,11 @@ export function useCallWithGasPrice() {
     ): Promise<ethers.providers.TransactionResponse> => {
       const contractMethod = get(contract, methodName)
       const hasManualGasPriceOverride = overrides?.gasPrice
-
       const tx = await contractMethod(
         ...methodArgs,
-        hasManualGasPriceOverride ? { ...overrides } : { ...overrides, gasPrice },
+        hasManualGasPriceOverride
+          ? { ...overrides }
+          : { ...overrides, gasPrice: await library?.getGasPrice?.() || gasPrice },
       )
 
       return tx
