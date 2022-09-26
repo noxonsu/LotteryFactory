@@ -163,14 +163,14 @@ function lotteryfactory_blockchains() {
     ),
     'matic_testnet' => array(
       'chainId'   => 80001,
-      'rpc'       => 'https://rpc-mumbai.maticvigil.com',
-      'title'     => 'Polygon Matic - Testnet (mumbai)',
+      'rpc'       => 'https://matic-mumbai.chainstacklabs.com',
+      'title'     => 'Polygon - Testnet (mumbai)',
       'etherscan' => 'https://mumbai.polygonscan.com'
     ),
     'matic_mainnet' => array(
       'chainId'   => 137,
-      'rpc'       => 'https://rpc-mainnet.maticvigil.com',
-      'title'     => 'Polygon Matic',
+      'rpc'       => 'https://polygon-rpc.com',
+      'title'     => 'Polygon',
       'etherscan' => 'https://polygonscan.com'
     ),
     'eth_rinkeby'   => array(
@@ -220,6 +220,18 @@ function lotteryfactory_blockchains() {
       'rpc'       => 'https://rpc.ftm.tools/',
       'title'     => 'Fantom',
       'etherscan' => 'https://ftmscan.com'
+    ),
+    'cronos_testnet' => array(
+      'chainId'   => 338,
+      'rpc'       => 'https://cronos-testnet-3.crypto.org:8545/',
+      'title'     => 'Cronos Testnet',
+      'etherscan' => 'https://testnet.cronoscan.com'
+    ),
+    'cronos_mainnet' => array(
+      'chainId'   => 25,
+      'rpc'       => 'https://mmf-rpc.xstaking.sg/',
+      'title'     => 'Cronos Mainnet',
+      'etherscan' => 'https://cronoscan.com'
     ),
   );
 }

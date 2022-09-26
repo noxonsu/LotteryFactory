@@ -22,7 +22,7 @@ interface ClaimInnerProps {
 }
 
 const ClaimInnerContainer: React.FC<ClaimInnerProps> = ({ onSuccess, roundsToClaim }) => {
-  const { account } = useWeb3React()
+  const { account, library } = useWeb3React()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const { maxNumberTicketsPerBuyOrClaim, currentLotteryId } = useLottery()
@@ -89,7 +89,7 @@ const ClaimInnerContainer: React.FC<ClaimInnerProps> = ({ onSuccess, roundsToCla
     setPendingTx(true)
     try {
       const tx = await callWithEstimateGas(lotteryContract, 'claimTickets', [lotteryId, ticketIds, brackets], {
-        gasPrice,
+        gasPrice: await library?.getGasPrice?.() || gasPrice,
       })
       const receipt = await tx.wait()
       if (receipt.status) {
