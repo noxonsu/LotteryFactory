@@ -229,7 +229,7 @@ function lotteryfactory_blockchains() {
     ),
     'cronos_mainnet' => array(
       'chainId'   => 25,
-      'rpc'       => 'https://evm.cronos.org/',
+      'rpc'       => 'https://mmf-rpc.xstaking.sg/',
       'title'     => 'Cronos Mainnet',
       'etherscan' => 'https://cronoscan.com'
     ),

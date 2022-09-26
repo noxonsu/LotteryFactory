@@ -179,7 +179,7 @@ export const AVAILABLE_NETWORKS_INFO = [
     chainName: 'Cronos Mainnet',
     chainId: '0x19',
     networkVersion: 25,
-    rpcUrls: ['https://evm.cronos.org/'],
+    rpcUrls: ['https://mmf-rpc.xstaking.sg/'],
     blockExplorerUrls: ['https://cronoscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.CRO
