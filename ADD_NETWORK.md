@@ -60,3 +60,5 @@ Where:
       ...
     ];
     ```
+
+3. Deploy and add multical contract address to the `multiCall` object in the `./frontend/src/config/constants/contracts.ts` file. [Code instance on the Ethereum network](https://etherscan.io/address/0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696#code).
