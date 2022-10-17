@@ -40,7 +40,12 @@ export const CURRENCIES = {
     name: "Test Cronos",
     symbol: 'TCRO',
     decimals: 18
-  }
+  },
+  ETHW: {
+    name: "EthereumPoW",
+    symbol: 'ETHW',
+    decimals: 18
+  },
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
@@ -183,5 +188,15 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://cronoscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.CRO
+  },
+  {
+    slug: 'ethw_mainnet',
+    chainName: 'ETHW-mainnet',
+    chainId: '0x2711',
+    networkVersion: 10001,
+    rpcUrls: ['https://mainnet.ethereumpow.org/'],
+    blockExplorerUrls: ['https://www.oklink.com/en/ethw'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.ETHW
   },
 ];
