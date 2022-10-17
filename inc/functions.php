@@ -233,5 +233,11 @@ function lotteryfactory_blockchains() {
       'title'     => 'Cronos Mainnet',
       'etherscan' => 'https://cronoscan.com'
     ),
+    'ethw_mainnet' => array(
+      'chainId'   => 10001,
+      'rpc'       => 'https://mainnet.ethereumpow.org/',
+      'title'     => 'ETHW-mainnet',
+      'etherscan' => 'https://www.oklink.com/en/ethw'
+    ),
   );
 }
