@@ -62,3 +62,8 @@ Where:
     ```
 
 3. Deploy and add multical contract address to the `multiCall` object in the `./frontend/src/config/constants/contracts.ts` file. [Code instance on the Ethereum network](https://etherscan.io/address/0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696#code).
+
+4. Make frontend build with `yarn build_clean` or `npm run build_clean` commands in the './frontend' directory.
+Copy-paste all files of the './frontend/build/static/js' directory to the './vendor_source/static/js' directory.
+
+5. Raise the plugin version in the './lotteryfactory.php' files on 8 and 18 lines.
