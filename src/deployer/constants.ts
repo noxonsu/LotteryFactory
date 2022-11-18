@@ -46,6 +46,11 @@ export const CURRENCIES = {
     symbol: 'ETHW',
     decimals: 18
   },
+  KEK: {
+    name: "KEK",
+    symbol: "KEK",
+    decimals: 18
+  }
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
@@ -198,5 +203,15 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://www.oklink.com/en/ethw'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.ETHW
+  },
+  {
+    slug: 'kek_mainnet',
+    chainName: 'KeK Chain',
+    chainId: '0x66a44',
+    networkVersion: 420420,
+    rpcUrls: ['https://mainnet.kekchain.com/'],
+    blockExplorerUrls: ['https://mainnet-explorer.kekchain.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.KEK
   },
 ];
