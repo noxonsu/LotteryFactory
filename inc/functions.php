@@ -239,5 +239,11 @@ function lotteryfactory_blockchains() {
       'title'     => 'ETHW-mainnet',
       'etherscan' => 'https://www.oklink.com/en/ethw'
     ),
+    'kek_mainnet' => array(
+      'chainId'   => 420420,
+      'rpc'       => 'https://mainnet.kekchain.com/',
+      'title'     => 'KeK Chain',
+      'etherscan' => 'https://mainnet-explorer.kekchain.com'
+    ),
   );
 }

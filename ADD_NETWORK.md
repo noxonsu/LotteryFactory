@@ -67,3 +67,5 @@ Where:
 Copy-paste all files of the './frontend/build/static/js' directory to the './vendor_source/static/js' directory.
 
 5. Raise the plugin version in the './lotteryfactory.php' files on 8 and 18 lines.
+
+6. Update the lotterydeployer build with follow command `yarn build:lotteryfactory` or `npm run build:lotteryfactory` in root plugin directory.
