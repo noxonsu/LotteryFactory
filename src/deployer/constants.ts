@@ -214,14 +214,4 @@ export const AVAILABLE_NETWORKS_INFO = [
     isTestnet: false,
     nativeCurrency: CURRENCIES.KEK
   },
-  {
-    slug: 'kek_mainnet',
-    chainName: 'KeK Chain',
-    chainId: '0x66a44',
-    networkVersion: 103090,
-    rpcUrls: ['https://mainnet.kekchain.com/'],
-    blockExplorerUrls: ['https://mainnet-explorer.kekchain.com'],
-    isTestnet: false,
-    nativeCurrency: CURRENCIES.KEK
-  },
 ];
