@@ -28,6 +28,7 @@ import useTokenBalance, { FetchStatus } from 'hooks/useTokenBalance'
 import useApproveConfirmTransaction from 'hooks/useApproveConfirmTransaction'
 import { useCake, useLotteryV2Contract } from 'hooks/useContract'
 import { useCallWithGasPrice } from 'hooks/useCallWithGasPrice'
+import { estimateGas } from 'utils/calls'
 import useToast from 'hooks/useToast'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { ToastDescriptionWithTx } from 'components/Toast'
@@ -267,10 +268,17 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
           <ToastDescriptionWithTx txHash={receipt.transactionHash} />,
         )
       },
-      onConfirm: () => {
+      onConfirm: async () => {
         const ticketsForPurchase = getTicketsForPurchase()
 
-        const gasLimit = 100_000 + (200_000 * ticketsForPurchase.length)
+        let gasLimit
+
+        try {
+          gasLimit = await estimateGas(lotteryContract, 'buyTickets', [currentLotteryId, ticketsForPurchase], 1000)
+        } catch (error) {
+          console.error('Estimate Gas Error: ', error)
+          gasLimit = 100_000 + (220_000 * ticketsForPurchase.length)
+        }
 
         return callWithGasPrice(lotteryContract, 'buyTickets', [currentLotteryId, ticketsForPurchase], { gasLimit })
       },
