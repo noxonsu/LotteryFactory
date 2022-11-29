@@ -21,7 +21,7 @@ const ServiceLink = () => {
     <ServiceLinkDiv>
       Powered by
       {' '}
-      <Link href="https://tools.onout.org/lottery"  target="_blank" rel="noreferrer">OnOut - no-code tool to create Lottery</Link>
+      <Link href="https://onout.org/lottery"  target="_blank" rel="noreferrer">OnOut - no-code tool to create Lottery</Link>
     </ServiceLinkDiv>
   )
 
