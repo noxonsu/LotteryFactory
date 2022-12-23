@@ -620,7 +620,7 @@
         }
       }
     }).then((ajaxAnswer) => {
-      setLoaderStatus( langMsg( 'Starting lottery. Confirm trasaction...' ) )
+      setLoaderStatus( langMsg( 'Starting lottery. Confirm transaction...' ) )
       lotteryDeployer.startLottery({
         lotteryContract,
         lotteryEnd,
@@ -655,7 +655,7 @@
 
     drawNumbers.disabled = true
     showLoader()
-    setLoaderStatus( langMsg( 'Drawing final numbers... confirm trasaction' ) )
+    setLoaderStatus( langMsg( 'Drawing final numbers... confirm transaction' ) )
     lotteryDeployer
       .drawNumbers(lotteryAddress, lotterySalt)
       .then((res) => {

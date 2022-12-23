@@ -74,6 +74,15 @@ const CheckPrizesSection = () => {
               {t("to check if you've won!")}
             </Heading>
             <ConnectWalletButton className="primaryButton" width="190px" />
+            {/* @ts-ignore */ }
+            {window && window.SO_LotteryConfig && window.SO_LotteryConfig.chainName && (
+              <Heading mb="8px" scale="md" color="#ffffff" id="lottery-hero-title">
+                {t('Lottery work on %chainName% network', {
+                  // @ts-ignore
+                  chainName: window.SO_LotteryConfig.chainName,
+                })}
+              </Heading>
+            )}
           </Flex>
           <TicketImage src="./images/lottery/ticket-r.png" alt="lottery ticket" />
         </Flex>
