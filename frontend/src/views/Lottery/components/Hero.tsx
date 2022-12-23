@@ -263,6 +263,15 @@ const Hero = () => {
       {token.info().price && (
         <>{getHeroHeading()}</>
       )}
+      {/* @ts-ignore */ }
+      {window && window.SO_LotteryConfig && window.SO_LotteryConfig.chainName && (
+        <Heading mb="8px" scale="md" color="#ffffff" id="lottery-hero-title">
+          {t('Lottery work on %chainName% network', {
+            // @ts-ignore
+            chainName: window.SO_LotteryConfig.chainName,
+          })}
+        </Heading>
+      )}
       <TicketContainer
         position="relative"
         width={['240px', '288px']}
