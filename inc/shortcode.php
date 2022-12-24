@@ -223,6 +223,7 @@ function lotteryfactory_main_shortcode( $atts ) {
   <script>
     window.SO_LotteryConfig = {
       chainId: <?php echo $lottery_chain['chainId']?>,
+      chainName: "<?php echo $lottery_chain['title']?>",
       rpc: "<?php echo $lottery_chain['rpc']?>",
       etherscan: "<?php echo $lottery_chain['etherscan']?>",
       contract: "<?php echo $lottery['contract']?>",
