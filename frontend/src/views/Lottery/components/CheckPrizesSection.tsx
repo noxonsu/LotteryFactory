@@ -77,7 +77,7 @@ const CheckPrizesSection = () => {
             {/* @ts-ignore */ }
             {window && window.SO_LotteryConfig && window.SO_LotteryConfig.chainName && (
               <Heading mb="8px" scale="md" color="#ffffff" id="lottery-hero-title">
-                {t('Lottery work on %chainName% network', {
+                {t('The Lottery is working on %chainName% network', {
                   // @ts-ignore
                   chainName: window.SO_LotteryConfig.chainName,
                 })}
