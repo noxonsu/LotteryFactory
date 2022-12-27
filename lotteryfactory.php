@@ -15,7 +15,7 @@ define( 'LOTTERYFACTORY_BASE_DIR', __DIR__ );
 define( 'LOTTERYFACTORY_BASE_FILE', __FILE__ );
 define( 'LOTTERYFACTORY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LOTTERYFACTORY_URL', plugin_dir_url( __FILE__ ) );
-define( 'LOTTERYFACTORY_VER', '1.0.43');
+define( 'LOTTERYFACTORY_VER', '1.0.44');
 
 /**
  * Plugin Init

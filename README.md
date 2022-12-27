@@ -59,3 +59,18 @@ A: unlimited, but it takes gas (?).
 
 Q: How to hide service link?
 A: In WP Admin Panel go to All Lotteries and select one, then in "Main settings and lottery control" and turn on Hide checkbox in "Service Link" option and click on the "Update" button.
+
+## How to update frontend
+
+1. Go to ``./frontend`` folder
+2. Install depencies ``npm i``
+3. Make build ``npm run build_clean``
+4. Copy content from 
+  ``./frontend/build/images``,
+  ``./frontend/build/locales``,
+  ``./frontend/build/static``
+  to ./vendor_source with replace files
+5. Make version level-up in
+  ``./package.json``
+  ``./lotteryfactory.php``
+  
