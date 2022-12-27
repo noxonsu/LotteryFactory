@@ -1,4 +1,4 @@
-# LotteryFactory
+# LotteryFactory 
 
 Start your own lottery on blockchain and earn 0-30% comission from selling tickets.
 
