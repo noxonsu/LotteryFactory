@@ -152,13 +152,13 @@ function lotteryfactory_blockchains() {
     'bsc_testnet' => array(
       'chainId'   => 97,
       'rpc'       => 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-      'title'     => 'Binance Block Chain (ERC20) - Testnet',
+      'title'     => 'Binance Smart Chain (BEP20) - Testnet',
       'etherscan' => 'https://testnet.bscscan.com'
     ),
     'bsc_mainnet' => array(
       'chainId'   => 56,
       'rpc'       => 'https://bscrpc.com/',
-      'title'     => 'Binance Smart Chain (ERC20)',
+      'title'     => 'Binance Smart Chain (BEP20)',
       'etherscan' => 'https://bscscan.com'
     ),
     'matic_testnet' => array(
