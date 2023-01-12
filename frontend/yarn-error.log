@@ -1,0 +1,145 @@
+Arguments: 
+  C:\Users\noxon\AppData\Roaming\nvm\v14.15.4\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js install
+
+PATH: 
+  C:\Users\noxon\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\noxon\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\Intel\WiFi\bin;C:\Program Files\Common Files\Intel\WirelessCommon;C:\Users\noxon\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Yarn\bin;C:\Program Files\PuTTY;C:\Users\noxon\.cargo\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files (x86)\Gow\bin;C:\Program Files (x86)\IDEMIA\AWP\Dlls;C:\Program Files\IDEMIA\AWP\Dlls;C:\Program Files (x86)\dotnet;C:\Program Files\Git\cmd;C:\Program Files (x86)\GnuPG\bin;C:\Program Files\Cloudflare\Cloudflare WARP;C:\Ruby27-x64\bin;C:\Users\noxon\.cargo\bin;C:\Users\noxon\.windows-build-tools\python27;C:\Users\noxon\AppData\Local\Microsoft\WindowsApps;C:\Users\noxon\AppData\Local\GitHubDesktop\bin;C:\Users\noxon\AppData\Roaming\npm;C:\Users\noxon\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\noxon\AppData\Local\Yarn\bin;C:\Program Files\heroku\bin;C:\Users\noxon\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  14.15.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/date-fns/-/date-fns-2.29.3.tgz: ESOCKETTIMEDOUT
+      at ClientRequest.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141292:19)
+      at Object.onceWrapper (events.js:421:28)
+      at ClientRequest.emit (events.js:315:20)
+      at TLSSocket.emitRequestTimeout (_http_client.js:784:9)
+      at Object.onceWrapper (events.js:421:28)
+      at TLSSocket.emit (events.js:327:22)
+      at TLSSocket.Socket._onTimeout (net.js:483:8)
+      at listOnTimeout (internal/timers.js:554:17)
+      at processTimers (internal/timers.js:497:7)
+
+npm manifest: 
+  {
+    "name": "pancake-frontend",
+    "version": "0.1.2",
+    "private": true,
+    "homepage_": "./",
+    "scripts": {
+      "analyze": "source-map-explorer 'build/static/js/*.js'",
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "build_clean": "node ./scripts/build-non-split.js",
+      "test": "react-scripts test --testPathIgnorePatterns=/src/__tests__/config/",
+      "test:config": "react-scripts test --testPathPattern=/src/__tests__/config/",
+      "integration-test": "start-server-and-test 'serve -s build -p 3000' http://localhost:3000 'cypress run'",
+      "eject": "react-scripts eject",
+      "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
+      "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+      "format:write": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+      "updateLPsAPR": "NODE_PATH=./src ts-node --compiler-options '{\"module\":\"commonjs\"}' scripts/updateLPsAPR.ts",
+      "prepare": "cd .. && husky install frontend/.husky"
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "dependencies": {
+      "@binance-chain/bsc-connector": "^1.0.0",
+      "@ethersproject/experimental": "^5.0.1",
+      "@pancakeswap/sdk": "^2.4.0",
+      "@pancakeswap/uikit": "^0.58.0",
+      "@reduxjs/toolkit": "^1.5.0",
+      "@types/multicodec": "^1.0.0",
+      "@types/node": "^13.13.5",
+      "@types/qs": "^6.9.6",
+      "@types/react": "^17.0.5",
+      "@types/react-dom": "^17.0.4",
+      "@types/react-router-dom": "^5.1.5",
+      "@types/react-window": "^1.8.3",
+      "@types/styled-components": "^5.1.7",
+      "@uniswap/token-lists": "^1.0.0-beta.19",
+      "@uniswap/v2-core": "^1.0.0",
+      "@uniswap/v2-periphery": "^1.1.0-beta.0",
+      "@web3-react/core": "^6.1.9",
+      "@web3-react/injected-connector": "^6.0.7",
+      "@web3-react/walletconnect-connector": "^6.2.4",
+      "ajv": "^6.12.3",
+      "bignumber.js": "^9.0.0",
+      "canvas-confetti": "^1.3.3",
+      "cids": "^1.0.0",
+      "date-fns": "^2.21.3",
+      "easymde": "^2.15.0",
+      "ethers": "^5.1.4",
+      "graphql": "^15.5.0",
+      "graphql-request": "^3.4.0",
+      "js-cookie": "^2.2.1",
+      "lightweight-charts": "^3.5.0",
+      "lodash": "^4.17.21",
+      "multicodec": "^2.0.0",
+      "multihashes": "^3.0.1",
+      "numeral": "^2.0.6",
+      "qs": "^6.9.4",
+      "react": "^17.0.1",
+      "react-countup": "^4.3.3",
+      "react-datepicker": "^4.2.1",
+      "react-dom": "^17.0.1",
+      "react-helmet-async": "^1.0.9",
+      "react-markdown": "^6.0.2",
+      "react-redux": "^7.2.4",
+      "react-router-dom": "^5.2.0",
+      "react-scripts": "^4.0.1",
+      "react-transition-group": "^4.4.1",
+      "react-window": "^1.8.6",
+      "recharts": "2.0.6",
+      "redux-localstorage-simple": "^2.4.1",
+      "remark-gfm": "^1.0.0",
+      "rewire": "^5.0.0",
+      "split-grid": "^1.0.11",
+      "styled-components": "^5.3.0",
+      "stylis-important-plugin": "0.0.5",
+      "swiper": "^6.8.4",
+      "typescript": "^4.3.2",
+      "webpack": "^4.44.2"
+    },
+    "devDependencies": {
+      "@commitlint/cli": "^13.1.0",
+      "@commitlint/config-conventional": "^13.1.0",
+      "@pancakeswap/eslint-config-pancake": "^1.1.0",
+      "@types/canvas-confetti": "^1.4.2",
+      "@types/jest": "^26.0.23",
+      "@types/react-datepicker": "^3.1.8",
+      "@types/react-redux": "^7.1.16",
+      "@types/react-transition-group": "^4.4.1",
+      "@types/simplemde": "^1.11.7",
+      "cypress": "^8.3.1",
+      "eslint": "^7.26.0",
+      "eslint-plugin-cypress": "^2.11.3",
+      "husky": "^7.0.0",
+      "prettier": "^2.3.0",
+      "serve": "^12.0.0",
+      "source-map-explorer": "^2.5.2",
+      "start-server-and-test": "^1.14.0",
+      "ts-node": "^9.1.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
