@@ -1301,8 +1301,8 @@ DIV.helpTooltip:hover DIV {
   font-weight: bold;
   text-align: center;
   color: #FFF;
-  background: #074c07;
-  border: 2px solid #FFF;
+  background: #4c4a07;
+  border: 1px solid #FFF;
 }
 
 .adminSubFormDesc {

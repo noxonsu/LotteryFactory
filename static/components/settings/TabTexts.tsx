@@ -7,7 +7,8 @@ import { textsGroups } from "../../helpers/textsGroups"
 import toggleGroup from "../toggleGroup"
 import iconButton from "../iconButton"
 import InputColor from 'react-input-color'
-
+import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
+import FaIcon from "../FaIcon"
 
 const useStateColor = useStateUri
 
@@ -74,6 +75,7 @@ export default function TabTexts(options) {
         setIsSaveTexts(true)
         saveStorageConfig({
           onBegin: () => {
+            offPreviewDesign()
             addNotify(`Confirm transaction for save changed texts`)
           },
           onReady: () => {
@@ -147,6 +149,9 @@ export default function TabTexts(options) {
     render: () => {
       return (
         <div className={styles.adminForm}>
+          <div className={styles.adminSectionDescription}>
+            {`In this section, labels are edited.`}
+          </div>
           {Object.keys(textsGroups).map((groupKey) => {
             return toggleGroup({
               title: textsGroups[groupKey].title,
@@ -181,21 +186,31 @@ export default function TabTexts(options) {
               )
             })
           })}
+          <div className={styles.adminSectionDescription}>
+            {`You can turn on the preview mode and look at the changes before saving them to the storage contract`}
+          </div>
           <div className={styles.actionsRowMain}>
             {isPreviewMode ? (
-              <>
-                <button onClick={offPreviewDesign}>
-                  Turn off preview mode
-                </button>
-              </>
+              <button onClick={offPreviewDesign} className={styles.adminSubButton}>
+                <FaIcon icon="eye-slash" />
+                Turn off preview mode
+              </button>
             ) : (
-              <button onClick={onPreviewDesign}>
+              <button onClick={onPreviewDesign} className={styles.adminSubButton}>
+                <FaIcon icon="eye" />
                 Turn on preview mode
               </button>
             )}
-            <button disabled={isSaveTexts} onClick={doSaveTexts}>
+            <SwitchNetworkAndCall
+              chainId={`STORAGE`}
+              disabled={isSaveTexts}
+              onClick={doSaveTexts}
+              action={`Save changes`}
+              icon="save"
+              className={styles.adminSubButton}
+            >
               {isSaveTexts ? `Saving...` : `Save changes`}
-            </button>
+            </SwitchNetworkAndCall>
           </div>
         </div>
       )
