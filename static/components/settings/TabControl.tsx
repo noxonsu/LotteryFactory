@@ -390,16 +390,46 @@ export default function TabControl(options) {
                       </div>
                     ) : (
                       <div>
-                        <a className={styles.buttonWithIcon} onClick={onCloseLottery}>
-                          {isLotteryClosing 
-                            ? `Closing...`
-                            : `Time is over. Click to close the round and proceed to calculating the winning combination`
-                          }
-                        </a>
+                        <div className={styles.helpTooltip}>
+                          <span>?</span>
+                          <div>
+                            <span>{`The time for the round has passed.`}</span>
+                            <span>{`You need to close the lottery and move on to generating winning balls`}</span>
+                          </div>
+                        </div>
+                        <strong>Time is over. Close Lottery round.</strong>
                       </div>
                     )}
                   </div>
                 </div>
+                {lotteryNeedClose && (
+                  <div className={styles.infoRow}>
+                    <label>
+                      <div className={styles.helpTooltip}>
+                        <span>?</span>
+                        <div>The time for the round has passed. You need to close the lottery and move on to generating winning balls
+                          <span>{`Click "Close round" to proceed to the calculation of winning balls`}</span>
+                        </div>
+                      </div>
+                      Close Lottery round:
+                    </label>
+                    <div>
+                      <div>
+                        <SwitchNetworkAndCall
+                          chainId={storageData?.chainId}
+                          action={`Close round`}
+                          onClick={onCloseLottery}
+                          className={styles.adminButton}
+                        >
+                          {isLotteryClosing 
+                            ? `Closing...`
+                            : `Close Lottery round`
+                          }
+                        </SwitchNetworkAndCall>
+                      </div>
+                    </div>
+                  </div>
+                )}
                 <div className={styles.infoRow}>
                   <label>
                     <div className={styles.helpTooltip}>
