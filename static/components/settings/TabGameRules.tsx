@@ -294,7 +294,9 @@ export default function TabGameRules(options) {
                   <div className={styles.helpTooltip}>
                     <span>?</span>
                     <div>
-                      {`As an administrator, you can set a service fee for each round of the lottery. The fee will be sent to your wallet address, with a 20% deduction as the "onout" fee. This fee can be disabled by purchasing the premium version`}
+                      <span>{`As an administrator, you have the option to set a service fee for each round of the lottery.`}</span>
+                      <span>{`The service fee is transferred to your wallet address, and a portion of this fee, equal to 1/5 of the service fee, is deducted as the "onout.org" fee.`}</span>
+                      <span>{`The "onout.org" fee can be removed by purchasing the premium version of the lottery service.`}</span>
                     </div>
                   </div>
                   Service fee (From 2 to 30):

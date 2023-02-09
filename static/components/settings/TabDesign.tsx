@@ -7,6 +7,8 @@ import { getUnixTimestamp } from "../../helpers/getUnixTimestamp"
 import toggleGroup from "../toggleGroup"
 import iconButton from "../iconButton"
 import InputColor from 'react-input-color'
+import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
+import FaIcon from "../FaIcon"
 
 
 const useStateColor = useStateUri
@@ -177,13 +179,17 @@ export default function TabDesign(options) {
     }
     saveStorageConfig({
       onBegin: () => {
-        addNotify(`Confirm transaction for save changed texts`)
+        setIsSaveDesign(true)
+        offPreviewDesign()
+        addNotify(`Confirm transaction for save changed design`)
       },
       onReady: () => {
-        addNotify(`Texts successfull saved`, `success`)
+        setIsSaveDesign(false)
+        addNotify(`Design successfull saved`, `success`)
       },
       onError: (err) => {
-        addNotify(`Fail save texts`, `error`)
+        setIsSaveDesign(false)
+        addNotify(`Fail save design`, `error`)
       },
       newData: newConfig
     })
@@ -204,107 +210,119 @@ export default function TabDesign(options) {
     render: () => {
       return (
         <div className={styles.adminForm}>
-            {toggleGroup({
-              title: 'Base color',
-              isOpened: openedTabs?.baseColors,
-              onToggle: () => { toggleTab('baseColors') },
-              content: (
-                <div className={styles.subFormInfo}>
-                  <div className={styles.subForm}>
-                    {renderColor({ title: 'Background color', target: 'backgroundColor' })}
-                    {renderColor({ title: 'Text color', target: 'baseTextColor' })}
-                    {renderColor({ title: 'Secondary', target: 'baseSecondaryColor', defValue: '#7645D9' })}
-                    {renderColor({ title: 'Subtitle color', target: 'baseSubTitleColor', defValue: '#452A7A' })}
-                  </div>
+          <div className={styles.adminSectionDescription}>
+            {`This section is where you edit the appearance of your site.`}
+          </div>
+          {toggleGroup({
+            title: 'Base color',
+            isOpened: openedTabs?.baseColors,
+            onToggle: () => { toggleTab('baseColors') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderColor({ title: 'Background color', target: 'backgroundColor' })}
+                  {renderColor({ title: 'Text color', target: 'baseTextColor' })}
+                  {renderColor({ title: 'Secondary', target: 'baseSecondaryColor', defValue: '#7645D9' })}
+                  {renderColor({ title: 'Subtitle color', target: 'baseSubTitleColor', defValue: '#452A7A' })}
                 </div>
-              )
-            })}
-            {toggleGroup({
-              title: 'Header settings',
-              isOpened: openedTabs?.headerSection,
-              onToggle: () => { toggleTab('headerSection') },
-              content: (
-                <div className={styles.subFormInfo}>
-                  <div className={styles.subForm}>
-                    {renderColor({ title: 'Section title color', target: 'headerTitleColor' })}
-                    {renderColor({ title: 'Background color 1', target: 'headerBgColor1', defValue: '#7645D9' })}
-                    {renderColor({ title: 'Background color 2', target: 'headerBgColor2', defValue: '#452A7A' })}
-                  </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
+            title: 'Header settings',
+            isOpened: openedTabs?.headerSection,
+            onToggle: () => { toggleTab('headerSection') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderColor({ title: 'Section title color', target: 'headerTitleColor' })}
+                  {renderColor({ title: 'Background color 1', target: 'headerBgColor1', defValue: '#7645D9' })}
+                  {renderColor({ title: 'Background color 2', target: 'headerBgColor2', defValue: '#452A7A' })}
                 </div>
-              )
-            })}
-            {toggleGroup({
-              title: 'Buy tickets section',
-              isOpened: openedTabs?.buyTicketsSection,
-              onToggle: () => { toggleTab('buyTicketsSection') },
-              content: (
-                <div className={styles.subFormInfo}>
-                  <div className={styles.subForm}>
-                    {renderColor({ title: 'Section title color', target: 'buyTicketTitleColor' })}
-                    {renderColor({ title: 'Background color 1', target: 'buyTicketBgColor1', defValue: '#7645D9' })}
-                    {renderColor({ title: 'Background color 2', target: 'buyTicketBgColor2', defValue: '#5121B1' })}
-                  </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
+            title: 'Buy tickets section',
+            isOpened: openedTabs?.buyTicketsSection,
+            onToggle: () => { toggleTab('buyTicketsSection') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderColor({ title: 'Section title color', target: 'buyTicketTitleColor' })}
+                  {renderColor({ title: 'Background color 1', target: 'buyTicketBgColor1', defValue: '#7645D9' })}
+                  {renderColor({ title: 'Background color 2', target: 'buyTicketBgColor2', defValue: '#5121B1' })}
                 </div>
-              )
-            })}
-            {toggleGroup({
-              title: 'Price section',
-              isOpened: openedTabs?.priceSection,
-              onToggle: () => { toggleTab('priceSection') },
-              content: (
-                <div className={styles.subFormInfo}>
-                  <div className={styles.subForm}>
-                    {renderColor({ title: 'Section title color', target: 'priceSectionTitleColor', })}
-                    {renderColor({ title: 'Background color 1', target: 'priceSectionBgColor1', defValue: '#313D5C' })}
-                    {renderColor({ title: 'Background color 2', target: 'priceSectionBgColor2', defValue: '#3D2A54' })}
-                  </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
+            title: 'Price section',
+            isOpened: openedTabs?.priceSection,
+            onToggle: () => { toggleTab('priceSection') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderColor({ title: 'Section title color', target: 'priceSectionTitleColor', })}
+                  {renderColor({ title: 'Background color 1', target: 'priceSectionBgColor1', defValue: '#313D5C' })}
+                  {renderColor({ title: 'Background color 2', target: 'priceSectionBgColor2', defValue: '#3D2A54' })}
                 </div>
-              )
-            })}
-            {toggleGroup({
-              title: 'Rounds history section',
-              isOpened: openedTabs?.roundsHistory,
-              onToggle: () => { toggleTab('roundsHistory') },
-              content: (
-                <div className={styles.subFormInfo}>
-                  <div className={styles.subForm}>
-                    {renderColor({ title: 'Section title color', target: 'roundsHistoryTitleColor' })}
-                    {renderColor({ title: 'Background color 1', target: 'roundsHistoryBgColor1', defValue: '#CBD7EF' })}
-                    {renderColor({ title: 'Background color 2', target: 'roundsHistoryBgColor2', defValue: '#9A9FD0' })}
-                  </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
+            title: 'Rounds history section',
+            isOpened: openedTabs?.roundsHistory,
+            onToggle: () => { toggleTab('roundsHistory') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderColor({ title: 'Section title color', target: 'roundsHistoryTitleColor' })}
+                  {renderColor({ title: 'Background color 1', target: 'roundsHistoryBgColor1', defValue: '#CBD7EF' })}
+                  {renderColor({ title: 'Background color 2', target: 'roundsHistoryBgColor2', defValue: '#9A9FD0' })}
                 </div>
-              )
-            })}
-            {toggleGroup({
-              title: 'How to play settings',
-              isOpened: openedTabs?.howToPlay,
-              onToggle: () => { toggleTab('howToPlay') },
-              content: (
-                <div className={styles.subFormInfo}>
-                  <div className={styles.subForm}>
-                    {renderColor({ title: 'Section title', target: 'howToPlayTitleColor'  })}
-                    {renderColor({ title: 'Background color', target: 'howToPlayBgColor', defValue: '#ffffff' })}
-                  </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
+            title: 'How to play settings',
+            isOpened: openedTabs?.howToPlay,
+            onToggle: () => { toggleTab('howToPlay') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderColor({ title: 'Section title', target: 'howToPlayTitleColor'  })}
+                  {renderColor({ title: 'Background color', target: 'howToPlayBgColor', defValue: '#ffffff' })}
                 </div>
-              )
-            })}
-
-            <div className={styles.actionsRowMain}>
-              {isPreviewMode ? (
-                <>
-                  <button onClick={offPreviewDesign}>
-                    Turn off preview mode
-                  </button>
-                </>
-              ) : (
-                <button onClick={onPreviewDesign}>
-                  Turn on preview mode
-                </button>
-              )}
-              <button onClick={doSaveDesign}>
-                Save changes
+              </div>
+            )
+          })}
+          <div className={styles.adminSectionDescription}>
+            {`You can turn on the preview mode and look at the changes before saving them to the storage contract`}
+          </div>
+          <div className={styles.actionsRowMain}>
+            {isPreviewMode ? (
+              <button onClick={offPreviewDesign} className={styles.adminSubButton}>
+                <FaIcon icon="eye-slash" />
+                Turn off preview mode
               </button>
-            </div>
+            ) : (
+              <button onClick={onPreviewDesign} className={styles.adminSubButton}>
+                <FaIcon icon="eye" />
+                Turn on preview mode
+              </button>
+            )}
+            <SwitchNetworkAndCall
+              chainId={`STORAGE`}
+              disabled={isSaveDesign}
+              onClick={doSaveDesign}
+              action={`Save changes`}
+              icon="save"
+              className={styles.adminSubButton}
+            >
+              {isSaveDesign ? `Saving...` : `Save changes`}
+            </SwitchNetworkAndCall>
+          </div>
         </div>
       )
     }

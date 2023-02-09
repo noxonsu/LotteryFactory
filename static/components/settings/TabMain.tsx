@@ -6,6 +6,7 @@ import { getUnixTimestamp } from "../../helpers/getUnixTimestamp"
 import fetchTokenInfo from "../../helpers/fetchTokenInfo"
 import deployLottery from "../../helpers/deployLottery"
 import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
+import FaIcon from "../FaIcon"
 
 import adminFormRow from "../adminFormRow"
 
@@ -174,6 +175,9 @@ export default function TabMain(options) {
       return (
         <>
           <div className={styles.adminForm}>
+            <div className={styles.adminSectionDescription}>
+              {`Main settings. The blockchain in which the lottery will work is indicated here, the token for buying tickets is indicated and the lottery contract is deployed`}
+            </div>
             {adminFormRow({
               label: `Work blockchain ID`,
               type: `list`,
@@ -204,7 +208,7 @@ export default function TabMain(options) {
                 })}
                 {isTokenFetched && newTokenInfo && newTokenInfo.address && (
                   <div className={styles.subFormInfo}>
-                    <h3>Token info</h3>
+                    <h3>Token for which users buy tickets</h3>
                     <div className={styles.subForm}>
                       <div className={styles.infoRow}>
                         <label>Address:</label>
@@ -288,7 +292,7 @@ export default function TabMain(options) {
               </>
             )}
             <div className={styles.actionsRowMain}>
-              <SwitchNetworkAndCall chainId={`STORAGE`} className={styles.adminMainButton} disabled={isSaveToStorage} onClick={doSaveToStorage} action={`Save changes`} >
+              <SwitchNetworkAndCall chainId={`STORAGE`} icon="save" className={styles.adminMainButton} disabled={isSaveToStorage} onClick={doSaveToStorage} action={`Save changes`} >
                 {isSaveToStorage ? `Saving...` : `Save to storage config`}
               </SwitchNetworkAndCall>
             </div>
