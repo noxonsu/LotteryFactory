@@ -13,6 +13,7 @@ import approveToken from "../../helpers/approveToken"
 import BigNumber from "bignumber.js"
 import { toWei, fromWei } from "../../helpers/wei"
 import sha256 from 'js-sha256'
+import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
 
 
 const genSalt = () => {
@@ -297,12 +298,28 @@ export default function TabControl(options) {
       }
       return (
         <div className={styles.adminForm}>
+          <div className={styles.adminSectionDescription}>
+            {`This section is where the lottery rounds are managed. Start of a new round, end of the round and calculation of winning balls`}
+          </div>
           {currentStage === `lottery_start` && (
             <div className={styles.subFormInfo}>
               <h3>Start new lottery round</h3>
+              <div className={styles.adminSubFormDesc}>
+                {`There are currently no rounds running. Start a new lottery round`}
+              </div>
               <div className={styles.subForm}>
                 <div className={styles.infoRow}>
-                  <label>Round end in:</label>
+                  <label>
+                    <div className={styles.helpTooltip}>
+                      <span>?</span>
+                      <div>
+                        <span>{`The date and time when the sale of tickets will be stopped and the lottery will enter the winning balls calculation mode.`}</span>
+                        <span>{`The minimum round time is 5 minutes.`}</span>
+                        <span>{`The maximum round time is 31 days.`}</span>
+                      </div>
+                    </div>
+                    Round end in:
+                  </label>
                   <div>
                     <div>
                       <input type="date" value={newDateEnd} onChange={(e) => { setNewDateEnd(e.target.value) }} />
@@ -317,9 +334,15 @@ export default function TabControl(options) {
                   </div>
                 </div>
                 <div className={styles.actionsRow}>
-                  <button disabled={isStartNewRound} onClick={doStartNewRound}>
-                    {isStartNewRound ? `Starting new lottery round...` : `Start new round`}
-                  </button>
+                  <SwitchNetworkAndCall
+                    className={styles.adminSubButton}
+                    onClick={doStartNewRound}
+                    disabled={isStartNewRound}
+                    chainId={storageData?.chainId}
+                    action={`Start new round`}
+                  >
+                    {isStartNewRound ? `Starting new lottery round...` : `Start new lottery round`}
+                  </SwitchNetworkAndCall>
                 </div>
               </div>
             </div>
@@ -345,15 +368,25 @@ export default function TabControl(options) {
                   </div>
                 </div>
                 <div className={styles.infoRow}>
-                  <label>Time left:</label>
+                  
+                  <label>
+                    <div className={styles.helpTooltip}>
+                      <span>?</span>
+                      <div>
+                        <span>{`How much time is left until the end of the current round.`}</span>
+                        <span>{`After this time, the sale of tickets will be terminated and the lottery will switch to the mode of calculating winning balls.`}</span>
+                      </div>
+                    </div>
+                    Time left:
+                  </label>
                   <div>
                     {!lotteryNeedClose ? (
                       <div>
                         <strong>{lotteryTimeleft}</strong>
-                        <a className={styles.buttonWithIcon} onClick={doFetchLotteryStatus}>
+                        <button className={styles.adminButton} onClick={doFetchLotteryStatus}>
                           <FaIcon icon="refresh" />
                           Fetch status
-                        </a>
+                        </button>
                       </div>
                     ) : (
                       <div>
@@ -368,7 +401,17 @@ export default function TabControl(options) {
                   </div>
                 </div>
                 <div className={styles.infoRow}>
-                  <label>Round bank:</label>
+                  <label>
+                    <div className={styles.helpTooltip}>
+                      <span>?</span>
+                      <div>
+                        <span>{`How many tokens are raffled off in the current round.`}</span>
+                        <span>{`If you wish, you can increase the amount of tokens in the bank.`}</span>
+                        <span>{`To do this, use the "Inject lotery bank funds" section below.`}</span>
+                      </div>
+                    </div>
+                    Round bank:
+                  </label>
                   <div>
                     <div>
                       <strong>{bankAmount} {storageData?.tokenInfo?.symbol}</strong>
@@ -376,18 +419,37 @@ export default function TabControl(options) {
                   </div>
                 </div>
                 <div className={styles.infoRow}>
-                  <label>Inject funds:</label>
+                  <label>
+                     <div className={styles.helpTooltip}>
+                      <span>?</span>
+                      <div>
+                        <span>{`In this section, you can add tokens to the bank of the current lottery round.`}</span>
+                        <span>{`The added tokens will be distributed among the winning tickets.`}</span>
+                        <span>{`Unallocated tokens will be transferred to the general lottery bank and raffled off in the next rounds`}</span>
+                      </div>
+                    </div>
+                    Inject lotery bank funds:
+                  </label>
                   <div>
                     <div>
                       <input type="number" min="0" step="0.01" value={injectAmount} onChange={(e) => { setInjectAmount(e.target.value) }} />
                       <strong>{storageData?.tokenInfo?.symbol}</strong>
-                      <a className={styles.buttonWithIcon} onClick={doInjectAmount}>
-                        <FaIcon icon="add" />
-                        Approve and add to round bank
-                      </a>
                     </div>
+                  </div>
+                </div>
+                <div className={styles.infoRow}>
+                  <label></label>
+                  <div>
                     <div>
-                      <strong>You can add some amount of tokens to bank of current lottery round</strong>
+                      <SwitchNetworkAndCall
+                        className={styles.adminButton}
+                        onClick={doInjectAmount}
+                        chainId={storageData?.chainId}
+                        action={`Add tokens to lottery bank`}
+                        icon="add"
+                      >
+                        Approve and add to round bank
+                      </SwitchNetworkAndCall>
                     </div>
                   </div>
                 </div>
@@ -398,20 +460,35 @@ export default function TabControl(options) {
             <div className={styles.subFormInfo}>
               <h3>The lottery round is over. You need to calculate the winning combination</h3>
               <div className={styles.infoRow}>
-                <label>Uniq salt:</label>
+                <label>
+                  <div className={styles.helpTooltip}>
+                    <span>?</span>
+                    <div>
+                      <span>{`A unique randomly generated string that will be used as a salt during the calculation of winning balls.`}</span>
+                      <span>{`The uniqueness of this string guarantees protection against fraud by users.`}</span>
+                    </div>
+                  </div>
+                  Uniq salt:
+                </label>
                 <div>
                   <div>
                     <input type="text" value={drawNumbersSalt} readOnly={true} />
-                    <a className={styles.buttonWithIcon} onClick={doGenerateSalt}>
-                      Generate rand
-                    </a>
+                    <button className={styles.adminButton} onClick={doGenerateSalt}>
+                      Generate
+                    </button>
                   </div>
                 </div>
               </div>
             <div className={styles.actionsRow}>
-              <button disabled={isDrawingNumbers} onClick={doDrawNumbers}>
+              <SwitchNetworkAndCall
+                className={styles.adminButton}
+                onClick={doDrawNumbers}
+                disabled={isDrawingNumbers}
+                chainId={storageData?.chainId}
+                action={`Calculate winning number`}
+              >
                 {isDrawingNumbers ? `Calculate winning numbers` : `Calculate winning numbers`}
-              </button>
+              </SwitchNetworkAndCall>
             </div>
           </div>
           )}

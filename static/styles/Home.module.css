@@ -1191,6 +1191,12 @@
   border-style: none;
 }
 
+.adminMainButton:active ,
+.adminSubButton:active ,
+.adminButton:active {
+  background-image: linear-gradient(to left, #418dff 0%, #cc25b3 101.52%);
+}
+
 .adminSubButton {
   height: 2.5rem;
 }
@@ -1222,6 +1228,10 @@
 .adminSubButton.isCancel {
   background-image: linear-gradient(to left, #978494 0%, #7691bb 101.52%);
 }
+.adminButton.isCancel:active ,
+.adminSubButton.isCancel:active {
+  background-image: linear-gradient(to left, #7691bb 0%, #978494 101.52%);
+}
 .adminSubButton SVG,
 .adminMainButton SVG {
   margin-right: 10px;
@@ -1241,7 +1251,7 @@ DIV.helpTooltip {
   display: inline-block;
   position: relative;
 }
-DIV.helpTooltip SPAN {
+DIV.helpTooltip>SPAN {
   font-size: 10pt;
   font-weight: bold;
   background: #0d6587;
@@ -1274,6 +1284,30 @@ DIV.helpTooltip DIV {
   margin-bottom: 5px;
   z-index: 99999;
 }
+DIV.helpTooltip DIV > SPAN {
+  display: block;
+}
+
 DIV.helpTooltip:hover DIV {
   display: block;
+}
+
+.adminSectionDescription {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 12pt;
+  font-weight: bold;
+  text-align: center;
+  color: #FFF;
+  background: #074c07;
+  border: 2px solid #FFF;
+}
+
+.adminSubFormDesc {
+  display: block;
+  padding: 5px;
+  font-weight: bold;
+  border-bottom: 1px solid gray;
 }
