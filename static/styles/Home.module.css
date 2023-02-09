@@ -1,0 +1,1153 @@
+.connect {
+  position: fixed;
+  top: 5%;
+  left: 5%;
+}
+
+.notifyHolder {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000000;
+  min-width: 300px;
+}
+
+.notifyHolder DIV {
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  background: #FFF;
+  color: black;
+  border: 1px solid gray;
+  font-size: 10pt;
+  text-align: left;
+  line-height: 10pt;
+}
+
+.notifyHolder DIV.info {
+  color: #000;
+  background: #fff;
+}
+
+.notifyHolder DIV.error {
+  background: #e7c1c1;
+}
+
+.notifyHolder DIV.success {
+  background: #c1e7d2;
+}
+
+.btn {
+  background-color: var(--tw-color1);
+  outline: none;
+  border: none;
+  color: var(--white);
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background-color 300ms ease-in-out;
+  transform-origin: center;
+}
+
+.btn:hover {
+  background-color: var(--tw-color1-hover);
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.address {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.container {
+  margin-top: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  padding: 0 24px;
+}
+
+.page {
+  width: inherit;
+  border-radius: 20px;
+  border: 1px solid var(--tw-color1);
+  padding: 16px;
+}
+
+.pageContainer {
+  max-width: 600px;
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-direction: row;
+  gap: 2%;
+  padding: 1rem;
+}
+
+.arrowButton {
+  border-radius: 50%;
+  width: 30px;
+}
+
+.owner {
+  font-size: 1rem;
+}
+
+.btnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.header {
+  background-color: #262936;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 72px;
+  margin-bottom: 96px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 5%;
+}
+
+.right {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-right: 5%;
+}
+
+.secondaryButton {
+  cursor: pointer;
+  text-align: center;
+  padding: 5px;
+  color: #000;
+  font-weight: 600;
+}
+
+.settingsTabsNav {
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  justify-content: space-evenly;
+}
+
+.settingsTabsNav LI {
+  display: block;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.settingsTabsNav LI.activeTab {
+  text-decoration: underline;
+  font-weight: bold;
+}
+.loadingHolder {
+  display: block;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: #000000b8;
+  z-index: 100000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loadingHolder SPAN {
+  font-size: 20pt;
+  font-weight: bold;
+}
+
+.mainButton {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  appearance: none;
+  align-items: center;
+  -webkit-box-align: center;
+  justify-content: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  font-weight: 600;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-duration: 200ms;
+  height: 3rem;
+  min-width: 3rem;
+  font-size: 1rem;
+  background: #e5e5ea;
+  background-image: linear-gradient(to left, #cc25b3 0%, #418dff 101.52%);
+  color: #fff;
+  width: 180px;
+  text-align: center;
+  border-radius: 9999px;
+  border-style: none;
+}
+
+.mainButton.autoWidth {
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.mainButton:hover {
+  opacity: 0.8;
+}
+
+.mainButton[disabled],
+.mainButton[disabled]:hover {
+  background: gray;
+  opacity: 1;
+}
+
+.ourCollection {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.collectionContainer {
+  width: 1200px;
+  max-width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.h1 {
+  margin-bottom: 0px;
+}
+
+.explain {
+  font-size: 1.125rem;
+  max-width: 1200px;
+}
+
+.purple {
+  color: #9f2c9d;
+}
+
+.divider {
+  width: 50%;
+  border-color: grey;
+  opacity: 0.25;
+}
+
+.smallDivider {
+  width: 25%;
+  border-color: grey;
+  margin-top: 64px;
+  opacity: 0.25;
+}
+
+.textInput {
+  width: 75%;
+  background-color: transparent;
+  border: 1px solid grey;
+  border-radius: 8px;
+  color: #fff;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.imageInput {
+  width: 100%;
+  height: 100px;
+  border: 1px dashed grey;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+  cursor: pointer;
+}
+
+.contractBoxGrid {
+  width: 1200px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1%;
+  flex-wrap: wrap;
+}
+
+.mainFooter {
+  display: block;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 10px;
+  border-top: 2px solid gray;
+  background: var(--black);
+}
+
+.mainFooter A {
+  color: #FFF;
+}
+.mainFooter P {
+  margin: 2px;
+}
+
+.contractBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  width: 19%;
+  height: 200px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 16px;
+  padding-top: 25px;
+}
+
+.mainLogo {
+  padding-top: 20px;
+}
+
+.mainLogo IMG {
+  max-width: 300px;
+}
+
+.stakeCustomNftHolder {
+  border-bottom: 2px solid gray;
+  width: 50%;
+}
+.stakeCustomNftHolder B {
+  display: block;
+}
+.stakeCustomNftHolder INPUT {
+  display: block;
+  margin: 10px auto;
+  width: 200px;
+}
+
+@media only screen and (max-width: 800px) {
+  .stakeCustomNftHolder {
+    width: 90%;
+  }
+}
+
+.debugBlock {
+  padding-top: 100px;
+}
+.debugBlock DIV {
+  display: none;
+}
+.debugBlock.opened DIV {
+  display: block;
+}
+/* Between 700px and 900px */
+@media screen and (min-width: 700px) and (max-width: 900px) {
+  .contractBoxGrid {
+    gap: 2%;
+  }
+
+  .contractBox {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 699px) {
+  .contractBoxGrid {
+    gap: 2%;
+  }
+
+  .contractBox {
+    width: 98%;
+  }
+}
+
+.nftBoxGrid {
+  width: 1200px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.nftBox {
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  width: 19%;
+  min-height: 200px;
+  margin-bottom: 10px;
+}
+
+.nftBox IMG {
+  display: block;
+  max-width: 80%;
+  max-height: 100px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+.optionSelectBox {
+  border-radius: 16px;
+  border: 1px solid #ccc;
+  width: 48%;
+  min-height: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.optionSelectBox A {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.selectBoxTitle {
+  font-size: 1.75rem;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.selectBoxDescription {
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 0px;
+}
+
+/* Between 1200 and 800 */
+@media only screen and (min-width: 800px) and (max-width: 1200px) {
+  .nftBox {
+    width: 49%;
+    margin-top: 16px;
+  }
+}
+
+/* beneath 800
+*/
+@media only screen and (max-width: 800px) {
+  .nftBoxGrid {
+    justify-content: center;
+  }
+  .nftBox {
+    width: 90%;
+    margin-top: 16px;
+  }
+  .optionSelectBox {
+    width: 90%;
+    margin-top: 16px;
+  }
+}
+
+.tokenGrid {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1%;
+  width: 1600px;
+  max-width: 95vw;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.tokenItem {
+  width: 35%;
+  height: 120px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  gap: 16px;
+}
+
+.tokenLabel {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Second tokenLabel item */
+
+.tokenValue {
+  font-size: 1.3rem;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  font-weight: 500;
+}
+
+/* On Mobile, make tokenGrid 100% width */
+@media only screen and (max-width: 850px) {
+  .tokenItem {
+    width: 90%;
+    margin-top: 12px;
+  }
+}
+
+/* Screen less than 630, then hide .center */
+@media only screen and (max-width: 630px) {
+  .center {
+    display: none;
+  }
+  
+  .mainLogo IMG {
+    width: 80%;
+  }
+}
+
+.spacerTop {
+  margin-top: 16px;
+}
+
+.bigSpacerTop {
+  margin-top: 32px;
+}
+
+.spacerBottom {
+  margin-bottom: 16px;
+}
+
+.cardName {
+  margin-bottom: 0px;
+}
+
+.cardDescription {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.headerLogo {
+  width: 135px;
+  cursor: pointer;
+}
+
+.verticalSpacer {
+  color: grey;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.codeSnippet {
+  text-align: start;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  width: 900px;
+  max-width: 95vw;
+  background-color: #282c34;
+  overflow-x: auto;
+  font-size: 1rem;
+}
+
+.noUnderline {
+  text-decoration: none;
+}
+
+.detailPageContainer {
+  max-width: 800px;
+}
+
+.detailPageHr {
+  margin-top: 0px;
+  margin-bottom: 32px;
+}
+
+.lightPurple {
+  color: #e011a7;
+}
+
+.nftMedia {
+  width: 100%;
+  max-height: 300px;
+  border-radius: 15px;
+}
+
+.amountToClaim {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.noGapBottom {
+  margin-bottom: 0px;
+}
+
+.mainNavSeperator {
+  margin-top: 30px;
+}
+.mainNav {
+  display: block;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 10px;
+  background: #000000;
+  border-bottom: 1px solid gray;
+  z-index: 20000;
+}
+
+.mainNav A {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #FFF;
+}
+
+.mainNav A.active {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+
+/* ==================== ADMIN */
+
+.adminForm {
+  width: 50%;
+}
+
+
+/* Between 1200 and 800 */
+@media only screen and (max-width: 1100px) {
+  .adminForm {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+.adminFormInputHolder {
+  display: block;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.adminFormInputHolder SPAN.hasError {
+  display: block;
+  font-size: 10pt;
+  color: #dd0707;
+}
+.adminFormInputHolder LABEL {
+  display: block;
+  padding-bottom: 10px;
+}
+.adminFormInputHolder INPUT,
+.adminFormInputHolder SELECT {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  background: #FFF;
+}
+
+.adminFormInputHolder.hasError INPUT,
+.adminFormInputHolder.hasError SELECT {
+  background: #f5a7a7;
+}
+.adminFormButtonsHolder {
+  padding-top: 10px;
+  text-align: right;
+}
+.adminFormButtonsHolder BUTTON {
+  margin-left: 10px;
+}
+
+.adminFormBottom {
+  padding-top: 20px;
+}
+
+.adminForm .subFormInfo {
+  border: 2px solid gray;
+  text-align: left;
+  padding: 10px;
+  border-top: 0px;
+  padding-bottom: 0px;
+}
+
+.adminForm .infoTable {
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 0px;
+}
+.adminForm .subFormInfo .infoRow>SPAN,
+.adminForm .subFormInfo .infoRow>DIV,
+.adminForm .subFormInfo .infoRow>DIV.contentHolder {
+  display: block;
+  align-items: center;
+  width: 70%;
+}
+
+.adminForm .subFormInfo .infoRow INPUT,
+.adminForm .subFormInfo .infoRow SELECT {
+  padding: 5px;
+}
+
+.adminForm .subFormInfo .infoRow>SPAN>DIV>STRONG,
+.adminForm .subFormInfo .infoRow>DIV>DIV>STRONG {
+  padding-left: 5px;
+}
+.adminForm .subFormInfo .infoRow>SPAN>DIV,
+.adminForm .subFormInfo .infoRow>DIV>DIV {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.adminForm .subFormInfo H3 {
+  background: gray;
+  padding: 5px;
+  font-size: 10pt;
+  margin: -10px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.adminForm .subFormInfo H3:first-child {
+  margin: -10px;
+  margin-bottom: 0px;
+}
+
+.adminForm .subFormInfo B.hasError {
+  color: #e50606;
+}
+
+.adminForm .subFormInfo .infoRow {
+  display: flex;
+  border-bottom: 1px solid gray;
+  font-size: 10pt;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.adminForm .subFormInfo .infoRow:last-child {
+  border-bottom: 0;
+}
+
+.adminForm .subFormInfo .infoRow LABEL {
+  display: block;
+  width: 30%;
+}
+
+.adminForm .subFormInfo .infoRow INPUT[type="text"] {
+  display: block;
+  width: 100%;
+}
+.adminForm .subFormInfo .infoRow BUTTON {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.adminForm .subFormInfo .actionsRow {
+    text-align: right;
+    padding: 10px;
+}
+.adminForm .subFormInfo .actionsRow BUTTON {
+  margin-left: 10px;
+}
+
+.adminForm .actionsRowMain {
+  padding: 10px;
+}
+.adminForm .actionsRowMain BUTTON {
+  margin: 10px;
+}
+.openInNewTab {
+  padding: 10px;
+  color: #5baccb;
+}
+.confirmWindow {
+  display: flex;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 100000;
+  background: #00000061;
+  justify-content: center;
+  align-items: center;
+}
+.confirmWindow>DIV {
+  background: #444444;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  padding: 20px;
+}
+.confirmWindow H3 {
+  padding: 0px;
+  display: block;
+  margin: 0px;
+}
+.confirmWindow SPAN {
+  display: block;
+  padding: 10px;
+}
+
+.confirmWindow>DIV>DIV {
+  display: flex;
+  justify-content: space-around;
+}
+.confirmWindow BUTTON {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.adminActiveChainInfo {
+  display: block;
+  width: 50%;
+  padding: 5px;
+  margin: 5px;
+  background: #7c8b7c;
+  color: #fff;
+  border: 1px solid #fff;
+}
+.adminActiveChainInfo SPAN {
+  display: block;
+}
+.adminActiveChainInfo SPAN:first-child {
+  border-bottom: 1px solid #fff;
+}
+
+
+.adminFormTextGroup {
+  text-align: left;
+  border: 1px solid gray;
+}
+
+.adminFormTextGroup H3 {
+  margin: 0px;
+  padding: 5px;
+  background: gray;
+  font-size: 12pt;
+}
+
+.adminFormTextGroup > DIV {
+  padding: 5px;
+  border-bottom: 1px solid gray;
+}
+.adminFormTextGroup > DIV:last-child {
+  border-bottom: 0px;
+}
+
+.adminFormTextGroup .adminStorageTextArea LABEL {
+  display: block;
+  font-size: 10pt;
+}
+
+.adminFormTextGroup .adminStorageTextArea INPUT,
+.adminFormTextGroup .adminStorageTextArea TEXTAREA {
+  display: block;
+  width: 100%;
+  padding: 5px;
+}
+
+.adminFormTextGroup .adminStorageTextArea TEXTAREA {
+  min-height: 120px;
+}
+
+.iconButton {
+  display: inline-block;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  line-height: 32px;
+  margin-left: 4px;
+  margin-right: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.iconButton:hover {
+  background: #0089ff;
+}
+
+.iconButton.iconButtonDisabled,
+.iconButton.iconButtonDisabled:hover {
+  background: gray;
+}
+
+.adminInfoError {
+  display: block;
+  border: 2px solid #fff;
+  padding: 10px;
+  background: #af0505;
+}
+.adminInfoError SPAN {
+  display: block;
+}
+
+.adminImagesList>SPAN {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+}
+
+.adminImagesList UL {
+  display: block;
+  width: 100%;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.adminImagesList UL LI {
+  display: flex;
+  padding: 5px;
+  margin: 5px;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+}
+
+.adminImagesList UL LI INPUT {
+  display: block;
+  width: 100%;
+}
+
+.adminImagesList UL LI.hasError INPUT {
+  background: #e5b5b5;
+}
+
+.adminImagesList>DIV {
+  text-align: right;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.adminImagesList>DIV BUTTON {
+  margin-left: 5px;
+}
+
+.adminToggleGroup {
+  display: block;
+  text-align: left;
+  border: 1px solid gray;
+  border-bottom: 2px solid #FFF;
+}
+
+.adminToggleGroup .adminToggleGroupHeader {
+  background: gray;
+  display: flex;
+  padding: 4px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.adminToggleGroup .adminToggleGroupHeader H3 {
+  display: block;
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  text-align: left;
+  background: none;
+}
+
+.adminToggleGroup .adminToggleGroupHeader:hover {
+  background: #175a7a;
+}
+
+.adminToggleGroup .adminToggleGroupHeader A {
+  display: block;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.adminToggleGroup.adminToggleGroupOpened .adminToggleGroupContent {
+  display: block;
+  padding: 5px;
+}
+
+.adminToggleGroup .adminToggleGroupContent {
+  disabled: none;
+}
+
+.adminForm .actionsRow {
+  text-align: right;
+}
+
+.adminForm H5 {
+  padding: 0px;
+  margin: 0px;
+  border-bottom: 2px solid #FFF;
+}
+.adminForm .actionsRow BUTTON {
+  margin-left: 5px;
+}
+
+.mintPageMintedHolder {
+  padding-bottom: 20px;
+}
+
+.mintPageDesc {
+  padding-bottom: 20px;
+  font-size: 14pt;
+  
+}
+.mintPageDesc P {
+  margin: 0px;
+}
+
+.adminToggleGroup .subFormInfo {
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.adminActionButton {
+  display: inline-block;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
+  line-height: 32px;
+  margin-left: 4px;
+  margin-right: 4px;
+  text-align: center;
+  cursor: pointer;
+  outline: 1px solid #FFF;
+}
+.adminActionButton:hover {
+  background: #1762bf;
+}
+.adminActionButton>SVG {
+  width: 16px;
+  height: 16px;
+}
+
+.buttonWithIcon {
+  display: inline-block;
+  color: #fff;
+  height: 32px;
+  vertical-align: middle;
+  line-height: 32px;
+  margin-left: 4px;
+  margin-right: 4px;
+  text-align: center;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-right: 4px;
+  outline: 1px solid #FFF;
+  white-space: nowrap;
+}
+.buttonWithIcon:hover {
+  background: #1762bf;
+}
+.buttonWithIcon>SVG {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.formTabs {
+  padding: 10px;
+}
+
+.formTabs>NAV {
+  display: flex;
+}
+
+.formTabs>NAV>A {
+  display: block;
+  padding: 10px;
+  background: gray;
+  border: 1px solid #FFF;
+  border-bottom: 2px solid #FFF;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.formTabs>NAV>A:hover {
+  background: #6591c7;
+}
+.formTabs>NAV>A.formTabsActive,
+.formTabs>NAV>A.formTabsActive:hover {
+  background: none;
+  border-bottom: 0px;
+}
+.formTabs>NAV::after {
+  content: '';
+  display: block;
+  width: auto;
+  border-bottom: 2px solid #FFF;
+  flex-basis: 100%;
+}
+
+.formTabs>DIV {
+  display: none;
+  border: 1px solid #FFF;
+  border-top: 0px;
+  padding: 10px;
+}
+
+.formTabs>DIV.formTabsActive {
+  display: block;
+}
+
+.hasError {
+  color: #d70909;
+}
+
+.errorBlock {
+  display: block;
+  width: 50%;
+  border: 2px solid #d39595;
+  background: #ad0b0b;
+  color: #FFF;
+  padding: 20px;
+  font-weight: bold;
+}
+.errorBlock SPAN {
+  display: block;
+}
