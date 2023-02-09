@@ -5,6 +5,7 @@ import { defaultDesign } from "../../helpers/defaultDesign"
 import { getUnixTimestamp } from "../../helpers/getUnixTimestamp"
 import fetchTokenInfo from "../../helpers/fetchTokenInfo"
 import deployLottery from "../../helpers/deployLottery"
+import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
 
 import adminFormRow from "../adminFormRow"
 
@@ -16,6 +17,7 @@ import {
   CHAIN_INFO,
   CHAIN_EXPLORER_LINK
 } from "../../helpers/constants"
+
 
 const CHAINS_LIST = (() => {
   const ret = Object.keys(AVAILABLE_NETWORKS_INFO).map((k) => {
@@ -175,6 +177,7 @@ export default function TabMain(options) {
             {adminFormRow({
               label: `Work blockchain ID`,
               type: `list`,
+              desc: `Your lottery will run on this blockchain`,
               values: CHAINS_LIST,
               value: newChainId,
               onChange: setNewChainId
@@ -185,15 +188,16 @@ export default function TabMain(options) {
                   label: `Lottery contract`,
                   type: `address`,
                   value: newLotteryContract,
+                  desc: `Set up the lottery contract by clicking the 'Deploy new' button, if this is your first time setting it up`,
                   onChange: setNewLotteryContract,
                   placeholder: `Enter address of lottery contract`,
                   buttons: (
                     <>
-                      <button disabled={isLotteryContractFetching || isLotteryContractDeploying} className={styles.secondaryButton} onClick={doFetchLotteryInfo}>
-                        {isLotteryContractFetching ? `Fetching info` : `Fetch info`}
+                      <button className={`${styles.adminSubButton}`} disabled={isLotteryContractFetching || isLotteryContractDeploying} onClick={doFetchLotteryInfo}>
+                        {isLotteryContractFetching ? `Fetching info` : `Fetch Lottery contract info`}
                       </button>
-                      <button disabled={isLotteryContractFetching || isLotteryContractDeploying} className={styles.secondaryButton} onClick={openDeployLottery}>
-                        Deploy new
+                      <button className={`${styles.adminSubButton}`} disabled={isLotteryContractFetching || isLotteryContractDeploying} onClick={openDeployLottery}>
+                        Deploy new Lottery contract
                       </button>
                     </>
                   )
@@ -238,13 +242,14 @@ export default function TabMain(options) {
                     {adminFormRow({
                       label: `Lottery token`,
                       type: `address`,
+                      desc: `This token will be used to purchase tickets and as a reward in your lottery`,
                       value: newLotteryTokenAddress,
                       onChange: setNewLotteryTokenAddress,
                       placeholder: `Ender address of lottery ERC20 token`,
                       buttons: (
-                        <button disabled={isTokenFetching} onClick={doFetchTokenInfo}>
+                        <SwitchNetworkAndCall chainId={newChainId} className={styles.adminSubButton} disabled={isTokenFetching} onClick={doFetchTokenInfo} action={`Fetch token info`} >
                           {isTokenFetching ? `Fetching` : `Fetch token info`}
-                        </button>
+                        </SwitchNetworkAndCall>
                       )
                     })}
                     {isTokenFetched && newTokenInfo && newTokenInfo.address && (
@@ -272,10 +277,10 @@ export default function TabMain(options) {
                     )}
                   </div>
                   <div className={styles.actionsRow}>
-                    <button disabled={isLotteryContractDeploying} onClick={doDeployLotteryContract}>
+                    <SwitchNetworkAndCall chainId={newChainId} className={styles.adminSubButton} disabled={isLotteryContractDeploying} onClick={doDeployLotteryContract} action={`Deploy lottery contract`} >
                       {isLotteryContractDeploying ? `Deploying` : `Deploy Lottery contract`}
-                    </button>
-                    <button disabled={isLotteryContractDeploying} onClick={cancelDeploy}>
+                    </SwitchNetworkAndCall>
+                    <button className={`${styles.adminSubButton} ${styles.isCancel}`} disabled={isLotteryContractDeploying} onClick={cancelDeploy}>
                       Cancel
                     </button>
                   </div>
@@ -283,9 +288,9 @@ export default function TabMain(options) {
               </>
             )}
             <div className={styles.actionsRowMain}>
-              <button disabled={isSaveToStorage} onClick={doSaveToStorage} className={styles.secondaryButton}>
+              <SwitchNetworkAndCall chainId={`STORAGE`} className={styles.adminMainButton} disabled={isSaveToStorage} onClick={doSaveToStorage} action={`Save changes`} >
                 {isSaveToStorage ? `Saving...` : `Save to storage config`}
-              </button>
+              </SwitchNetworkAndCall>
             </div>
           </div>
         </>

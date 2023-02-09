@@ -11,6 +11,7 @@ export default function adminFormRow(options) {
     placeholder,
     hasError,
     errorText,
+    desc,
   } = options
 
   let inputType = type
@@ -25,6 +26,9 @@ export default function adminFormRow(options) {
       {type === 'list' ? (
         <>
           <label>{label}: ({value})</label>
+          {desc && (
+            <span className={styles.adminFieldDesc}>{desc}</span>
+          )}
           <div>
             {hasError && errorText && (
               <span className={styles.hasError}>{errorText}</span>
@@ -41,6 +45,9 @@ export default function adminFormRow(options) {
       ) : (
         <>
           <label>{label}:</label>
+          {desc && (
+            <span className={styles.adminFieldDesc}>{desc}</span>
+          )}
           {hasError && errorText && (
             <span className={styles.hasError}>{errorText}</span>
           )}

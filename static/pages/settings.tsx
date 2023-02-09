@@ -7,6 +7,7 @@ import TabMain from "../components/settings/TabMain"
 import TabGameRules from "../components/settings/TabGameRules"
 import TabControl from "../components/settings/TabControl"
 import TabTexts from "../components/settings/TabTexts"
+import TabLotteryBank from "../components/settings/TabLotteryBank"
 
 
 import useStorage from "../storage/"
@@ -43,6 +44,7 @@ import {
 const settingsTabs = {
   main: `Main settings`,
   gamerules: `Rules`,
+  lotterybank: `Lottery Bank`,
   rounds: `Rounds`,
   texts: `Edit texts`,
   design: `Design`,
@@ -372,6 +374,7 @@ const Settings: NextPage = (props) => {
   const tabControl = new TabControl(_tabSettings)
   const tabTexts = new TabTexts(_tabSettings)
   const tabDesign = new TabDesign(_tabSettings)
+  const tabLotteryBank = new TabLotteryBank(_tabSettings)
     
   if (isInstalledOnDomain) showInstallBox = false
   return (
@@ -420,6 +423,7 @@ const Settings: NextPage = (props) => {
                       {/* -------------------------------------------------*/ }
                       {activeTab === `main` && tabMain.render()}
                       {activeTab === `gamerules` && tabGameRules.render()}
+                      {activeTab === `lotterybank` && tabLotteryBank.render()}
                       {activeTab === `rounds` && tabControl.render()}
                       {activeTab === `texts` && tabTexts.render()}
                       {activeTab === `design` && tabDesign.render()}

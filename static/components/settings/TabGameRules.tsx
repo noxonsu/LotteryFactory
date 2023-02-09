@@ -227,13 +227,13 @@ export default function TabGameRules(options) {
                 )
               })}
               <div className={styles.infoRow}>
-                <label>Burn (From 2 to 30):</label>
+                <label>Service fee (From 2 to 30):</label>
                 <div>
                   <div>
                     <input type="number" min="2" max="30" value={newBurn} onChange={(e) => { setNewBurn(e.target.value) }} />
                     <strong>%</strong>
                   </div>
-                  <div>How many percents of the band in a round will be burned</div>
+                  <div>As an administrator, you can set a service fee for each round of the lottery. The fee will be sent to your wallet address, with a 20% deduction as the "onout" fee. This fee can be disabled by purchasing the premium version</div>
                 </div>
               </div>
               <div className={styles.infoRow}>

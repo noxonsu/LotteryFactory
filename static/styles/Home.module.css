@@ -1151,3 +1151,65 @@
 .errorBlock SPAN {
   display: block;
 }
+
+
+/* ADMIN BUTTONS */
+
+.adminMainButton,
+.adminSubButton {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  appearance: none;
+  align-items: center;
+  -webkit-box-align: center;
+  justify-content: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  line-height: 1.2;
+  font-weight: 600;
+  transition-property: background-color, border-color, color, fill, stroke,
+    opacity, box-shadow, transform;
+  transition-duration: 200ms;
+  height: 3rem;
+  min-width: 3rem;
+  font-size: 1rem;
+  background: #e5e5ea;
+  background-image: linear-gradient(to left, #cc25b3 0%, #418dff 101.52%);
+  color: #fff;
+  width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  border-radius: 10px;
+  border-style: none;
+}
+
+.adminSubButton {
+  height: 2.5rem;
+}
+.adminMainButton:hover,
+.adminSubButton:hover {
+  opacity: 0.8;
+}
+
+.adminMainButton[disabled],
+.adminMainButton[disabled]:hover,
+.adminSubButton[disabled],
+.adminSubButton[disabled]:hover {
+  background: gray;
+  opacity: 1;
+}
+
+.adminSubButton.isCancel {
+  background-image: linear-gradient(to left, #978494 0%, #7691bb 101.52%);
+}
+
+.adminFieldDesc {
+  display: block;
+  font-size: 10pt;
+  margin-top: -10px;
+  padding-left: 20px;
+}
