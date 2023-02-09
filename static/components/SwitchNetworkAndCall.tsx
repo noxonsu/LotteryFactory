@@ -2,6 +2,7 @@ import { useState } from "react"
 import { switchOrAddChain, getCurrentChainId } from "../helpers/setupWeb3"
 import { CHAIN_INFO } from "../helpers/constants"
 import { getStorageInfo } from "../storage/"
+import FaIcon from "./FaIcon"
 
 export default function SwitchNetworkAndCall(options) {
   const {
@@ -10,7 +11,8 @@ export default function SwitchNetworkAndCall(options) {
     onClick,
     chainId: _chainId,
     action,
-    className
+    className,
+    icon
   } = {
     disabled: false,
     chainId: 1,
@@ -43,6 +45,9 @@ export default function SwitchNetworkAndCall(options) {
   }
   return (
     <button disabled={disabled || isSwitching} onClick={switchOrClick} className={className}>
+      {icon && (
+        <FaIcon icon={icon} />
+      )}
       {(`${currentChainId}` !== `${chainId}`) ? (
         <>
           {isSwitching ? (

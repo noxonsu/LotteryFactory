@@ -648,7 +648,8 @@
 /* ==================== ADMIN */
 
 .adminForm {
-  width: 50%;
+  width: 100%;
+  max-width: 1024px;
 }
 
 
@@ -844,7 +845,8 @@
 
 .adminActiveChainInfo {
   display: block;
-  width: 50%;
+  width: 100%;
+  max-width: 1024px;
   padding: 5px;
   margin: 5px;
   background: #7c8b7c;
@@ -1141,7 +1143,8 @@
 
 .errorBlock {
   display: block;
-  width: 50%;
+  width: 100%;
+  max-width: 1024px;
   border: 2px solid #d39595;
   background: #ad0b0b;
   color: #FFF;
@@ -1156,7 +1159,8 @@
 /* ADMIN BUTTONS */
 
 .adminMainButton,
-.adminSubButton {
+.adminSubButton,
+.adminButton {
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
@@ -1190,26 +1194,86 @@
 .adminSubButton {
   height: 2.5rem;
 }
+.adminButton {
+  height: 2rem;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 11pt;
+  border-radius: 5px;
+}
+
 .adminMainButton:hover,
-.adminSubButton:hover {
+.adminSubButton:hover,
+.adminButton:hover {
   opacity: 0.8;
 }
 
 .adminMainButton[disabled],
 .adminMainButton[disabled]:hover,
 .adminSubButton[disabled],
-.adminSubButton[disabled]:hover {
+.adminSubButton[disabled]:hover,
+.adminButton[disabled],
+.adminButton[disabled]:hover {
   background: gray;
   opacity: 1;
 }
 
+.adminButton.isCancel,
 .adminSubButton.isCancel {
   background-image: linear-gradient(to left, #978494 0%, #7691bb 101.52%);
 }
+.adminSubButton SVG,
+.adminMainButton SVG {
+  margin-right: 10px;
+}
 
+.adminButton SVG {
+  margin-right: 5px;
+}
 .adminFieldDesc {
   display: block;
   font-size: 10pt;
   margin-top: -10px;
   padding-left: 20px;
+}
+
+DIV.helpTooltip {
+  display: inline-block;
+  position: relative;
+}
+DIV.helpTooltip SPAN {
+  font-size: 10pt;
+  font-weight: bold;
+  background: #0d6587;
+  border: 2px solid #FFF;
+  border-radius: 9999px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 21px;
+  text-align: center;
+  vertical-align: baseline;
+  margin-right: 10px;
+}
+
+DIV.helpTooltip DIV {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 10px;
+  min-width: 300px;
+  background: #f1f1ba;
+  color: #000;
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 5px;
+  font-size: 10pt;
+  font-weight: bold;
+  line-height: 11pt;
+  box-shadow: 0px 0px 3px 2px #0a7f8f;
+  margin-bottom: 5px;
+  z-index: 99999;
+}
+DIV.helpTooltip:hover DIV {
+  display: block;
 }

@@ -5,7 +5,7 @@ import adminFormRow from "../adminFormRow"
 import iconButton from "../iconButton"
 import FaIcon from "../FaIcon"
 import callLotteryMethod from "../../helpers/callLotteryMethod"
-
+import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
 
 export default function TabGameRules(options) {
   const {
@@ -71,7 +71,7 @@ export default function TabGameRules(options) {
     if (newCount<2) newCount = 2
     if (newCount>6) newCount = 6
     setNewBallsCount(newCount)
-    //setIsBallsChanged(storageData.balls !== newCount)
+    setIsBallsChanged(`${storageData.balls}` !== `${newCount}`)
     setMatchArray((prev) => {
       return [1,2,3,4,5,6].filter((matchCount) => matchCount <= parseInt(newCount) )
     })
@@ -171,16 +171,34 @@ export default function TabGameRules(options) {
             <h3>Lottery rules</h3>
             <div className={styles.subForm}>
               <div className={styles.infoRow}>
-                <label>Balls count:</label>
+                <label>
+                  <div className={styles.helpTooltip}>
+                    <span>?</span>
+                    <div>The number of balls that will be drawn in your lottery. Number two to six</div>
+                  </div>
+                  Balls count:
+                </label>
                 <div>
                   <div>
                     <input type="number" min="2" max="6" step="1" value={newBallsCount} onChange={(e) => { onChangeBallsCount(e.target.value) }} />
+                    <SwitchNetworkAndCall
+                      chainId={storageData.chainId}
+                      onClick={doSaveBallsCount}
+                      disabled={isSaveBallsCount}
+                      icon="save"
+                      action="Save balls count"
+                      className={styles.adminButton}
+                    >
+                      {isSaveBallsCount ? `Saving the number of balls in the lottery contract` : `Save the number of balls in the lottery contract`}
+                    </SwitchNetworkAndCall>
+                    {/*
                     {iconButton({
                       title: `Save to contract`,
                       onClick: doSaveBallsCount,
                       disabled: isSaveBallsCount,
                       icon: 'save',
                     })}
+                    */}
                   </div>
                 </div>
               </div>
@@ -188,10 +206,17 @@ export default function TabGameRules(options) {
             <h3>Distribution of prizes %</h3>
             <div className={styles.subForm}>
               <h4>Distribute the winning percentage based on the number of matched balls</h4>
+              <div class={styles.adminFieldDesc}>You can also use the "Equalize the remainder" button to distribute the remaining percentage in the desired field</div>
               {matchArray.map((match_count) => {
                 return (
                   <div className={styles.infoRow} key={match_count}>
-                    <label>Match {match_count} ball:</label>
+                    <label>
+                      <div className={styles.helpTooltip}>
+                        <span>?</span>
+                        <div>The percentage of winnings from the bank when {match_count} number matches</div>
+                      </div>
+                      Match {match_count} ball:
+                    </label>
                     <div>
                       <div>
                         <input
@@ -217,33 +242,39 @@ export default function TabGameRules(options) {
                           }}
                         />
                         <strong>%</strong>
-                        <a className={styles.buttonWithIcon} onClick={() => { doFillUndist(match_count) }}>
+                        <button className={styles.adminButton} onClick={() => { doFillUndist(match_count) }}>
                           <FaIcon icon="arrow-left" />
                           Equalize the remainder
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
                 )
               })}
               <div className={styles.infoRow}>
-                <label>Service fee (From 2 to 30):</label>
-                <div>
-                  <div>
-                    <input type="number" min="2" max="30" value={newBurn} onChange={(e) => { setNewBurn(e.target.value) }} />
-                    <strong>%</strong>
+                <label>
+                  <div className={styles.helpTooltip}>
+                    <span>?</span>
+                    <div>
+                      {`The sum of all winning combinations is on top. This number must be equal to 100%`}
+                    </div>
                   </div>
-                  <div>As an administrator, you can set a service fee for each round of the lottery. The fee will be sent to your wallet address, with a 20% deduction as the "onout" fee. This fee can be disabled by purchasing the premium version</div>
-                </div>
-              </div>
-              <div className={styles.infoRow}>
-                <label>Sum:</label>
+                  Sum:
+                </label>
                 <div>
                   <b>{newTotalSum}</b><strong>%</strong>
                 </div>
               </div>
               <div className={styles.infoRow}>
-                <label>Undistributed:</label>
+                <label>
+                  <div className={styles.helpTooltip}>
+                    <span>?</span>
+                    <div>
+                      {`The amount of undistributed winnings from the field above. This number must be 0%`}
+                    </div>
+                  </div>
+                  Undistributed:
+                </label>
                 <div>
                   {(newUndist) !== 0 ? (
                     <>
@@ -256,6 +287,23 @@ export default function TabGameRules(options) {
                       <b>{newUndist}</b><strong>%</strong>
                     </>
                   )}
+                </div>
+              </div>
+              <div className={styles.infoRow}>
+                <label>
+                  <div className={styles.helpTooltip}>
+                    <span>?</span>
+                    <div>
+                      {`As an administrator, you can set a service fee for each round of the lottery. The fee will be sent to your wallet address, with a 20% deduction as the "onout" fee. This fee can be disabled by purchasing the premium version`}
+                    </div>
+                  </div>
+                  Service fee (From 2 to 30):
+                </label>
+                <div>
+                  <div>
+                    <input type="number" min="2" max="30" value={newBurn} onChange={(e) => { setNewBurn(e.target.value) }} />
+                    <strong>%</strong>
+                  </div>
                 </div>
               </div>
               <div className={styles.infoRow}>
@@ -278,13 +326,16 @@ export default function TabGameRules(options) {
                     Save balls count first!
                   </strong>
                 )}
-                {/*disabled={isTicketPriceError || newUndist !== 0 || isSaveMatches || isBallsChanged || isTicketPriceChanged} */}
-                <button
-                  disabled={isSaveMatches}
+                <SwitchNetworkAndCall
+                  chainId={`STORAGE`}
                   onClick={doSaveMatches}
+                  disabled={isSaveMatches}
+                  icon="save"
+                  action="Save changes"
+                  className={styles.adminSubButton}
                 >
                   {isSaveMatches ? 'Saving...' : 'Save match rules, burn amount and ticket price'}
-                </button>
+                </SwitchNetworkAndCall>
               </div>
             </div>
           </div>
