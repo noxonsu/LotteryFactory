@@ -21,7 +21,12 @@
     "dev": "rollup -cw",
     "build:lotterydeploy": "node ./bin/solc.js",
     "build:lotteryfactory": "rollup -c",
-    "build": "rimraf ./lib && npm run build:lotterydeploy && npm run build:lotteryfactory"
+    "build": "rimraf ./lib && npm run build:lotterydeploy && npm run build:lotteryfactory",
+    "frontend_update": "npm run update_build --prefix ./frontend/",
+    "frontend_build": "npm run build_clean --prefix ./frontend/",
+    "static_build": "npm run buildstatic --prefix ./static/",
+    "wp_rebuild": "npm run frontend_build && npm run frontend_update",
+    "static_rebuild": "npm run frontend_build && npm run frontend_update && npm run static_build"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",

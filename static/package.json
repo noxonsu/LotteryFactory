@@ -1,11 +1,12 @@
 {
-  "name": "nft-staking-app",
+  "name": "lottery-static-cpp",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "prepare": "node prepare-static",
+    "export": "node export",
     "buildstatic": "next build && next export && node prepare-static",
     "start": "next start",
     "lint": "next lint"
