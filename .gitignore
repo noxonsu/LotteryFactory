@@ -9,6 +9,11 @@
 node_modules
 node_modules_
 
+# contracts
+static/contracts/.deps
+static/contracts/source/artifacts
+!static/contracts/source/artifacts/PancakeSwapLottery.json
+
 /*.css
 /*.html
 Farm.json
@@ -16,3 +21,5 @@ Farm.json
 vendor/*/*
 frontend/build/*
 /staticbuild/*
+static/contracts/source/artifacts/Address.json
+static/contracts/source/artifacts/Address_metadata.json
