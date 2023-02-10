@@ -81,7 +81,7 @@ export default function TabLotteryBank(options) {
         <>
           <div className={styles.adminForm}>
             <div className={styles.adminSectionDescription}>
-              {`In this section, you can pick up the lottery pot. The bank can be withdrawn 31 days after the last round closes`}
+              {`As an administrator, you have the option to withdraw unclaimed funds from the bank after two months have passed since the last round of the lottery. However, please be aware that a portion of the withdrawal, equal to 1/5 of the total amount, will be deducted as the OnOut fee. If you wish to avoid this fee, you can purchase the premium version of the lottery service.`}
             </div>
             <div className={styles.subFormInfo}>
               <h3>Lottery bank info</h3>
