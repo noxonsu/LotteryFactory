@@ -12,6 +12,8 @@
 /.next/
 /out/
 
+# contracts
+/static/contracts/.deps
 # production
 /build
 
