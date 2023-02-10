@@ -46,7 +46,7 @@ export default function TabLotteryBank(options) {
           ],
         }).then((res) => {
           setIsBankWithdraw(false)
-          doFetchStatus(true)
+          setDoFetchStatus(true)
           addNotify(`Lottery bank withdrawed`, `success`)
         }).catch((err) => {
           setIsBankWithdraw(false)
@@ -64,6 +64,7 @@ export default function TabLotteryBank(options) {
         contractAddress: storageData.lotteryAddress,
       }).then((lotteryStatus) => {
         const { currentLotteryInfo } = lotteryStatus
+        console.log('>>> lotteryStatus', lotteryStatus)
         setEndTime(currentLotteryInfo.endTime)
         setLotteryStatus(currentLotteryInfo.status)
         setTimeLeft(Number(currentLotteryInfo.endTime) + 31 * 24 * 60 * 60 - getUnixTimestamp())
