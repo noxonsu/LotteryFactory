@@ -419,6 +419,7 @@ export default function TabControl(options) {
                           chainId={storageData?.chainId}
                           action={`Close round`}
                           onClick={onCloseLottery}
+                          disabled={isLotteryClosing}
                           className={styles.adminButton}
                         >
                           {isLotteryClosing 

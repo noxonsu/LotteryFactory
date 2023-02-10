@@ -1,4 +1,4 @@
-import json from '../../contracts/Lottery.json'
+import json from '../../static/contracts/source/artifacts/PancakeSwapLottery.json'
 import formatAmount from './formatAmount'
 import { injectModalsRoot } from './modals'
 import infoModal from './infoModal'
