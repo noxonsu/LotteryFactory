@@ -24,7 +24,8 @@ const deployLottery = (options) => {
         }
 
         const _arguments = [
-          tokenAddress
+          tokenAddress,
+          true // FEE ENABLED
         ]
 
         const gasAmountCalculated = await contract.deploy({
