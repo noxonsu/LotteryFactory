@@ -8,6 +8,7 @@ import TabGameRules from "../components/settings/TabGameRules"
 import TabControl from "../components/settings/TabControl"
 import TabTexts from "../components/settings/TabTexts"
 import TabLotteryBank from "../components/settings/TabLotteryBank"
+import TabLicense from "../components/settings/TabLicense"
 
 
 import useStorage from "../storage/"
@@ -48,6 +49,7 @@ const settingsTabs = {
   rounds: `Rounds`,
   texts: `Edit texts`,
   design: `Design`,
+  license: `License`,
 }
 
 const debugLog = (msg) => { console.log(msg) }
@@ -375,7 +377,8 @@ const Settings: NextPage = (props) => {
   const tabTexts = new TabTexts(_tabSettings)
   const tabDesign = new TabDesign(_tabSettings)
   const tabLotteryBank = new TabLotteryBank(_tabSettings)
-    
+  const tabLicense = new TabLicense(_tabSettings)
+  
   if (isInstalledOnDomain) showInstallBox = false
   return (
     <div className={styles.container}>
@@ -427,6 +430,7 @@ const Settings: NextPage = (props) => {
                       {activeTab === `rounds` && tabControl.render()}
                       {activeTab === `texts` && tabTexts.render()}
                       {activeTab === `design` && tabDesign.render()}
+                      {activeTab === `license` && tabLicense.render()}
                     </>
                   ) : (
                     <h2>Access denied</h2>
