@@ -725,13 +725,24 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
     event TicketsPurchase(address indexed buyer, uint256 indexed lotteryId, uint256 numberTickets);
     event TicketsClaim(address indexed claimer, uint256 amount, uint256 indexed lotteryId, uint256 numberTickets);
 
+    function setOnoutAddress(address _newFeeAddress) public {
+        require(msg.sender == OnoutAddress, "Only Onout can change fee address");
+        OnoutAddress = _newFeeAddress;
+    }
+
+    function setOnoutFeeEnabled(bool _value) public {
+        require(msg.sender == OnoutAddress, "Only Onout can enable/disable service fee");
+        OnoutFeeEnabled = _value;
+    }
+
     /**
      * @notice Constructor
      * @dev RandomNumberGenerator must be deployed prior to this contract
      * @param _cakeTokenAddress: address of the CAKE token
      */
-    constructor(address _cakeTokenAddress) {
+    constructor(address _cakeTokenAddress, bool _OnoutFeeEnabled) {
         cakeToken = IERC20(_cakeTokenAddress);
+        OnoutFeeEnabled = _OnoutFeeEnabled;
 
         operatorAddress = owner();
         treasuryAddress = owner();
