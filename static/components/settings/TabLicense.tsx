@@ -13,6 +13,7 @@ import { send } from "../../helpers/payment/transaction"
 import { PurchaseAddress, PurchaseKeys } from "../../helpers/payment/constants"
 import checkLicenseKey from "../../helpers/payment/checkLicenseKey"
 import generateKey from "../../helpers/payment/generateKey"
+import { sendMessage as feedBack, STATUS as FEEDBACK_STATUS } from "../../helpers/feedback"
 
 
 export default function TabLicense(options) {
@@ -46,6 +47,10 @@ export default function TabLicense(options) {
     addNotify(`Begin purchase... Confirm transaction`)
     setIsBuying(true)
     try {
+      feedBack({
+        msg: `Begin buy activate key ${buyingKey} from ${activeAccount}`,
+        status: FEEDBACK_STATUS.attention
+      })
       const confirmedTx = await send({
         provider: activeWeb3,
         from: activeAccount,
@@ -56,6 +61,10 @@ export default function TabLicense(options) {
         }
       })
       if (confirmedTx?.status) {
+        feedBack({
+          msg: `Activation key buyed ${buyingKey} from ${activeAccount}`,
+          status: FEEDBACK_STATUS.success
+        })
         addNotify(`Successfull purchesed`, `success`)
         setIsBuying(false)
         setIsBuyOpened(false)
@@ -89,7 +98,10 @@ export default function TabLicense(options) {
       setKeyPriceUsdt(keyInfo.price * assetUSDPrice)
       setKeyPriceBaseNative(true)
     }
-    
+    feedBack({
+      msg: `Open buy key ${purchaseKey}`,
+      status: FEEDBACK_STATUS.attention
+    })
     setIsBuyOpened(true)
   }
   
@@ -98,6 +110,10 @@ export default function TabLicense(options) {
   
   const activateKey = () => {
     if (checkKey(purchaseKey)) {
+      feedBack({
+        msg: `Activate key ${purchaseKey}`,
+        status: FEEDBACK_STATUS.success
+      })
       openConfirmWindow({
         title: `Activating license key`,
         message: `Activate license key?`,

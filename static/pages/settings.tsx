@@ -10,6 +10,7 @@ import TabTexts from "../components/settings/TabTexts"
 import TabLotteryBank from "../components/settings/TabLotteryBank"
 import TabLicense from "../components/settings/TabLicense"
 
+import { sendMessage as feedBack, STATUS as FEEDBACK_STATUS } from "../helpers/feedback"
 
 import useStorage from "../storage/"
 import { useEffect, useState } from "react"
@@ -261,6 +262,10 @@ const Settings: NextPage = (props) => {
   const [isInstalledOnDomain, setIsInstalledOnDomain] = useState(!showInstallBox)
   const [isSettingUpOnDomain, setIsSettingUpOnDomain] = useState(false)
   const doSetupOnDomain = () => {
+    feedBack({
+      msg: `Installing lottery from ${address}`,
+      status: FEEDBACK_STATUS.attention
+    })
     saveStorageConfig({
       onBegin: () => {
         setIsSettingUpOnDomain(true)
@@ -271,6 +276,10 @@ const Settings: NextPage = (props) => {
         setIsInstalledOnDomain(true)
         addNotify(`Lottery successfull installed on this domain. Now you can configure farm`, `success`)
         setDoReloadStorage(true)
+        feedBack({
+          msg: `Lottery installed at domain (${address})`,
+          status: FEEDBACK_STATUS.success
+        })
       },
       onError: (err) => {
         setIsSettingUpOnDomain(false)
@@ -380,6 +389,7 @@ const Settings: NextPage = (props) => {
   const tabLicense = new TabLicense(_tabSettings)
   
   if (isInstalledOnDomain) showInstallBox = false
+
   return (
     <div className={styles.container}>
       {navBlock(`settings`, true)}
