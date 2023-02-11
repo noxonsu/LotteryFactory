@@ -18,7 +18,7 @@ import {
   CHAIN_INFO,
   CHAIN_EXPLORER_LINK
 } from "../../helpers/constants"
-
+import checkLicenseKey from "../../helpers/payment/checkLicenseKey"
 
 const CHAINS_LIST = (() => {
   const ret = Object.keys(AVAILABLE_NETWORKS_INFO).map((k) => {
@@ -59,6 +59,7 @@ export default function TabMain(options) {
   const [ isTokenFetching, setIsTokenFetching ] = useState(false)
   const [ isTokenFetched, setIsTokenFetched ] = useState(storageData.tokenInfo.address !== undefined)
   const [ isSaveToStorage, setIsSaveToStorage ] = useState(false)
+
   
   const doSaveToStorage = () => {
     openConfirmWindow({
@@ -143,6 +144,7 @@ export default function TabMain(options) {
           deployLottery({
             activeWeb3,
             tokenAddress: newLotteryTokenAddress,
+            feeOn: !checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData),
             onTrx: (hash) => {
               addNotify(`Lottery contract deploy TX ${hash}...`, `success`)
             },

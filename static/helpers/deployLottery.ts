@@ -7,8 +7,9 @@ const deployLottery = (options) => {
     const {
       activeWeb3,
       tokenAddress,
-      feeOff,
+      feeOn,
     } = options
+    console.log('>>> options', options)
     const onTrx = options.onTrx || (() => {})
     const onSuccess = options.onSuccess || (() => {})
     const onError = options.onError || (() => {})
@@ -26,7 +27,7 @@ const deployLottery = (options) => {
 
         const _arguments = [
           tokenAddress,
-          (feeOff) ? true: false // FEE ENABLED
+          (feeOn) ? true: false // FEE ENABLED
         ]
 
         const gasAmountCalculated = await contract.deploy({
