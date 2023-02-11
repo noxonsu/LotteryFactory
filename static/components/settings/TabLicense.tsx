@@ -151,7 +151,7 @@ export default function TabLicense(options) {
                   <label>
                     <div className={styles.helpTooltip}>
                       <span>?</span>
-                      <div>...</div>
+                      <div>If you already have an activation key. Specify it in this field and click "Activate"</div>
                     </div>
                     Purchase key:
                   </label>
@@ -177,32 +177,65 @@ export default function TabLicense(options) {
             </div>
             <div className={styles.subFormInfo}>
               <h3>Purchasing a product activation key</h3>
-              <div className={styles.subForm}>
+              <div className="PurchaseKeys">
+                <style jsx>
+                {`
+                  .PurchaseKeys {}
+                  .PurchaseKeys .card {
+                    margin: 10px;
+                    padding: 4px;
+                    border: 1px solid #FFF;
+                    box-shadow: 0 0 2px 2px #4f5760;
+                    background: #403f3f;
+                  }
+                  .PurchaseKeys .card .title {
+                    font-size: 12pt;
+                    font-weight: bold;
+                    border-bottom: 1px solid #FFF;
+                    padding: 4px;
+                    text-shadow: 1px 1px black, -1px 1px black, 1px -1px black, -1px -1px black;
+                  }
+                  .PurchaseKeys .card .desc {
+                    padding: 15px;
+                    font-size: 10pt;
+                  }
+                  .PurchaseKeys .card .buyHolder {
+                    padding: 4px;
+                    border-top: 1px solid #FFF;
+                    text-align: right;
+                  }
+                  .PurchaseKeys .card .buyHolder STRONG {
+                    color: #64d31f;
+                  }
+                `}
+                </style>
                 {Object.keys(PurchaseKeys).map((key) => {
                   const isBuyed = checkLicenseKey(key, storageData)
                   return (
-                    <div className={styles.infoRow} key={key}>
-                      <div>
-                        <h5>{PurchaseKeys[key].title}</h5>
-                        <div>{PurchaseKeys[key].desc}</div>
-                        <div>
-                          {isBuyed ? (
-                            <strong>You already got it</strong>
-                          ) : (
-                            <SwitchNetworkAndCall
-                              chainId={PurchaseKeys[key].chainId}
-                              onClick={() => {
-                                openBuyModal(key)
-                              }}
-                              disabled={false}
-                              icon="money-check-dollar"
-                              action="Buy"
-                              className={styles.adminButton}
-                            >
-                              {`Buy`}
-                            </SwitchNetworkAndCall>
-                          )}
-                        </div>
+                    <div className="card" key={key}>
+                      <div className="title">{PurchaseKeys[key].title}</div>
+                      <div className="desc">{PurchaseKeys[key].desc}</div>
+                      <div className="buyHolder">
+                        {isBuyed ? (
+                          <strong>
+                            <FaIcon icon="circle-check" />
+                            {` `}
+                            You already got it
+                          </strong>
+                        ) : (
+                          <SwitchNetworkAndCall
+                            chainId={PurchaseKeys[key].chainId}
+                            onClick={() => {
+                              openBuyModal(key)
+                            }}
+                            disabled={false}
+                            icon="money-check-dollar"
+                            action="Buy"
+                            className={styles.adminButton}
+                          >
+                            {`Buy an activation key`}
+                          </SwitchNetworkAndCall>
+                        )}
                       </div>
                     </div>
                   )
@@ -214,9 +247,25 @@ export default function TabLicense(options) {
             isOpened={isBuyOpened}
             hasClose={true}
             onClose={() => { setIsBuyOpened(false) }}
-            title={`Purchase`}
+            title={`Payment for an activation key`}
           >
-            <>
+            <div className="buyKeyModal">
+              <style jsx>
+              {`
+                .buyKeyModal {
+                  padding: 10px;
+                }
+                .buyKeyModal A {
+                  display: block;
+                  padding: 5px;
+                  color: #abd4ff;
+                  font-weight: bold;
+                }
+                .buyKeyModal A:hover {
+                  color: #FFF;
+                }
+              `}
+              </style>
               <p>You can use this links to buy crypto with a bank card:</p>
               <a
                 className="link paymentLink"
@@ -250,14 +299,16 @@ export default function TabLicense(options) {
               <button
                 disabled={isBuying}
                 onClick={onBuy}
+                className={styles.adminButton}
               >
+                <FaIcon icon="money-check-dollar" />
                 {keyPriceBaseNative ? (
                   <>{`Buy for ${keyPriceNative} ${activeChainInfo.nativeCurrency.symbol} (~$${Number(keyPriceUsdt).toFixed(2)}) `}</>
                 ) : (
                   <>{`Buy for $${keyPriceUsdt} (~${keyPriceNative} ${activeChainInfo.nativeCurrency.symbol}) `}</>
                 )}
               </button>
-            </>
+            </div>
           </AdminPopupWindow>
           <AdminPopupWindow
             isOpened={isActivateKeyBoxOpened}
