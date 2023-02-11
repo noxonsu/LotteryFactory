@@ -6,10 +6,14 @@ import iconButton from "../iconButton"
 import FaIcon from "../FaIcon"
 import callLotteryMethod from "../../helpers/callLotteryMethod"
 import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
-import crypto from "crypto"
 import AdminPopupWindow from "../AdminPopupWindow"
 import { CHAIN_INFO } from "../../helpers/constants"
 import { getPrice } from "../../helpers/payment/currency"
+import { send } from "../../helpers/payment/transaction"
+import { PurchaseAddress, PurchaseKeys } from "../../helpers/payment/constants"
+import checkLicenseKey from "../../helpers/payment/checkLicenseKey"
+import generateKey from "../../helpers/payment/generateKey"
+
 
 export default function TabLicense(options) {
   const {
@@ -27,43 +31,48 @@ export default function TabLicense(options) {
   
   const [ purchaseKey, setPurchaseKey ] = useState("")
 
-  const PurchaseKeys = {
-    LOTTERY_OFF_COPYRIGTH: {
-      title: `LotteryFactory - Disable copyright`,
-      desc: `LotteryFactory - Disables copyright of OnOut`,
-      price: 0.1,
-      chainId: 5, //56,
-      product: `LotteryFactory`,
-      include_packs: []
-    },
-    LOTTERY_FULL_VERSION: {
-      title: `LotteryFactory - Full version`,
-      desc: `LotteryFactory - Full version. Disabled copyright of OnOut. Onout commission disabled`,
-      price: 1000,
-      isUSDT: true,
-      chainId: [5, 56],
-      product: `LotteryFactory`,
-      include_packs: [ `LOTTERY_OFF_COPYRIGTH` ]
-    }
-  }
-  
-  const generateKey = (PurchaseKey) => {
-    const { activeAccount } = getActiveChain()
-    const hash = crypto
-      .createHash('md5')
-      .update(`${activeAccount}-${PurchaseKey}`)
-      .digest("hex")
-      .toUpperCase()
-    const key = `${hash.slice(0,8)}-${hash.slice(8,16)}-${hash.slice(16,24)}-${hash.slice(24)}`
-    console.log(hash, key)
-  }
 
   const [ isBuyOpened, setIsBuyOpened ] = useState(false)
   const [ keyPriceUsdt, setKeyPriceUsdt ] = useState(0)
   const [ keyPriceNative, setKeyPriceNative ] = useState(0)
   const [ keyPriceBaseNative, setKeyPriceBaseNative ] = useState(false)
+  const [ buyingKey, setBuyingKey ] = useState(``)
+  
+  const [ isBuying, setIsBuying ] = useState(false)
+  const [ error, setError ] = useState(false)
+  
+  const onBuy = async () => {
+    const { activeWeb3, activeAccount } = getActiveChain()
+    addNotify(`Begin purchase... Confirm transaction`)
+    setIsBuying(true)
+    try {
+      const confirmedTx = await send({
+        provider: activeWeb3,
+        from: activeAccount,
+        to: PurchaseAddress,
+        amount: keyPriceNative,
+        onHash: (txHash) => {
+          addNotify(`Pay TX ${txHash}`, `success`)
+        }
+      })
+      if (confirmedTx?.status) {
+        addNotify(`Successfull purchesed`, `success`)
+        setIsBuying(false)
+        setIsBuyOpened(false)
+        const key = generateKey(buyingKey, activeAccount)
+        setPurchaseKey(key)
+        setIsActivateKeyBoxOpened(true)
+        addNotify(`Your key ${key}. Save it`, `success`)
+      }
+    } catch (err) {
+      addNotify(`Fail purchase. ${(err.message) ? err.message : ''}`, `error`)
+      setIsBuying(false)
+      setError(err.message)
+    }
+  }
   
   const openBuyModal = async (purchaseKey) => {
+    setBuyingKey(purchaseKey)
     const keyInfo = PurchaseKeys[purchaseKey]
     const { symbol } = activeChainInfo.nativeCurrency
       
@@ -79,18 +88,57 @@ export default function TabLicense(options) {
       setKeyPriceNative(keyInfo.price)
       setKeyPriceUsdt(keyInfo.price * assetUSDPrice)
       setKeyPriceBaseNative(true)
-      
-      console.log('>>> assetUSDPrice', assetUSDPrice)
     }
     
     setIsBuyOpened(true)
   }
+  
+  const [ isActivateKeyBoxOpened, setIsActivateKeyBoxOpened ] = useState(false)
+  const [ isKeyActivating, setIsKeyActivating ] = useState(false)
+  
+  const activateKey = () => {
+    if (checkKey(purchaseKey)) {
+      openConfirmWindow({
+        title: `Activating license key`,
+        message: `Activate license key?`,
+        onConfirm: () => {
+          setIsKeyActivating(true)
+          saveStorageConfig({
+            onBegin: () => {
+              addNotify(`Confirm transaction`)
+            },
+            onReady: () => {
+              setIsKeyActivating(false)
+              addNotify(`Key activated`, `success`)
+              setIsActivateKeyBoxOpened(false)
+              setPurchaseKey(``)
+            },
+            onError: (err) => {
+              setIsKeyActivating(false)
+              addNotify(`Fail activate key. ${err.message ? err.message : ''}`, `error`)
+            },
+            newData: {
+              licenseKeys: [
+                ...storageData?.licenseKeys,
+                purchaseKey
+              ]
+            }
+          })
+        }
+      })
+    } else {
+      addNotify(`You entered an invalid activation key`, `error`)
+    }
+  }
 
   const checkKey = (key) => {
-    
+    const { activeAccount } = getActiveChain()
+    const matchedKeys = Object.keys(PurchaseKeys).filter((key) => {
+      return (generateKey(key, activeAccount) == purchaseKey) 
+    })
+    return matchedKeys.length > 0
   }
   
-  const error = `ERROR`
   return {
     render: () => {
       return (
@@ -116,13 +164,13 @@ export default function TabLicense(options) {
                 <div className={styles.actionsRow}>
                   <SwitchNetworkAndCall
                     chainId={`STORAGE`}
-                    onClick={() => {}}
-                    disabled={false}
+                    onClick={activateKey}
+                    disabled={isKeyActivating}
                     icon="receipt"
                     action="Active key"
                     className={styles.adminButton}
                   >
-                    {`Active key`}
+                    {isKeyActivating ? `Key activation...` : `Activate key`}
                   </SwitchNetworkAndCall>
                 </div>
               </div>
@@ -131,24 +179,29 @@ export default function TabLicense(options) {
               <h3>Purchasing a product activation key</h3>
               <div className={styles.subForm}>
                 {Object.keys(PurchaseKeys).map((key) => {
+                  const isBuyed = checkLicenseKey(key, storageData)
                   return (
                     <div className={styles.infoRow} key={key}>
                       <div>
                         <h5>{PurchaseKeys[key].title}</h5>
                         <div>{PurchaseKeys[key].desc}</div>
                         <div>
-                          <SwitchNetworkAndCall
-                            chainId={PurchaseKeys[key].chainId}
-                            onClick={() => {
-                              openBuyModal(key)
-                            }}
-                            disabled={false}
-                            icon="money-check-dollar"
-                            action="Buy"
-                            className={styles.adminButton}
-                          >
-                            {`Buy`}
-                          </SwitchNetworkAndCall>
+                          {isBuyed ? (
+                            <strong>You already got it</strong>
+                          ) : (
+                            <SwitchNetworkAndCall
+                              chainId={PurchaseKeys[key].chainId}
+                              onClick={() => {
+                                openBuyModal(key)
+                              }}
+                              disabled={false}
+                              icon="money-check-dollar"
+                              action="Buy"
+                              className={styles.adminButton}
+                            >
+                              {`Buy`}
+                            </SwitchNetworkAndCall>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -195,6 +248,8 @@ export default function TabLicense(options) {
               {error && <p className="error">Error: {error}</p>}
 
               <button
+                disabled={isBuying}
+                onClick={onBuy}
               >
                 {keyPriceBaseNative ? (
                   <>{`Buy for ${keyPriceNative} ${activeChainInfo.nativeCurrency.symbol} (~$${Number(keyPriceUsdt).toFixed(2)}) `}</>
@@ -202,6 +257,44 @@ export default function TabLicense(options) {
                   <>{`Buy for $${keyPriceUsdt} (~${keyPriceNative} ${activeChainInfo.nativeCurrency.symbol}) `}</>
                 )}
               </button>
+            </>
+          </AdminPopupWindow>
+          <AdminPopupWindow
+            isOpened={isActivateKeyBoxOpened}
+            title={`Key activation`}
+          >
+            <>
+              <div className="activateKeyBox">
+                <style jsx>
+                {`
+                  .activateKeyBox {
+                    text-align: center;
+                    padding: 10px;
+                  }
+                  .activateKeyBox STRONG {
+                    display: block;
+                    padding: 10px;
+                    margin: 10px;
+                    border: 1px solid #262936;
+                    box-shadow: inset 0 0 7px 1px black;
+                    color: #000;
+                    background: #FFF;
+                  }
+                `}
+                </style>
+                <span>You have successfully made a payment. Now you need to save your activation key</span>
+                <strong>{purchaseKey}</strong>
+                <SwitchNetworkAndCall
+                    chainId={`STORAGE`}
+                    onClick={activateKey}
+                    disabled={isKeyActivating}
+                    icon="receipt"
+                    action="Active key"
+                    className={styles.adminButton}
+                  >
+                  {isKeyActivating ? `Key activation...` : `Activate key`}
+                </SwitchNetworkAndCall>
+              </div>
             </>
           </AdminPopupWindow>
         </>

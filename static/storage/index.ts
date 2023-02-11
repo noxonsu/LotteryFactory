@@ -51,7 +51,8 @@ const parseInfo = (info) => {
       match_4: 15,
       match_5: 25,
       match_6: 50,
-    }
+    },
+    licenseKeys: []
   }
   const result = JSON.parse(info)
 

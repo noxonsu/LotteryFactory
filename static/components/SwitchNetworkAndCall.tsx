@@ -118,7 +118,7 @@ export default function SwitchNetworkAndCall(options) {
             {chainId.map((needChainId) => {
               const needChainInfo = CHAIN_INFO(needChainId)
               return (
-                <button disabled={isSwitching} onClick={() => { switchToChain(needChainId) }} className={styles.adminButton}>
+                <button key={needChainId} disabled={isSwitching} onClick={() => { switchToChain(needChainId) }} className={styles.adminButton}>
                   {(isSwitching) ? `Switching...` : `Switch to ${needChainInfo.chainName} (${needChainId})`}
                 </button>
               )
