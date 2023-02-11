@@ -1340,6 +1340,7 @@ DIV.helpTooltip:hover DIV {
   background: #0862af !important;
   border-bottom: 1px solid #FFF !important;
   position: relative !important;
+  text-align: left;
 }
 .adminPopupWindow>DIV>H3>A {
   position: absolute !important;
