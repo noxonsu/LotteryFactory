@@ -16,7 +16,7 @@ import StorageStyles from "../components/StorageStyles"
 import { useRef } from "react"
 import { getAssets, getResource } from "../helpers/getAssets"
 import callLotteryMethod from "../helpers/callLotteryMethod"
-
+import checkLicenseKey from "../helpers/payment/checkLicenseKey"
 
 let confirmWindowOnConfirm = () => {}
 let confirmWindowOnCancel = () => {}
@@ -181,7 +181,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       match_4: 12.25,
       match_5: 24.5,
       match_6: 49,
-    }
+    },
+    
   }
   
   const getDesign = getStorageDesign(usedDesign)
@@ -230,7 +231,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             winPercents: {
               burn: parseFloat(storageData.burn),
               ...storageData.matchRules,
-            }
+            },
+            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData)
           })
         }
       }
