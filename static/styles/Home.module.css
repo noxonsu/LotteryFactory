@@ -1311,3 +1311,59 @@ DIV.helpTooltip:hover DIV {
   font-weight: bold;
   border-bottom: 1px solid gray;
 }
+
+
+.adminPopupWindow {
+  display: flex !important;
+  position: fixed !important;
+  left: 0px !important;
+  top: 0px !important;
+  bottom: 0px !important;
+  right: 0px !important;
+  background: #0000007a !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 100000 !important;
+}
+
+.adminPopupWindow>DIV {
+  width: 100% !important;
+  max-width: 600px !important;
+  border: 2px solid #FFF !important;
+  background: #5a5959 !important;
+  box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.75) !important;
+}
+.adminPopupWindow>DIV>H3 {
+  margin: 0px !important;
+  padding: 10px !important;
+  font-size: 12pt !important;
+  background: #0862af !important;
+  border-bottom: 1px solid #FFF !important;
+  position: relative !important;
+}
+.adminPopupWindow>DIV>H3>A {
+  position: absolute !important;
+  display: block !important;
+  border: 2px solid #FFF !important;
+  width: 28px !important;
+  height: 28px !important;
+  line-height: 25px !important;
+  right: 8px !important;
+  top: 8px !important;
+  cursor: pointer !important;
+  text-align: center !important;
+}
+.adminPopupWindow>DIV>H3>A:active {
+  box-shadow: inset 0px 0px 4px 1px #0000008c !important;
+}
+.adminPopupWindow>DIV>H3>A:hover {
+  background: #FFF !important;
+  color: #106daf !important;
+  box-shadow: 0px 0px 5px 2px #0000008c !important;
+}
+.adminPopupWindow .adminForm {
+  width: 100%;
+}
+.adminPopupWindow .adminForm .subFormInfo {
+  border: 0px;
+}
