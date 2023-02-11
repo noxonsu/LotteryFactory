@@ -232,7 +232,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               burn: parseFloat(storageData.burn),
               ...storageData.matchRules,
             },
-            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData)
+            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData) || checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData)
           })
         }
       }
