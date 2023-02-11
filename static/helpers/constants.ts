@@ -8,6 +8,7 @@ export const CURRENCIES = {
   },
   ETH: {
     name: "Ether",
+    binancePurchaseKey: 'ethereum',
     symbol: 'ETH',
     decimals: 18
   },

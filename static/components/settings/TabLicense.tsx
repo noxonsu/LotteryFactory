@@ -7,7 +7,9 @@ import FaIcon from "../FaIcon"
 import callLotteryMethod from "../../helpers/callLotteryMethod"
 import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
 import crypto from "crypto"
-
+import AdminPopupWindow from "../AdminPopupWindow"
+import { CHAIN_INFO } from "../../helpers/constants"
+import { getPrice } from "../../helpers/payment/currency"
 
 export default function TabLicense(options) {
   const {
@@ -20,9 +22,11 @@ export default function TabLicense(options) {
     getStorageData,
   } = options
   
+  const { activeChainId } = getActiveChain()
+  const activeChainInfo = CHAIN_INFO(activeChainId)
   
   const [ purchaseKey, setPurchaseKey ] = useState("")
-  
+
   const PurchaseKeys = {
     LOTTERY_OFF_COPYRIGTH: {
       title: `LotteryFactory - Disable copyright`,
@@ -36,8 +40,8 @@ export default function TabLicense(options) {
       title: `LotteryFactory - Full version`,
       desc: `LotteryFactory - Full version. Disabled copyright of OnOut. Onout commission disabled`,
       price: 1000,
-      currency: `USDT`,
-      chainId: 5,
+      isUSDT: true,
+      chainId: [5, 56],
       product: `LotteryFactory`,
       include_packs: [ `LOTTERY_OFF_COPYRIGTH` ]
     }
@@ -53,9 +57,40 @@ export default function TabLicense(options) {
     const key = `${hash.slice(0,8)}-${hash.slice(8,16)}-${hash.slice(16,24)}-${hash.slice(24)}`
     console.log(hash, key)
   }
+
+  const [ isBuyOpened, setIsBuyOpened ] = useState(false)
+  const [ keyPriceUsdt, setKeyPriceUsdt ] = useState(0)
+  const [ keyPriceNative, setKeyPriceNative ] = useState(0)
+  const [ keyPriceBaseNative, setKeyPriceBaseNative ] = useState(false)
+  
+  const openBuyModal = async (purchaseKey) => {
+    const keyInfo = PurchaseKeys[purchaseKey]
+    const { symbol } = activeChainInfo.nativeCurrency
+      
+    const assetUSDPrice = await getPrice({
+      symbol,
+      vsCurrency: `USD`,
+    })
+    if (keyInfo.isUSDT) {
+      setKeyPriceUsdt(keyInfo.price)
+      setKeyPriceNative(keyInfo.price / assetUSDPrice)
+      setKeyPriceBaseNative(false)
+    } else {
+      setKeyPriceNative(keyInfo.price)
+      setKeyPriceUsdt(keyInfo.price * assetUSDPrice)
+      setKeyPriceBaseNative(true)
+      
+      console.log('>>> assetUSDPrice', assetUSDPrice)
+    }
+    
+    setIsBuyOpened(true)
+  }
+
   const checkKey = (key) => {
     
   }
+  
+  const error = `ERROR`
   return {
     render: () => {
       return (
@@ -105,7 +140,7 @@ export default function TabLicense(options) {
                           <SwitchNetworkAndCall
                             chainId={PurchaseKeys[key].chainId}
                             onClick={() => {
-                              generateKey(key)
+                              openBuyModal(key)
                             }}
                             disabled={false}
                             icon="money-check-dollar"
@@ -122,6 +157,53 @@ export default function TabLicense(options) {
               </div>
             </div>
           </div>
+          <AdminPopupWindow
+            isOpened={isBuyOpened}
+            hasClose={true}
+            onClose={() => { setIsBuyOpened(false) }}
+            title={`Purchase`}
+          >
+            <>
+              <p>You can use this links to buy crypto with a bank card:</p>
+              <a
+                className="link paymentLink"
+                href={`https://changelly.com/buy/${activeChainInfo.nativeCurrency.symbol}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Buy {activeChainInfo.nativeCurrency.symbol} on Changelly
+              </a>
+              <a
+                className="link paymentLink"
+                href={`https://www.binance.com/en/buy-${activeChainInfo.nativeCurrency.binancePurchaseKey || activeChainInfo.nativeCurrency.symbol}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Buy {activeChainInfo.nativeCurrency.symbol} on Binance
+              </a>
+
+              <p className="notice">The price may vary slightly</p>
+
+              {true && (
+                <>
+                  <p className="warning">
+                    Do not leave this page until successful payment. If you have any problems with the payment, please
+                    contact us.
+                  </p>
+                </>
+              )}
+              {error && <p className="error">Error: {error}</p>}
+
+              <button
+              >
+                {keyPriceBaseNative ? (
+                  <>{`Buy for ${keyPriceNative} ${activeChainInfo.nativeCurrency.symbol} (~$${Number(keyPriceUsdt).toFixed(2)}) `}</>
+                ) : (
+                  <>{`Buy for $${keyPriceUsdt} (~${keyPriceNative} ${activeChainInfo.nativeCurrency.symbol}) `}</>
+                )}
+              </button>
+            </>
+          </AdminPopupWindow>
         </>
       )
     },
