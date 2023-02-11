@@ -62,7 +62,7 @@ export default function TabLicense(options) {
       })
       if (confirmedTx?.status) {
         feedBack({
-          msg: `Activation key buyed ${buyingKey} from ${activeAccount}`,
+          msg: `Activation key bought ${buyingKey} from ${activeAccount}`,
           status: FEEDBACK_STATUS.success
         })
         addNotify(`Successfull purchesed`, `success`)
