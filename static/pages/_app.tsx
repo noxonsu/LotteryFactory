@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const settingsUrl = (process.env.NODE_ENV && process.env.NODE_ENV !== 'production') ? 'settings' : 'settings.html'
   const routerBaseName = router.asPath.split('/').reverse()[0].split('?')[0];
 
-  const iframeHideMenu = router?.query?.isSettingsFrame
+  const iframeHideMenu = router.asPath.indexOf('isSettingsFrame=true') !== -1
 
   const isSettingsPage = (routerBaseName === settingsUrl)
 

@@ -20,7 +20,7 @@ add_action( 'admin_menu', 'lotteryfactory_menu_page' );
  */
 function lotteryfactory_settings_page_view() {
 
-  $settings_url = LOTTERYFACTORY_URL . "/staticbuild/settings.html?isSettingsFrame=true";
+  $settings_url = LOTTERYFACTORY_URL . "staticbuild/settings.html?isSettingsFrame=true";
 ?>
 
 <div class="wrap">
