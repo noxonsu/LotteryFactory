@@ -40,7 +40,14 @@ const genSalt = () => {
 }
 
 const deploy = async (params: Params) => {
-  const { abi, bytecode } = json
+  const {
+    abi,
+    data: {
+      bytecode: {
+        object: bytecode
+      }
+    }
+  } = json
   const { tokenAddress } = params
   const { web3 } = getState()
 
