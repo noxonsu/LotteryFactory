@@ -17,7 +17,6 @@ Farm.json
 /example/
 vendor/*/*
 frontend/build/*
-/staticbuild/*
 
 # contracts
 static/contracts/.deps
