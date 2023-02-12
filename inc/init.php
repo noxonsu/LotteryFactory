@@ -39,3 +39,6 @@ require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'metabox.php';
  * Post Type
  */
 require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'post-type.php';
+
+
+require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'admin_settings_page.php';

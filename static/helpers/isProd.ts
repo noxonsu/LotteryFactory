@@ -4,7 +4,8 @@ const devDomains = [
   'nftstakedemo.localhost',
   'shendel.github.io',
   'localhost.lottery',
-  'lottery.local'
+  'lottery.local',
+  'localhost.feo.crimea'
 ]
 
 const isProd = () => {

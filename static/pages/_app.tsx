@@ -40,10 +40,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   const settingsUrl = (process.env.NODE_ENV && process.env.NODE_ENV !== 'production') ? 'settings' : 'settings.html'
-  const routerBaseName = router.asPath.split('/').reverse()[0];
+  const routerBaseName = router.asPath.split('/').reverse()[0].split('?')[0];
+
+  const iframeHideMenu = router?.query?.isSettingsFrame
 
   const isSettingsPage = (routerBaseName === settingsUrl)
-  console.log('>>> isSettingsPage', isSettingsPage, routerBaseName, settingsUrl)
 
   /* Confirm window */
   const [ isConfirmWindowOpened, setIsConfirmWindowOpened ] = useState(false)
@@ -332,6 +333,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 storageDesign={storageDesign}
                 getText={getText}
                 getDesign={getDesign}
+                iframeHideMenu={iframeHideMenu}
               />
             </>
           )}

@@ -85,6 +85,7 @@ const Settings: NextPage = (props) => {
     setDoReloadStorageFast,
     storageTexts,
     storageDesign,
+    iframeHideMenu,
   } = props
 
   const [activeChainId, setActiveChainId] = useState(false)
@@ -183,7 +184,7 @@ const Settings: NextPage = (props) => {
       ...storageData,
       ...newData,
     }
-    console.log('>> save data', _newStorageData)
+
     const _doSave = async () => {
       if (address && storageContract) {
         addNotify(`Saving config to storage. Confirm transaction`)
@@ -392,7 +393,7 @@ const Settings: NextPage = (props) => {
 
   return (
     <div className={styles.container}>
-      {navBlock(`settings`, true)}
+      {!iframeHideMenu && navBlock(`settings`, true)}
       <h1 className={styles.h1}>Settings</h1>
       {storageData !== null && (
         <>
