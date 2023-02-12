@@ -13,7 +13,7 @@ export const PurchaseKeys = {
   LOTTERY_FULL_VERSION: {
     title: `LotteryFactory - Full version`,
     desc: `LotteryFactory - Full version. Disabled copyright of OnOut. Onout commission disabled`,
-    price: 1000,
+    price: 1500,
     isUSDT: true,
     chainId: [1, 56],
     product: `LotteryFactory`,
