@@ -48,6 +48,9 @@ const deploy = async (params: Params) => {
       }
     }
   } = json
+  
+  const feeEnabled = true
+
   const { tokenAddress } = params
   const { web3 } = getState()
 
@@ -80,7 +83,7 @@ const deploy = async (params: Params) => {
 
   contract.deploy({
     data: '0x' + bytecode,
-    arguments: [ tokenAddress ],
+    arguments: [ tokenAddress, feeEnabled ],
   })
     .send({
       from: accounts[0],
