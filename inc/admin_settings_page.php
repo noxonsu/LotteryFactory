@@ -4,8 +4,8 @@
  */
 function lotteryfactory_menu_page() {
 	$menu_page = add_menu_page(
-		esc_html__( 'Main settings', 'lotteryfactory' ),
-		esc_html__( 'Main settings', 'lotteryfactory' ),
+		esc_html__( 'Lottery Factory', 'lotteryfactory' ),
+		esc_html__( 'Lottery Factory', 'lotteryfactory' ),
 		'manage_options',
 		'lotteryfactory',
 		'lotteryfactory_settings_page_view',
