@@ -4,8 +4,8 @@
  */
 function lotteryfactory_menu_page() {
 	$menu_page = add_menu_page(
-		esc_html__( 'LotteryFactory', 'lotteryfactory' ),
-		esc_html__( 'LotteryFactory', 'lotteryfactory' ),
+		esc_html__( 'Main settings', 'lotteryfactory' ),
+		esc_html__( 'Main settings', 'lotteryfactory' ),
 		'manage_options',
 		'lotteryfactory',
 		'lotteryfactory_settings_page_view',
@@ -15,8 +15,29 @@ function lotteryfactory_menu_page() {
 }
 add_action( 'admin_menu', 'lotteryfactory_menu_page' );
 
+function lotteryfactory_frontsettings_menu_page() {
+	add_submenu_page(
+		'lotteryfactory',
+		esc_html__( 'Front settings', 'lotteryfactory' ),
+		esc_html__( 'Front settings', 'lotteryfactory' ),
+		'manage_options',
+		'lotteryfactory_frontsettings',
+		'lotteryfactory_frontsettings_page',
+		1
+	);
+}
+add_action('admin_menu', 'lotteryfactory_frontsettings_menu_page');
+
+function lotteryfactory_frontsettings_page() {
+
+  ?>
+  <div class="wrap">
+    Lottery page settings
+  </div>
+  <?php
+}
 /**
- * Page
+ * Main Settings Page
  */
 function lotteryfactory_settings_page_view() {
 
