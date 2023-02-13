@@ -22,6 +22,11 @@ class HomePageController extends Controller {
 
       if ($lottery_at_homepage !== 'false') {
         return LOTTERYFACTORY_PATH . 'templates' . DIRECTORY_SEPARATOR . 'lotterypage.php';
+      } else {
+        global $wp;
+        if (strtolower($wp->request) == strtolower(get_option('lotteryfactory_slug'))) {
+           return LOTTERYFACTORY_PATH . 'templates' . DIRECTORY_SEPARATOR . 'lotterypage.php';
+        }
       }
     }
     return $template;
