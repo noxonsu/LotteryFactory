@@ -4,7 +4,6 @@
 .pnp.js
 .tmp
 
-*-lock.*
 
 node_modules
 node_modules_
