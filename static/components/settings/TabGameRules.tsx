@@ -25,6 +25,7 @@ export default function TabGameRules(options) {
   const [ newTicketPrice, setNewTicketPrice ] = useState(storageData.ticketPrice)
   const [ isTicketPriceError, setIsTicketPriceError ] = useState(false)
   const [ isTicketPriceChanged, setIsTicketPriceChanged ] = useState(false)
+  const [ newBuyTokenLink, setNewBuyTokenLink ] = useState(storageData.buyTokenLink)
 
   const onTicketPriceChange = (v) => {
     setIsTicketPriceError(false)
@@ -149,6 +150,7 @@ export default function TabGameRules(options) {
             burn: newBurn,
             balls: newBallsCount,
             ticketPrice: newTicketPrice,
+            buyTokenLink: newBuyTokenLink,
           }
         })
       }
@@ -320,6 +322,22 @@ export default function TabGameRules(options) {
                       <strong>Price must be between 0.00000000001 and 50</strong>
                     </div>
                   )}
+                </div>
+              </div>
+              <div className={styles.infoRow}>
+                <label>
+                  <div className={styles.helpTooltip}>
+                    <span>?</span>
+                    <div>
+                      <span>{`Link to the service where users can buy your token to pay for tickets`}</span>
+                    </div>
+                  </div>
+                  Buy Token link:
+                </label>
+                <div>
+                  <div>
+                    <input type="text" value={newBuyTokenLink} onChange={(e) => { setNewBuyTokenLink(e.target.value) }} />
+                  </div>
                 </div>
               </div>
               <div className={styles.actionsRow}>
