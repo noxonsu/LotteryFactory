@@ -26,7 +26,10 @@
     "frontend_build": "npm run build_clean --prefix ./frontend/",
     "static_build": "npm run buildstatic --prefix ./static/",
     "wp_rebuild": "npm run frontend_build && npm run frontend_update",
-    "static_rebuild": "npm run frontend_build && npm run frontend_update && npm run static_build"
+    "static_rebuild": "npm run frontend_build && npm run frontend_update && npm run static_build",
+    "dep_static": "npm i --prefix ./static/",
+    "dep_front": "npm i --prefix ./frontend/",
+    "install_deps": "npm i && npm run dep_front && npm run dep_static"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",
