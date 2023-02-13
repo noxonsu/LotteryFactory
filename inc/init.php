@@ -8,7 +8,7 @@
 /**
  * Init
  */
-// require LOTTERYFACTORY_PATH . 'App' . DIRECTORY_SEPARATOR . 'autoload.php';
+require LOTTERYFACTORY_PATH . 'App' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 /**
  * Functions
