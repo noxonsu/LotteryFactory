@@ -206,7 +206,7 @@ export default function TabGameRules(options) {
             <h3>Distribution of prizes %</h3>
             <div className={styles.subForm}>
               <h4>Distribute the winning percentage based on the number of matched balls</h4>
-              <div class={styles.adminFieldDesc}>You can also use the "Equalize the remainder" button to distribute the remaining percentage in the desired field</div>
+              <div className={styles.adminFieldDesc}>You can also use the "Equalize the remainder" button to distribute the remaining percentage in the desired field</div>
               {matchArray.map((match_count) => {
                 return (
                   <div className={styles.infoRow} key={match_count}>
@@ -331,7 +331,7 @@ export default function TabGameRules(options) {
                 <SwitchNetworkAndCall
                   chainId={`STORAGE`}
                   onClick={doSaveMatches}
-                  disabled={isSaveMatches}
+                  disabled={isSaveMatches || isBallsChanged}
                   icon="save"
                   action="Save changes"
                   className={styles.adminSubButton}
