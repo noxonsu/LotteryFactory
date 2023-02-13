@@ -226,7 +226,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               price: false,
               viewDecimals: 2
             },
-            buyTokenLink: false,
+            buyTokenLink: (storageData.buyTokenLink && storageData.buyTokenLink !== ``) ? storageData.buyTokenLink : false,
             numbersCount: ballsCount,
             hideServiceLink: false,
             winPercents: {

@@ -44,6 +44,7 @@ const parseInfo = (info) => {
     burn: 2,
     ticketPrice: 1,
     balls: 6,
+    buyTokenLink: ``,
     matchRules: {
       match_1: 2,
       match_2: 3,
