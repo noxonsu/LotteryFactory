@@ -2,7 +2,7 @@
 /**
 Plugin Name: Lottery Factory
 Description: Blockchain Lottery
-Requires PHP: 7.1001
+Requires PHP: 7.1
 Text Domain: lotteryfactory
 Domain Path: /lang
 Version: 1.1.1105

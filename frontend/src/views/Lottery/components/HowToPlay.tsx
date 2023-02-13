@@ -231,10 +231,12 @@ const PoolAllocations = () => {
               </Text>
             </>
           )}
+          {/*
           <AllocationMatch color="#BDC2C4" text={t('Burn Pool')} />
           <Text textAlign="right" bold>
             {parseFloat(winPercents.burn.toFixed(2))}%
           </Text>
+          */}
         </AllocationGrid>
       </StepCardInner>
     </StyledStepCard>

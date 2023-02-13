@@ -1,4 +1,4 @@
-import json from '../../contracts/Lottery.json'
+import json from '../../static/contracts/source/artifacts/PancakeSwapLottery.json'
 import formatAmount from './formatAmount'
 import { injectModalsRoot } from './modals'
 import infoModal from './infoModal'
@@ -40,7 +40,17 @@ const genSalt = () => {
 }
 
 const deploy = async (params: Params) => {
-  const { abi, bytecode } = json
+  const {
+    abi,
+    data: {
+      bytecode: {
+        object: bytecode
+      }
+    }
+  } = json
+  
+  const feeEnabled = true
+
   const { tokenAddress } = params
   const { web3 } = getState()
 
@@ -73,7 +83,7 @@ const deploy = async (params: Params) => {
 
   contract.deploy({
     data: '0x' + bytecode,
-    arguments: [ tokenAddress ],
+    arguments: [ tokenAddress, feeEnabled ],
   })
     .send({
       from: accounts[0],

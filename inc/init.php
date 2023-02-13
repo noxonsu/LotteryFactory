@@ -23,19 +23,22 @@ require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'admin-ajax.php';
 /**
  * Enqueue Scripts
  */
-require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'scripts.php';
+// require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'scripts.php';
 
 /**
  * Shortcodes
  */
-require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'shortcode.php';
+// require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'shortcode.php';
 
 /**
  * MetaBox
  */
-require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'metabox.php';
+// require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'metabox.php';
 
 /**
  * Post Type
  */
-require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'post-type.php';
+// require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'post-type.php';
+
+
+require LOTTERYFACTORY_PATH . 'inc' . DIRECTORY_SEPARATOR . 'admin_settings_page.php';

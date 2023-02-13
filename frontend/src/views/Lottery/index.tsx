@@ -47,10 +47,11 @@ const Lottery = () => {
 
   return (
     <LotteryPage>
-      <PageSection background={TITLE_BG} index={1} hasCurvedDivider={false}>
+      <PageSection className={`lotteryHeader`} background={TITLE_BG} index={1} hasCurvedDivider={false}>
         <Hero />
       </PageSection>
       <PageSection
+        className={`buyTicketHolder`}
         containerProps={{ style: { marginTop: '-30px' } }}
         background={GET_TICKETS_BG}
         concaveDivider
@@ -79,10 +80,11 @@ const Lottery = () => {
           { showServiceLink && <ServiceLink /> }
         </Flex>
       </PageSection>
-      <PageSection background={CHECK_PRIZES_BG} hasCurvedDivider={false} index={2}>
+      <PageSection className={`pricesSection`} background={CHECK_PRIZES_BG} hasCurvedDivider={false} index={2}>
         <CheckPrizesSection />
       </PageSection>
       <PageSection
+        className={`roundsHistory`}
         innerProps={{ style: { margin: '0', width: '100%', paddingLeft: '0px', paddingRight: '0px' } }}
         background={isDark ? FINISHED_ROUNDS_BG_DARK : FINISHED_ROUNDS_BG}
         hasCurvedDivider={false}
@@ -109,6 +111,7 @@ const Lottery = () => {
         </Flex>
       </PageSection>
       <PageSection
+        className={`howToPlay`}
         dividerPosition="top"
         dividerFill={{ light: theme.colors.background }}
         clipFill={{ light: '#9A9FD0', dark: '#66578D' }}

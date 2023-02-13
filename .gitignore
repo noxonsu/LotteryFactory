@@ -4,10 +4,11 @@
 .pnp.js
 .tmp
 
-*-lock.*
 
 node_modules
 node_modules_
+
+
 
 /*.css
 /*.html
@@ -15,3 +16,23 @@ Farm.json
 /example/
 vendor/*/*
 frontend/build/*
+
+# contracts
+static/contracts/.deps
+
+static/contracts/source/artifacts/Address.json
+static/contracts/source/artifacts/Address_metadata.json
+static/contracts/source/artifacts/Context.json
+static/contracts/source/artifacts/Context_metadata.json
+static/contracts/source/artifacts/IERC20.json
+static/contracts/source/artifacts/IERC20_metadata.json
+static/contracts/source/artifacts/IPancakeSwapLottery.json
+static/contracts/source/artifacts/IPancakeSwapLottery_metadata.json
+static/contracts/source/artifacts/Ownable.json
+static/contracts/source/artifacts/Ownable_metadata.json
+static/contracts/source/artifacts/PancakeSwapLottery_metadata.json
+static/contracts/source/artifacts/ReentrancyGuard.json
+static/contracts/source/artifacts/ReentrancyGuard_metadata.json
+static/contracts/source/artifacts/SafeERC20.json
+static/contracts/source/artifacts/SafeERC20_metadata.json
+frontend/package-lock.json
