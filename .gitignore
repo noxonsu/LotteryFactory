@@ -35,5 +35,3 @@ static/contracts/source/artifacts/ReentrancyGuard.json
 static/contracts/source/artifacts/ReentrancyGuard_metadata.json
 static/contracts/source/artifacts/SafeERC20.json
 static/contracts/source/artifacts/SafeERC20_metadata.json
-frontend/yarn.lock
-

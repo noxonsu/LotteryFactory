@@ -29,7 +29,7 @@ function lotteryfactory_frontsettings_menu_page() {
 add_action('admin_menu', 'lotteryfactory_frontsettings_menu_page');
 
 function lottery_page_slug(){
-	$slug = 'lotteryfactory';
+	$slug = 'lottery';
 	if( get_option('lotteryfactory_slug') ) {
 		$slug = get_option('lotteryfactory_slug');
 	}
@@ -83,14 +83,11 @@ function lotteryfactory_frontsettings_page() {
                   ishome = 'true';
                 }
                 var data = {
-                  action: 'lotteryfactory_update_pageoptions',
-                  nonce: "<?php echo wp_create_nonce( 'lotteryfactory-nonce' )?>",
+                  action: 'lottery_update_pageoptions',
+                  nonce: lotteryfactory.nonce,
                   slug: pageSlug,
                   ishome: ishome,
                 }
-                $.post( "<?php echo admin_url( 'admin-ajax.php' ) ?>", data, function(response) {
-                  alert('Saved');
-                });
               })
             })(jQuery)
           </script>
@@ -123,57 +120,3 @@ function lotteryfactory_settings_page_view() {
 
 <?php
 }
-
-function lotteryfactory_add_rewrite_rules() {
-	$slug = 'lotteryfactory';
-	if ( get_option('lotteryfactory_slug') ) {
-		$slug = get_option('lotteryfactory_slug');
-	}
-	add_rewrite_rule( $slug . '/?$', 'index.php?lotteryfactory_page=1','top' );
-}
-add_action('init', 'lotteryfactory_add_rewrite_rules');
-/**
- * Update options
- */
-function lotteryfactory_update_pageoptions() {
-
-	/* Check nonce */
-	check_ajax_referer( 'lotteryfactory-nonce', 'nonce' );
-  if ( ! current_user_can( 'manage_options' ) ) {
-		die();
-	}
-  
-  if ( untrailingslashit( $_POST['slug'] ) ) {
-    $slug = untrailingslashit( sanitize_title( $_POST['slug'] ) );
-  }
-  if ( $_POST['ishome'] == 'true' ) {
-    update_option( 'lotteryfactory_is_home', sanitize_text_field( $_POST['ishome'] ) );
-    $is_home = 'true';
-  } else {
-    delete_option( 'lotteryfactory_is_home' );
-  }
-  
-  lotteryfactory_add_rewrite_rules();
-  flush_rewrite_rules();
-
-	$result_arr = array(
-		'status'   => 'ok'
-	);
-
-	wp_send_json( $result_arr );
-
-}
-add_action( 'wp_ajax_lotteryfactory_update_pageoptions', 'lotteryfactory_update_pageoptions' );
-
-
-function lotteryfactory_admin_enqueue_scripts( $hook ) {
-  /* Translatable string */
-  wp_localize_script('lotteryfactory-admin', 'lotteryfactory',
-    array(
-      'ajaxurl' => admin_url( 'admin-ajax.php' ),
-      'nonce'   => wp_create_nonce( 'lotteryfactory-nonce' ),
-    )
-  );
-
-}
-add_action( 'admin_enqueue_scripts', 'lotteryfactory_admin_enqueue_scripts' );
