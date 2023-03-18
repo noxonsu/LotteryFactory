@@ -17,6 +17,11 @@ export const CURRENCIES = {
     symbol: 'MATIC',
     decimals: 18
   },
+  CRO: {
+    name: "Cronos",
+    symbol: 'CRO',
+    decimals: 18
+  },
   ARBETH: {
     name: "Ether (Arbitrum One)",
     symbol: 'ETH',
@@ -49,6 +54,7 @@ export const MULTICALL_CONTRACTS = {
   42161: '0x80C7DD17B01855a6D2347444a0FCC36136a314de',
   421611: '0xf27ee99622c3c9b264583dacb2cce056e194494f',
   250: '0x22D4cF72C45F8198CfbF4B568dBdB5A85e8DC0B5',
+  25: '0x0fa4d452693f2f45d28c4ec4d20b236c4010da74'
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
@@ -71,6 +77,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://bscscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.BNB
+  },
+  {
+    slug: 'cronos_mainnet',
+    chainName: 'Cronos',
+    chainId: '0x19',
+    networkVersion: 25,
+    rpcUrls: ['https://evm.cronos.org'],
+    blockExplorerUrls: ['https://cronoscan.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.CRO
   },
   {
     slug: 'matic_testnet',
