@@ -147,10 +147,10 @@ export default function StorageStyles(options) {
           background: ${getDesign('menuBackground', 'color')};
           border-bottom-color: ${getDesign('menuBorderColor', 'color')};
         }
-        .mainMenu>NAV>A {
+        .mainMenu>DIV>NAV>A {
           color: ${getDesign('menuItemColor', 'color')};
         }
-        .mainMenu>NAV>A:hover {
+        .mainMenu>DIV>NAV>A:hover {
           color: ${getDesign('menuItemHoverColor', 'color')};
         }
         

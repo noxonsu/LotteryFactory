@@ -214,6 +214,29 @@ export default function TabDesign(options) {
             {`This section is where you edit the appearance of your site.`}
           </div>
           {toggleGroup({
+            title: 'Top menu',
+            isOpened: openedTabs?.topMenu,
+            onToggle: () => { toggleTab('topMenu') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderUri({ title: 'Logo uri', target: 'logoUri' })}
+                  {renderColor({ title: 'Background color', target: 'menuBackground' })}
+                  {renderColor({ title: 'Menu item color', target: 'menuItemColor' })}
+                  {renderColor({ title: 'Menu item color (hover)', target: 'menuItemHoverColor' })}
+                  {renderColor({ title: 'Bottom border color', target: 'menuBorderColor' })}
+                  {renderColor({ title: 'Connect wallet (background)', target: 'connectWalletBackground' })}
+                  {renderColor({ title: 'Connect wallet (Text color)', target: 'connectWalletColor' })}
+                  {renderColor({ title: 'Wallet info (background)', target: 'walletBackground' })}
+                  {renderColor({ title: 'Wallet info (Text color)', target: 'walletTextColor' })}
+                  {renderColor({ title: 'Disconnect wallet hover background', target: 'walletDisconnectHoverBackground' })}
+                  {renderColor({ title: 'Disconnect wallet hover text color', target: 'walletDisconnectHoverTextColor' })}
+                  
+                </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
             title: 'Base color',
             isOpened: openedTabs?.baseColors,
             onToggle: () => { toggleTab('baseColors') },
