@@ -627,13 +627,13 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
 
     uint256 public maxNumberTicketsPerBuyOrClaim = 100;
 
-    uint256 public maxPriceTicketInCake = 50 ether;
+    uint256 public maxPriceTicketInCake = 500000 ether;
     uint256 public minPriceTicketInCake = 0.00000000001 ether;
 
     uint256 public pendingInjectionNextLottery;
 
-    address private OnoutAddress = 0xDf50EF7E506536354e7a805442dcBF25c7Ac249B;
-    bool private OnoutFeeEnabled = true;
+    address public OnoutAddress = 0xDf50EF7E506536354e7a805442dcBF25c7Ac249B;
+    bool public OnoutFeeEnabled = true;
     uint256 private OnoutFee = 20;
 
     uint256 public withdrawCooldown = 31 days;
