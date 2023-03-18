@@ -8,6 +8,7 @@ import TabGameRules from "../components/settings/TabGameRules"
 import TabControl from "../components/settings/TabControl"
 import TabTexts from "../components/settings/TabTexts"
 import TabLotteryBank from "../components/settings/TabLotteryBank"
+import TabMenu from "../components/settings/TabMenu"
 import TabLicense from "../components/settings/TabLicense"
 
 import { sendMessage as feedBack, STATUS as FEEDBACK_STATUS } from "../helpers/feedback"
@@ -49,6 +50,7 @@ const settingsTabs = {
   lotterybank: `Lottery Bank`,
   rounds: `Rounds`,
   texts: `Edit texts`,
+  menu: `Menu`,
   design: `Design`,
   license: `License`,
 }
@@ -86,6 +88,7 @@ const Settings: NextPage = (props) => {
     storageTexts,
     storageDesign,
     iframeHideMenu,
+    storageMenu,
   } = props
 
   const [activeChainId, setActiveChainId] = useState(false)
@@ -379,6 +382,7 @@ const Settings: NextPage = (props) => {
     getStorageData,
     storageDesign,
     storageTexts,
+    storageMenu,
   }
 
   const tabMain = new TabMain(_tabSettings)
@@ -388,6 +392,7 @@ const Settings: NextPage = (props) => {
   const tabDesign = new TabDesign(_tabSettings)
   const tabLotteryBank = new TabLotteryBank(_tabSettings)
   const tabLicense = new TabLicense(_tabSettings)
+  const tabMenu = new TabMenu(_tabSettings)
   
   if (isInstalledOnDomain) showInstallBox = false
 
@@ -442,6 +447,7 @@ const Settings: NextPage = (props) => {
                       {activeTab === `texts` && tabTexts.render()}
                       {activeTab === `design` && tabDesign.render()}
                       {activeTab === `license` && tabLicense.render()}
+                      {activeTab === `menu` && tabMenu.render()}
                     </>
                   ) : (
                     <h2>Access denied</h2>

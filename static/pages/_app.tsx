@@ -36,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     setDoReloadStorageFast,
     storageTexts,
     storageDesign,
+    storageMenu,
   } = useStorage()
   const router = useRouter()
 
@@ -334,6 +335,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 getText={getText}
                 getDesign={getDesign}
                 iframeHideMenu={iframeHideMenu}
+                storageMenu={storageMenu}
               />
             </>
           )}

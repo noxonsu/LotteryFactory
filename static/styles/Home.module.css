@@ -772,9 +772,18 @@
   border-bottom: 0;
 }
 
-.adminForm .subFormInfo .infoRow LABEL {
+.adminForm .subFormInfo .infoRow>LABEL {
   display: block;
   width: 30%;
+}
+
+.adminForm .subFormInfo .infoRow INPUT[type="checkbox"] {
+  padding: 0px;
+  margin: 0px;
+  width: 1.5em;
+  height: 1.5em;
+  vertical-align: middle;
+  margin-right: 5px;
 }
 
 .adminForm .subFormInfo .infoRow INPUT[type="text"] {
