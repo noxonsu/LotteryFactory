@@ -144,50 +144,18 @@ export default function StorageStyles(options) {
         }
         
         .mainMenu {
-          background: ${getDesign('menuBackground', 'color')};
-          border-bottom-color: ${getDesign('menuBorderColor', 'color')};
+          background: ${getDesign('headerBgColor2', 'color')};
+          border: 0;
+          position: static;
         }
-        .mainMenu>DIV>NAV>A {
-          color: ${getDesign('menuItemColor', 'color')};
+        .mainMenu>DIV>NAV>A,
+        .mainMenu>DIV>NAV>A:hover {
+          color: ${getDesign('headerTitleColor', 'color')};
+          text-decoration: none;
         }
         .mainMenu>DIV>NAV>A:hover {
-          color: ${getDesign('menuItemHoverColor', 'color')};
+          text-decoration: underline;
         }
-        
-        .mainMenu>BUTTON {
-          background: ${getDesign('connectWalletBackground', 'color')};
-          color: ${getDesign('connectWalletColor', 'color')};
-        }
-        
-        .mainMenu>DIV:nth-child(2)>DIV {
-          background: ${getDesign('walletBackground', 'color')};
-        }
-        .mainMenu>DIV:nth-child(2)>DIV>DIV {
-          color: ${getDesign('walletTextColor', 'color')};
-          border-color: ${getDesign('walletBackground', 'color')};
-        }
-        .mainMenu>DIV:nth-child(2)>DIV>DIV>SVG {
-          fill: ${getDesign('walletBackground', 'color')};
-        }
-        .mainMenu>DIV:nth-child(2)>DIV>SVG {
-          fill: ${getDesign('walletTextColor', 'color')};
-        }
-        .mainMenu>DIV:nth-child(2)>DIV BUTTON {
-          color: ${getDesign('walletTextColor', 'color')};
-          font-weight: bold;
-        }
-        .mainMenu>DIV:nth-child(2)>DIV BUTTON SVG {
-          fill: ${getDesign('walletTextColor', 'color')};
-        }
-        
-        .mainMenu>DIV:nth-child(2)>DIV BUTTON:hover {
-          background: ${getDesign('walletDisconnectHoverBackground', 'color')};
-          color: ${getDesign('walletDisconnectHoverTextColor', 'color')};
-        }
-        .mainMenu>DIV:nth-child(2)>DIV BUTTON:hover SVG {
-          fill: ${getDesign('walletDisconnectHoverTextColor', 'color')};
-        }
-        
       `}
     </style>
   )
