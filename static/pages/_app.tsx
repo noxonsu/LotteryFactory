@@ -216,6 +216,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         })
         if (storageData.chainId) {
           const chainInfo = CHAIN_INFO(storageData.chainId)
+          console.log('>>> storageMenu', storageMenu)
           setVendorSetting({
             chainId: storageData.chainId,
             chainName: chainInfo.chainName,
@@ -235,7 +236,8 @@ function MyApp({ Component, pageProps }: AppProps) {
               ...storageData.matchRules,
             },
             hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData) || checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData),
-            menu: storageMenu
+            menu: storageMenu,
+            logo: getDesign('logoUri', `uri`, getAssets(`logo.png`, 'mainLogo'))
           })
         }
       }
