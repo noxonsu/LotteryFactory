@@ -34,7 +34,7 @@ interface Window {
     }
     etherscan?: string
     menu?: any | false
-    logo?: string | false
+    logo?: any
   }
 }
 

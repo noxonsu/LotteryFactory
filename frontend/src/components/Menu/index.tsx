@@ -69,7 +69,7 @@ const Menu = (props) => {
   const logoUrl = window?.SO_LotteryConfig?.logo
   
   return (
-    <MenuHolder>
+    <MenuHolder className={`mainMenu`}>
       <NavHolder>
         <Logo href="/">
           <img src={logoUrl} />
