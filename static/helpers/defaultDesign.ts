@@ -4,6 +4,20 @@ export const defaultDesign = {
   backgroundColor: '#FAF9FA',
   backgroundImage: '',
   
+  menuBackground: '#FFFFFF',
+  menuItemColor: '#000000',
+  menuItemHoverColor: '#0000FF',
+  menuBorderColor: '#CCCCCC',
+
+  connectWalletBackground: '#1FC7D4',
+  connectWalletColor: '#FFFFFF',
+
+  walletBackground: '#1FC7D4',
+  walletTextColor: '#280D5F',
+  
+  walletDisconnectHoverBackground: '#EFF4F5',
+  walletDisconnectHoverTextColor: '#7A6EAA',
+  
   baseTextColor: '#280D5F',
   baseSecondaryColor: '#7645D9',
   baseSubTitleColor: '#7645D9',

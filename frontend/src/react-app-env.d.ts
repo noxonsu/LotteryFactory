@@ -33,6 +33,8 @@ interface Window {
       match_6?: number
     }
     etherscan?: string
+    menu?: any | false
+    logo?: any
   }
 }
 

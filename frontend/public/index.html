@@ -42,14 +42,21 @@
         f.parentNode.insertBefore(j, f)
       })(window, document, 'script', 'dataLayer', '%REACT_APP_GTAG%')
     </script>
+    <style type="text/css">
+      HTML,
+      BODY {
+        padding: 0px;
+        margin: 0px;
+      }
+    </style>
     <script type="text/javascript">
 
     window.SO_LotteryConfig = {
-      chainId: 420420,
+      chainId: 5,
       chainName: 'Kek-chain',
       rpc: "https://mainnet.kekchain.com/",
       etherscan: "https://mainnet-explorer.kekchain.com",
-      contract: "0xE686b71eC00E0D259fc4efD0541a7AdD62f806F4",
+      contract: "0x24D2d9d7958f68e985128245CD71B88049de7d86",
       token: {
         symbol: "Duck Token",
         address: "0x6330e9B2C21fE22c17Be8c955b12C4e11be675db",
@@ -68,7 +75,22 @@
         match_4: 12.25,
         match_5: 24.5,
         match_6: 49,
-      }
+      },
+      menu: [
+        {
+          title: "Menu title 1",
+          target: "",
+          link: "http://ya.ru",
+          blank: false
+        },
+        {
+          title: "Menu title 2",
+          target: "",
+          link: "http://google.com",
+          blank: true
+        }
+      ],
+      logo: 'https://wallet.wpmix.net/wp-content/uploads/2020/07/yourlogohere.png'
     }
 
       // Matic

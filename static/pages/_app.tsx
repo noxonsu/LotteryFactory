@@ -36,6 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     setDoReloadStorageFast,
     storageTexts,
     storageDesign,
+    storageMenu,
   } = useStorage()
   const router = useRouter()
 
@@ -183,7 +184,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       match_5: 24.5,
       match_6: 49,
     },
-    
+    menu: false
   }
   
   const getDesign = getStorageDesign(usedDesign)
@@ -215,6 +216,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         })
         if (storageData.chainId) {
           const chainInfo = CHAIN_INFO(storageData.chainId)
+          console.log('>>> storageMenu', storageMenu)
           setVendorSetting({
             chainId: storageData.chainId,
             chainName: chainInfo.chainName,
@@ -233,7 +235,9 @@ function MyApp({ Component, pageProps }: AppProps) {
               burn: parseFloat(storageData.burn),
               ...storageData.matchRules,
             },
-            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData) || checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData)
+            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData) || checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData),
+            menu: storageMenu,
+            logo: getDesign('logoUri', `uri`, getAssets(`logo.png`, 'mainLogo'))
           })
         }
       }
@@ -334,6 +338,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 getText={getText}
                 getDesign={getDesign}
                 iframeHideMenu={iframeHideMenu}
+                storageMenu={storageMenu}
               />
             </>
           )}

@@ -142,6 +142,20 @@ export default function StorageStyles(options) {
         H2[color="textSubtle"] {
           color: ${getDesign('baseSubTitleColor', 'color')};
         }
+        
+        .mainMenu {
+          background: ${getDesign('headerBgColor2', 'color')};
+          border: 0;
+          position: static;
+        }
+        .mainMenu>DIV>NAV>A,
+        .mainMenu>DIV>NAV>A:hover {
+          color: ${getDesign('headerTitleColor', 'color')};
+          text-decoration: none;
+        }
+        .mainMenu>DIV>NAV>A:hover {
+          text-decoration: underline;
+        }
       `}
     </style>
   )

@@ -112,7 +112,7 @@ export default function TabLicense(options) {
     if (checkKey(purchaseKey)) {
       feedBack({
         msg: `Activate key ${purchaseKey}`,
-        status: FEEDBACK_STATUS.success
+        status: FEEDBACK_STATUS.attention
       })
       openConfirmWindow({
         title: `Activating license key`,

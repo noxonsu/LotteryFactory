@@ -32,7 +32,7 @@ export default function TabGameRules(options) {
     try {
       v = parseFloat(v)
       if (v < 0) setIsTicketPriceError(true)
-      if (v > 50) setIsTicketPriceError(true)
+      if (v > 500000) setIsTicketPriceError(true)
     } catch (e) {
       setIsTicketPriceError(true)
     }
@@ -319,7 +319,7 @@ export default function TabGameRules(options) {
                   </div>
                   {isTicketPriceError && (
                     <div className={styles.hasError}>
-                      <strong>Price must be between 0.00000000001 and 50</strong>
+                      <strong>Price must be between 0.00000000001 and 500000</strong>
                     </div>
                   )}
                 </div>

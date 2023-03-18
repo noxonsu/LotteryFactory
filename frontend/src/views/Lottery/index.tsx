@@ -25,6 +25,7 @@ import CheckPrizesSection from './components/CheckPrizesSection'
 import HowToPlay from './components/HowToPlay'
 import useShowMoreUserHistory from './hooks/useShowMoreUserRounds'
 import ServiceLink from 'components/ServiceLink'
+import Menu from 'components/Menu'
 
 const LotteryPage = styled.div`
   min-height: calc(100vh - 64px);
@@ -47,6 +48,7 @@ const Lottery = () => {
 
   return (
     <LotteryPage>
+      <Menu />
       <PageSection className={`lotteryHeader`} background={TITLE_BG} index={1} hasCurvedDivider={false}>
         <Hero />
       </PageSection>

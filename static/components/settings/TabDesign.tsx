@@ -214,6 +214,18 @@ export default function TabDesign(options) {
             {`This section is where you edit the appearance of your site.`}
           </div>
           {toggleGroup({
+            title: 'Logo',
+            isOpened: openedTabs?.logoTab,
+            onToggle: () => { toggleTab('logoTab') },
+            content: (
+              <div className={styles.subFormInfo}>
+                <div className={styles.subForm}>
+                  {renderUri({ title: 'URL', target: 'logoUri' })}
+                </div>
+              </div>
+            )
+          })}
+          {toggleGroup({
             title: 'Base color',
             isOpened: openedTabs?.baseColors,
             onToggle: () => { toggleTab('baseColors') },
