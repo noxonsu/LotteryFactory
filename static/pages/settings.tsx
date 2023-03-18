@@ -282,7 +282,7 @@ const Settings: NextPage = (props) => {
         setDoReloadStorage(true)
         feedBack({
           msg: `Lottery installed at domain (${address})`,
-          status: FEEDBACK_STATUS.success
+          status: FEEDBACK_STATUS.attention
         })
       },
       onError: (err) => {
