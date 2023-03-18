@@ -184,7 +184,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       match_5: 24.5,
       match_6: 49,
     },
-    
+    menu: false
   }
   
   const getDesign = getStorageDesign(usedDesign)
@@ -234,7 +234,8 @@ function MyApp({ Component, pageProps }: AppProps) {
               burn: parseFloat(storageData.burn),
               ...storageData.matchRules,
             },
-            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData) || checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData)
+            hideServiceLink: checkLicenseKey(`LOTTERY_OFF_COPYRIGTH`, storageData) || checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData),
+            menu: storageMenu
           })
         }
       }

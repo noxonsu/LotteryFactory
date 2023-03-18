@@ -37,6 +37,7 @@ const UserMenu = () => {
 
   return (
     <UIKitUserMenu account={account} avatarSrc={avatarSrc}>
+      {/*
       <WalletUserMenuItem hasLowBnbBalance={hasLowBnbBalance} onPresentWalletModal={onPresentWalletModal} />
       <UserMenuItem as="button" onClick={onPresentTransactionModal}>
         {t('Transactions')}
@@ -47,6 +48,7 @@ const UserMenu = () => {
       </UserMenuItem>
       <ProfileUserMenuItem isLoading={isLoading} hasProfile={hasProfile} />
       <UserMenuDivider />
+      */}
       <UserMenuItem as="button" onClick={logout}>
         <Flex alignItems="center" justifyContent="space-between" width="100%">
           {t('Disconnect')}
