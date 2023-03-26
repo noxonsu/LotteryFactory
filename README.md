@@ -1,6 +1,6 @@
 # LotteryFactory
 
-Start your own lottery on blockchain and earn 0-30% comission from selling tickets. (do your own fork if you don't trust us - https://onout.org/LotterySource/ ) 
+Start your own lottery on blockchain and earn 0-30% comission from selling tickets.
 
 User can buy tikect and earn x1-x100 from his bet.
 
@@ -59,6 +59,9 @@ A: unlimited, but it takes gas (?).
 
 Q: How to hide service link?
 A: In WP Admin Panel go to All Lotteries and select one, then in "Main settings and lottery control" and turn on Hide checkbox in "Service Link" option and click on the "Update" button.
+
+Q: I am a code developer, do you have additional documentation? 
+A: [step by step guide how to code whitelabel lottery](https://onout.org/LotterySource/)
 
 ## How to update frontend
 
