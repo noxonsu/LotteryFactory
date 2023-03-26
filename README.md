@@ -1,6 +1,6 @@
 # LotteryFactory
 
-Start your own lottery on blockchain and earn 0-30% comission from selling tickets.
+Start your own lottery on blockchain and earn 0-30% comission from selling tickets. (how to https://onout.org/LotterySource/ ) 
 
 User can buy tikect and earn x1-x100 from his bet.
 
