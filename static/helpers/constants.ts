@@ -202,7 +202,7 @@ export const AVAILABLE_NETWORKS_INFO = [
   },
   {
     slug: 'polygon_zkevm_testnet',
-    chainName: 'Polyhon zkEVM testnet',
+    chainName: 'Polygon zkEVM testnet',
     chainId: '0x5A2',
     networkVersion: 1442,
     rpcUrls: ['https://rpc.public.zkevm-test.net'],
@@ -212,7 +212,7 @@ export const AVAILABLE_NETWORKS_INFO = [
   },
   {
     slug: 'polygon_zkevm_mainnet',
-    chainName: 'Polyhon zkEVM',
+    chainName: 'Polygon zkEVM',
     chainId: '0x44D',
     networkVersion: 1101,
     rpcUrls: ['https://zkevm-rpc.com'],
