@@ -54,7 +54,9 @@ export const MULTICALL_CONTRACTS = {
   42161: '0x80C7DD17B01855a6D2347444a0FCC36136a314de',
   421611: '0xf27ee99622c3c9b264583dacb2cce056e194494f',
   250: '0x22D4cF72C45F8198CfbF4B568dBdB5A85e8DC0B5',
-  25: '0x0fa4d452693f2f45d28c4ec4d20b236c4010da74'
+  25: '0x0fa4d452693f2f45d28c4ec4d20b236c4010da74',
+  1442: '0x48d7ac38530697aDB91061B6D141C8c763edE565',
+  1101: '0x10DcBEe8afA39a847707e16Aea5eb34c6b01aBA9',
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
@@ -197,6 +199,26 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://ftmscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.FTM
+  },
+  {
+    slug: 'polygon_zkevm_testnet',
+    chainName: 'Polyhon zkEVM testnet',
+    chainId: '0x5A2',
+    networkVersion: 1442,
+    rpcUrls: ['https://rpc.public.zkevm-test.net'],
+    blockExplorerUrls: ['https://testnet-zkevm.polygonscan.com'],
+    isTestnet: true,
+    nativeCurrency: CURRENCIES.ETH
+  },
+  {
+    slug: 'polygon_zkevm_mainnet',
+    chainName: 'Polyhon zkEVM testnet',
+    chainId: '0x44D',
+    networkVersion: 1101,
+    rpcUrls: ['https://zkevm-rpc.com'],
+    blockExplorerUrls: ['https://zkevm.polygonscan.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.ETH
   },
 ];
 
