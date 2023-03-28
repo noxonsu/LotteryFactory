@@ -228,6 +228,11 @@ function MyApp({ Component, pageProps }: AppProps) {
               price: false,
               viewDecimals: 2
             },
+            native: {
+              name: chainInfo.nativeCurrency.name,
+              symbol: chainInfo.nativeCurrency.symbol,
+              decimals: chainInfo.nativeCurrency.decimals,
+            },
             buyTokenLink: (storageData.buyTokenLink && storageData.buyTokenLink !== ``) ? storageData.buyTokenLink : false,
             numbersCount: ballsCount,
             hideServiceLink: false,

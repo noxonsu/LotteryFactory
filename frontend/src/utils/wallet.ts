@@ -13,21 +13,22 @@ export const setupNetwork = async () => {
     // @ts-ignore
     const chainId = parseInt(window.SO_LotteryConfig.chainId, 10)
     try {
+      const addParams = [
+        {
+          chainId: `0x${chainId.toString(16)}`,
+          // @ts-ignore
+          chainName: window.SO_LotteryConfig.chainName,
+          // @ts-ignore
+          nativeCurrency: window.SO_LotteryConfig.native,
+          // @ts-ignore
+          rpcUrls: [window.SO_LotteryConfig.rpc],
+          // @ts-ignore
+          blockExplorerUrls: [window.SO_LotteryConfig.etherscan],
+        },
+      ]
       await provider.request({
         method: 'wallet_addEthereumChain',
-        params: [
-          {
-            chainId: `0x${chainId.toString(16)}`,
-            chainName: 'Binance Smart Chain Mainnet',
-            nativeCurrency: {
-              name: 'BNB',
-              symbol: 'bnb',
-              decimals: 18,
-            },
-            rpcUrls: nodes,
-            blockExplorerUrls: [`${BASE_BSC_SCAN_URL}/`],
-          },
-        ],
+        params: addParams,
       })
       return true
     } catch (error) {
@@ -35,7 +36,7 @@ export const setupNetwork = async () => {
       return false
     }
   } else {
-    console.error("Can't setup the BSC network on metamask because window.ethereum is undefined")
+    console.error("Can't setup the network on metamask because window.ethereum is undefined")
     return false
   }
 }
