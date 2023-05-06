@@ -35,7 +35,7 @@ jobs:
         npm run buildstatic
         cd ..
         echo ">>>>>>>>>>> Step (3/3) - Build WordPress version"
-        npm i
+        npm i --force
         npm run build
         echo ">>>>>>>>>>> Ready"
         
