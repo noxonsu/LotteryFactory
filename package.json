@@ -29,7 +29,7 @@
     "static_rebuild": "npm run frontend_build && npm run frontend_update && npm run static_build",
     "dep_static": "npm i --prefix ./static/",
     "dep_front": "yarn install --prefix ./frontend/",
-    "install_deps": "npm i && npm run dep_front && npm run dep_static"
+    "install_deps": "npm i --legacy-peer-deps && npm run dep_front && npm run dep_static"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.7",

@@ -36,3 +36,4 @@ static/contracts/source/artifacts/ReentrancyGuard_metadata.json
 static/contracts/source/artifacts/SafeERC20.json
 static/contracts/source/artifacts/SafeERC20_metadata.json
 frontend/package-lock.json
+package-lock.json

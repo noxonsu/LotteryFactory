@@ -1,7 +1,8 @@
 cd ./frontend/
 yarn install
-cd ../
+npm run build_clean
+cd ..
 cd ./static/
 npm i
-cd ../
-npm run static_rebuild
+npm run buildstatic
+cd ..
