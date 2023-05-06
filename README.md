@@ -7,7 +7,7 @@ User can buy tikect and earn x1-x100 from his bet.
 <https://screenshots.wpmix.net/chrome_8l9oTRCivcQbog0WcCTZRhJeD2jiLxzr.png>
 
 ## Admin can
-
+   
 1. Deploy lottery contracts
 2. Start/Stop lottery
 3. Set fee and address for fee
