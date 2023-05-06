@@ -3,7 +3,7 @@ var path = require('path');
 var solc = require('solc');
 
 
-var contract = fs.readFileSync(path.resolve('contracts/Lottery.sol'))
+var contract = fs.readFileSync(path.resolve('static/contracts/source/Lottery.sol'))
 
 var input = {
   language: 'Solidity',
@@ -30,7 +30,11 @@ var output = JSON.parse(solc.compile(JSON.stringify(input)));
 console.log(output)
 var result = {
   abi: output.contracts['Lottery.sol']['PancakeSwapLottery'].abi,
-  bytecode: output.contracts['Lottery.sol']['PancakeSwapLottery'].evm.bytecode.object,
+  data: {
+    bytecode: {
+      object: output.contracts['Lottery.sol']['PancakeSwapLottery'].evm.bytecode.object,
+    }
+  }
 }
 
-fs.writeFileSync(path.resolve('contracts/Lottery.json'), JSON.stringify(result))
+fs.writeFileSync(path.resolve('static/contracts/source/artifacts/PancakeSwapLottery.json'), JSON.stringify(result))
