@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: Build
 
 on:
   push:
@@ -24,5 +24,6 @@ jobs:
 
     - name: Build
       run: |
-        npm run install_deps
-        npm run static_rebuild
+        cd ./frontend/
+        yarn install
+        npm run build_clean
