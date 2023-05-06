@@ -404,7 +404,7 @@ const Settings: NextPage = (props) => {
         <>
           {(showInstallBox) ? (
             <>
-              <h2>Application need setup on this domain</h2>
+              <h2>App needs to be installed on this domain</h2>
               {!address ? (
                 <button disabled={isWalletConecting} className={`${styles.mainButton} primaryButton`} onClick={connectWithMetamask}>
                   {isWalletConecting ? `Connecting` : `Connect Wallet`}
