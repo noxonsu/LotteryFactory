@@ -24,12 +24,18 @@ jobs:
 
     - name: Build
       run: |
-        echo Build frontend
+        echo >>>>>>>>>>> Step (1/3) - Build FrontEnd files
         cd ./frontend/
         yarn install
         npm run build_clean
-        echo Build static
+        echo >>>>>>>>>>> Step (2/3) - Build Static version
         cd ..
         cd ./static/
         npm i
         npm run buildstatic
+        cd ..
+        echo >>>>>>>>>>> Step (3/3) - Build WordPress version
+        npm i
+        npm run build
+        echo >>>>>>>>>>> Ready
+        
