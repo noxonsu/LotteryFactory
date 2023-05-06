@@ -24,6 +24,12 @@ jobs:
 
     - name: Build
       run: |
+        echo Build frontend
         cd ./frontend/
         yarn install
         npm run build_clean
+        echo Build static
+        cd ..
+        cd ./static/
+        npm i
+        npm run buildstatic
