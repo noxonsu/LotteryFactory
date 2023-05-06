@@ -49,6 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   //const isSettingsPage = (routerBaseName === settingsUrl)
   const isSettingsPage = (routerBaseName == 'settings' || routerBaseName == 'settings.html')
 
+console.log('>>> isSettingsPage', isSettingsPage, routerBaseName)
   /* Confirm window */
   const [ isConfirmWindowOpened, setIsConfirmWindowOpened ] = useState(false)
   const [ confirmWindowLabels, setConfirmWindowLabels ] = useState(defaultConfirmWindowLabels)
