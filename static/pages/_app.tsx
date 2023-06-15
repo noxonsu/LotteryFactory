@@ -323,7 +323,7 @@ console.log('>>> isSettingsPage', isSettingsPage, routerBaseName)
             <div className={styles.container}>
               <h2>Welcome! Let's set up a lottery</h2>
               <a href={getLink(`settings`)} className={`${styles.mainButton} ${styles.autoWidth} primaryButton`}>
-                Start
+                Go to setup
               </a>
             </div>
           )}
