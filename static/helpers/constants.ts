@@ -36,7 +36,12 @@ export const CURRENCIES = {
     name: "FTM",
     symbol: 'FTM',
     decimals: 18
-  }
+  },
+  ALV: {
+    name: "ALV",
+    symbol: "ALV",
+    decimals: 18
+  },
 }
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -57,6 +62,7 @@ export const MULTICALL_CONTRACTS = {
   25: '0x0fa4d452693f2f45d28c4ec4d20b236c4010da74',
   1442: '0x48d7ac38530697aDB91061B6D141C8c763edE565',
   1101: '0x10DcBEe8afA39a847707e16Aea5eb34c6b01aBA9',
+  3797: '0x48d7ac38530697aDB91061B6D141C8c763edE565',
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
@@ -219,6 +225,16 @@ export const AVAILABLE_NETWORKS_INFO = [
     blockExplorerUrls: ['https://zkevm.polygonscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.ETH
+  },
+  {
+    slug: 'alveychain_mainnet',
+    chainName: 'AlveyChain',
+    chainId: '0xED5',
+    networkVersion: 3797,
+    rpcUrls: ['https://rpc2.alvey.io/rpc'],
+    blockExplorerUrls: ['https://alveyscan.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.ALV
   },
 ];
 
