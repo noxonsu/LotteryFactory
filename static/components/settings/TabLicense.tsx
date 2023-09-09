@@ -160,6 +160,9 @@ export default function TabLicense(options) {
       return (
         <>
           <div className={styles.adminForm}>
+            <div className={styles.adminSectionDescription}>
+              {`Attention. The activation key will be linked to your active wallet. If you lose access to your wallet, we will not be able to restore your purchase.`}
+            </div>
             <div className={styles.subFormInfo}>
               <h3>Activating an existing purchase key</h3>
               <div className={styles.subForm}>
