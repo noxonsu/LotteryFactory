@@ -321,7 +321,7 @@ console.log('>>> isSettingsPage', isSettingsPage, routerBaseName)
           )}
           {storageData && !storageData.isBaseConfigReady && storageData.isInstalled && !isSettingsPage && (
             <div className={styles.container}>
-              <h2>Welcome! Let's set up a lottery</h2>
+              <h2>Welcome! Let's setup the lottery</h2>
               <a href={getLink(`settings`)} className={`${styles.mainButton} ${styles.autoWidth} primaryButton`}>
                 Go to setup
               </a>
