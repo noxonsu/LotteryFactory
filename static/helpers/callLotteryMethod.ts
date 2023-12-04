@@ -50,7 +50,9 @@ const callLotteryMethod = (options) => {
             args || [],
             weiAmount
           )
-
+          const gasPrice = await activeWeb3.eth.getGasPrice()
+          sendArgs.gasPrice = `0x` + new BigNumber(gasPrice).toString(16)
+          
           contract.methods[method](...(args || []))
             .send(sendArgs)
             .on('transactionHash', (hash) => {

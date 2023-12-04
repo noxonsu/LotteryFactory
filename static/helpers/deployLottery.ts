@@ -42,7 +42,9 @@ const deployLottery = (options) => {
         ).toString(16)
 
         txArguments.gas = '0x' + gasAmounWithPercentForSuccess
-
+        const gasPrice = await activeWeb3.eth.getGasPrice()
+        txArguments.gasPrice = `0x` + new BigNumber(gasPrice).toString(16)
+        
         contract.deploy({
           data: '0x' + contractData.data.bytecode.object,
           arguments: _arguments,

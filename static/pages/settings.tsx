@@ -1,4 +1,5 @@
 import type { NextPage } from "next"
+import { BigNumber } from 'bignumber.js'
 import styles from "../styles/Home.module.css"
 import navBlock from "../components/navBlock"
 import adminFormRow from "../components/adminFormRow"
@@ -119,7 +120,7 @@ const Settings: NextPage = (props) => {
         break;
     }
   }
-
+window.activeWeb3 = activeWeb3
   const onNetworkChanged = (newActiveChainId) => {
     setActiveChainId(newActiveChainId)
   }
@@ -209,7 +210,9 @@ const Settings: NextPage = (props) => {
               }
             ]
           )
-          
+          const gasPrice = await activeWeb3.eth.getGasPrice()
+          setupTxData.gasPrice = `0x` + new BigNumber(gasPrice).toString(16)
+
           storageContract.methods.setKeyData(
             getCurrentDomain(),
             {
