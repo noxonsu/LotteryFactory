@@ -31,6 +31,8 @@ const approveToken = (options) => {
           'approve',
           [ approveFor, weiAmount ]
         )
+        const gasPrice = await activeWeb3.eth.getGasPrice()
+        sendArgs.gasPrice = `0x` + new BigNumber(gasPrice).toString(16)
 
         contract.methods['approve'](...([ approveFor, weiAmount ]))
           .send(sendArgs)

@@ -5,7 +5,7 @@ Description: Blockchain Lottery
 Requires PHP: 7.1
 Text Domain: lotteryfactory
 Domain Path: /lang
-Version: 1.2.1105
+Version: 1.2.2
  */
 
 /* Define Plugin Constants */
@@ -15,7 +15,7 @@ define( 'LOTTERYFACTORY_BASE_DIR', __DIR__ );
 define( 'LOTTERYFACTORY_BASE_FILE', __FILE__ );
 define( 'LOTTERYFACTORY_PATH', plugin_dir_path( __FILE__ ) );
 define( 'LOTTERYFACTORY_URL', plugin_dir_url( __FILE__ ) );
-define( 'LOTTERYFACTORY_VER', '1.2.1105');
+define( 'LOTTERYFACTORY_VER', '1.2.2');
 
 /**
  * Plugin Init
