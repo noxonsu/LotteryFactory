@@ -16,7 +16,9 @@ import InputColor from 'react-input-color'
 import {
   AVAILABLE_NETWORKS_INFO,
   CHAIN_INFO,
-  CHAIN_EXPLORER_LINK
+  CHAIN_EXPLORER_LINK,
+  KYC_CONTRACTS,
+  KYC_TYPE,
 } from "../../helpers/constants"
 import checkLicenseKey from "../../helpers/payment/checkLicenseKey"
 
@@ -47,6 +49,7 @@ export default function TabMain(options) {
   const [ newChainId, setNewChainId ] = useState(storageData?.chainId)
   const [ newLotteryContract, setNewLotteryContract ] = useState(storageData?.lotteryAddress)
   const [ newLotteryTokenAddress, setNewLotteryTokenAddress ] = useState(storageData?.tokenAddress)
+  const [ newLotteryUseKYC, setNewLotteryUseKYC ] = useState(0)
 
   const [ isLotteryContractFetching, setIsLotteryContractFetching ] = useState(false)
   const [ isLotteryContractFetched, setIsLotteryContractFetched ] = useState(false)
@@ -60,7 +63,9 @@ export default function TabMain(options) {
   const [ isTokenFetched, setIsTokenFetched ] = useState(storageData.tokenInfo.address !== undefined)
   const [ isSaveToStorage, setIsSaveToStorage ] = useState(false)
 
-  
+  const hasChainKYC = () => {
+    return (KYC_CONTRACTS[newChainId] !== undefined)
+  }
   const doSaveToStorage = () => {
     openConfirmWindow({
       title: `Save to storage`,
@@ -281,6 +286,19 @@ export default function TabMain(options) {
                         </div>
                       </div>
                     )}
+                    <div className={styles.adminFormInputHolder}>
+                      <label>Enable KYC:</label>
+                      <select value={hasChainKYC() ? newLotteryUseKYC : 0} disabled={!hasChainKYC()} onChange={(e) => { setNewLotteryUseKYC(e.target.value) }}>
+                        <option value="0">No</option>
+                        <option value="1">Yes ({KYC_TYPE[newChainId] || `Not supported`})</option>
+                      </select>
+                      {!hasChainKYC() && (
+                        <div>
+                          {`* this blockchain not support KYC. For more info contact  @onoutsupportbot`}
+                        </div>
+                      )}
+                    </div>
+                    
                   </div>
                   <div className={styles.actionsRow}>
                     <SwitchNetworkAndCall chainId={newChainId} className={styles.adminSubButton} disabled={isLotteryContractDeploying} onClick={doDeployLotteryContract} action={`Deploy lottery contract`} >

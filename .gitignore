@@ -37,3 +37,9 @@ static/contracts/source/artifacts/SafeERC20.json
 static/contracts/source/artifacts/SafeERC20_metadata.json
 frontend/package-lock.json
 package-lock.json
+static/contracts/source/BinanceBABT/contracts/artifacts/*
+
+static/contracts/source/artifacts/IKYCToken.json
+static/contracts/source/artifacts/KYCToken_metadata.json
+static/contracts/source/artifacts/KYCToken.json
+static/contracts/source/artifacts/IKYCToken_metadata.json

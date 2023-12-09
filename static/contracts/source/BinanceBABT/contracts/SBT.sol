@@ -20,7 +20,7 @@ import "./access/AccessControl.sol";
  *
  * I propose for a rename to Non-Transferable Tokens NTT's
  */
-contract SBT is Initializable, AccessControl, ISBT721, IERC721Metadata {
+contract SBT is AccessControl, ISBT721, IERC721Metadata {
     using Strings for uint256;
     using Counters for Counters.Counter;
     using EnumerableMap for EnumerableMap.AddressToUintMap;
@@ -45,6 +45,9 @@ contract SBT is Initializable, AccessControl, ISBT721, IERC721Metadata {
     // Operator
     bytes32 public constant OPERATOR_ROLE = keccak256("OPERATOR_ROLE");
 
+    constructor() {
+        initialize("KYCToken", "KYCToken", msg.sender);
+    }
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
      */
@@ -52,7 +55,7 @@ contract SBT is Initializable, AccessControl, ISBT721, IERC721Metadata {
         string memory name_,
         string memory symbol_,
         address admin_
-    ) public reinitializer(1) {
+    ) private {
         name = name_;
         symbol = symbol_;
 

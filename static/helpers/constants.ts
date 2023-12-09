@@ -41,6 +41,14 @@ export const CURRENCIES = {
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
+export const KYC_CONTRACTS = {
+  5: '0x1d6f489051c04735f28ee4b0584c08263b1d7c4f',
+  56: '0x2b09d47d550061f995a3b5c6f0fd58005215d7c8',
+}
+export const KYC_TYPE = {
+  5: 'Dev KYC - contact @onoutsupportbot for more info',
+  56: 'Binance Account Bound (BAB)',
+}
 export const MULTICALL_CONTRACTS = {
   1: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
   4: '0x42Ad527de7d4e9d9d011aC45B31D8551f8Fe9821',

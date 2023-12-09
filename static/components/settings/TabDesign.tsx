@@ -42,11 +42,9 @@ export default function TabDesign(options) {
     ...storageDesign,
   }
 
-  console.log('initialDesign', initialDesign)
   const [ designValues, setDesignValues ] = useState(_lsPreviewMode ? _lsPreviewDesign : initialDesign)
   const [ isSaveDesign, setIsSaveDesign ] = useState(false)
 
-  console.log('>>> designValues', designValues)
   const renderColor = (options) => {
     const {
       title,

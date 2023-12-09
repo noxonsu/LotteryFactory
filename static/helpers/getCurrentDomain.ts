@@ -1,5 +1,8 @@
+import getConfig from "next/config";
+
 export function getCurrentDomain() {
-  //return 'shendel.github.io'
-  //return 'shendel2.dev'
+  const { publicRuntimeConfig } = getConfig()
+  if (publicRuntimeConfig && publicRuntimeConfig.DEV_DOMAIN) return publicRuntimeConfig.DEV_DOMAIN
+
   return window.location.hostname || document.location.host || ''
 }
