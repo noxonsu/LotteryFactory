@@ -729,7 +729,8 @@ contract PancakeSwapLotteryKYC is ReentrancyGuard, IPancakeSwapLottery, Ownable 
 
     IKYCToken public KYCToken;
     bool public KYCEnabled = true;
-
+    bool public constant existKyc = true;
+    
     function setKYCEnabled(bool _KYCEnabled) public onlyOwner {
         KYCEnabled = _KYCEnabled;
     }
