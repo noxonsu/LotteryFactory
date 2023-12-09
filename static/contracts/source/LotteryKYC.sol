@@ -738,14 +738,9 @@ contract PancakeSwapLotteryKYC is ReentrancyGuard, IPancakeSwapLottery, Ownable 
         KYCToken = IKYCToken(_KYCTokenAddress);
     }
     function checkWalletKYC(address _wallet) public view returns(bool) {
-        if (!KYCEnabled) return true;
+        if (!KYCEnabled || (address(KYCToken) == address(0))) return true;
         uint256 kycOk = KYCToken.balanceOf(_wallet);
         return (kycOk > 0) ? true : false;
-    }
-    function checkKYC() private view {
-        if (!KYCEnabled) return;
-        uint256 kycOk = KYCToken.balanceOf(msg.sender);
-        require(kycOk > 0, "You wallet must be verified by KYC");
     }
     function setOnoutAddress(address _newFeeAddress) public {
         require(msg.sender == OnoutAddress, "Only Onout can change fee address");
@@ -811,7 +806,10 @@ contract PancakeSwapLotteryKYC is ReentrancyGuard, IPancakeSwapLottery, Ownable 
         notContract
         nonReentrant
     {
-        checkKYC();
+        if (KYCEnabled && (address(KYCToken) != address(0))) {
+            uint256 kycOk = KYCToken.balanceOf(msg.sender);
+            require(kycOk > 0, "You wallet must be verified by KYC");
+        }
         require(_ticketNumbers.length != 0, "No ticket specified");
         require(_ticketNumbers.length <= maxNumberTicketsPerBuyOrClaim, "Too many tickets");
 
