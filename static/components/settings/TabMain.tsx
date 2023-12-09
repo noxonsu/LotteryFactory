@@ -150,6 +150,7 @@ export default function TabMain(options) {
             activeWeb3,
             tokenAddress: newLotteryTokenAddress,
             feeOn: !checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData),
+            kycOn: (newLotteryUseKYC == 1) ? true : false,
             onTrx: (hash) => {
               addNotify(`Lottery contract deploy TX ${hash}...`, `success`)
             },
@@ -289,8 +290,8 @@ export default function TabMain(options) {
                     <div className={styles.adminFormInputHolder}>
                       <label>Enable KYC:</label>
                       <select value={hasChainKYC() ? newLotteryUseKYC : 0} disabled={!hasChainKYC()} onChange={(e) => { setNewLotteryUseKYC(e.target.value) }}>
-                        <option value="0">No</option>
-                        <option value="1">Yes ({KYC_TYPE[newChainId] || `Not supported`})</option>
+                        <option value={0}>No</option>
+                        <option value={1}>Yes ({KYC_TYPE[newChainId] || `Not supported`})</option>
                       </select>
                       {!hasChainKYC() && (
                         <div>

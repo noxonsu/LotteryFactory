@@ -1,4 +1,10 @@
 import contractData from "../contracts/source/artifacts/PancakeSwapLottery.json"
+import contractDataKYC from "../contracts/source/artifacts/PancakeSwapLotteryKYC.json"
+
+import {
+  ZERO_ADDRESS,
+  KYC_CONTRACTS,
+} from "./constants"
 import { calcSendArgWithFee } from "./calcSendArgWithFee"
 import { BigNumber } from 'bignumber.js'
 
@@ -8,6 +14,7 @@ const deployLottery = (options) => {
       activeWeb3,
       tokenAddress,
       feeOn,
+      kycOn,
     } = options
     console.log('>>> options', options)
     const onTrx = options.onTrx || (() => {})
@@ -15,55 +22,65 @@ const deployLottery = (options) => {
     const onError = options.onError || (() => {})
     const onFinally = options.onFinally || (() => {})
 
-    activeWeb3.eth.getAccounts().then(async (accounts) => {
+    activeWeb3.eth.getAccounts().then((accounts) => {
       if (accounts.length>0) {
         const activeWallet = accounts[0]
-        const contract = new activeWeb3.eth.Contract(contractData.abi)
+        activeWeb3.eth.getChainId().then(async (chainId) => {
+          const contract = new activeWeb3.eth.Contract(contractDataKYC.abi)
 
-        const txArguments = {
-          from: activeWallet,
-          gas: '0'
-        }
+          const kycContract = KYC_CONTRACTS[chainId] || ZERO_ADDRESS
+          const kycEnabled = (kycContract !== ZERO_ADDRESS) && kycOn
 
-        const _arguments = [
-          tokenAddress,
-          (feeOn) ? true: false // FEE ENABLED
-        ]
+          const txArguments = {
+            from: activeWallet,
+            gas: '0'
+          }
 
-        const gasAmountCalculated = await contract.deploy({
-          arguments: _arguments,
-          data: contractData.data.bytecode.object
-        }).estimateGas(txArguments)
+          const _arguments = [
+            tokenAddress,
+            (feeOn) ? true: false,// FEE ENABLED
+            kycContract,
+            kycEnabled,
+          ]
+console.log('>>> deploy args', _arguments)
+          const gasAmountCalculated = await contract.deploy({
+            arguments: _arguments,
+            data: contractDataKYC.data.bytecode.object
+          }).estimateGas(txArguments)
 
-        const gasAmounWithPercentForSuccess = new BigNumber(
-          new BigNumber(gasAmountCalculated)
-            .multipliedBy(1.05) // + 5% -  множитель добавочного газа, если будет фейл транзакции - увеличит (1.05 +5%, 1.1 +10%)
-            .toFixed(0)
-        ).toString(16)
+          const gasAmounWithPercentForSuccess = new BigNumber(
+            new BigNumber(gasAmountCalculated)
+              .multipliedBy(1.05) // + 5% -  множитель добавочного газа, если будет фейл транзакции - увеличит (1.05 +5%, 1.1 +10%)
+              .toFixed(0)
+          ).toString(16)
 
-        txArguments.gas = '0x' + gasAmounWithPercentForSuccess
-        const gasPrice = await activeWeb3.eth.getGasPrice()
-        txArguments.gasPrice = `0x` + new BigNumber(gasPrice).toString(16)
-        
-        contract.deploy({
-          data: '0x' + contractData.data.bytecode.object,
-          arguments: _arguments,
-        })
-          .send(txArguments)
-          .on('transactionHash', (hash) => {
-            console.log('transaction hash:', hash)
-            onTrx(hash)
+          txArguments.gas = '0x' + gasAmounWithPercentForSuccess
+          const gasPrice = await activeWeb3.eth.getGasPrice()
+          txArguments.gasPrice = `0x` + new BigNumber(gasPrice).toString(16)
+          
+          contract.deploy({
+            data: '0x' + contractDataKYC.data.bytecode.object,
+            arguments: _arguments,
           })
-          .on('error', (error) => {
-            console.log('transaction error:', error)
-            onError(error)
-          })
-          .on('receipt', (receipt) => {
-            console.log('transaction receipt:', receipt)
-            onSuccess(receipt.contractAddress)
-          })
-          .then(() => {
-            onFinally()
+            .send(txArguments)
+            .on('transactionHash', (hash) => {
+              console.log('transaction hash:', hash)
+              onTrx(hash)
+            })
+            .on('error', (error) => {
+              console.log('transaction error:', error)
+              onError(error)
+            })
+            .on('receipt', (receipt) => {
+              console.log('transaction receipt:', receipt)
+              onSuccess(receipt.contractAddress)
+            })
+            .then(() => {
+              onFinally()
+            })
+          }).catch((err) => {
+            console.log('>>> deployLottery', err)
+            reject(err)
           })
       } else {
         reject('NO_ACTIVE_ACCOUNT')
