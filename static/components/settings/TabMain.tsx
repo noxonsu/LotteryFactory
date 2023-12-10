@@ -4,6 +4,7 @@ import { useStateUri, useStateUint } from "../../helpers/useState"
 import { defaultDesign } from "../../helpers/defaultDesign"
 import { getUnixTimestamp } from "../../helpers/getUnixTimestamp"
 import fetchTokenInfo from "../../helpers/fetchTokenInfo"
+import fetchLotteryStatus from "../../helpers/fetchLotteryStatus"
 import deployLottery from "../../helpers/deployLottery"
 import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
 import FaIcon from "../FaIcon"
@@ -114,7 +115,29 @@ export default function TabMain(options) {
       addNotify(`Fail fetch. Select work chain first`, `error`)
     }
   }
+  
+  const [ needUpdateTokenInfo, setNeedUpdateTokenInfo ] = useState(false)
+  useEffect(() => {
+    if (needUpdateTokenInfo && newLotteryTokenAddress) {
+      setNeedUpdateTokenInfo(false)
+      doFetchTokenInfo()
+    }
+  }, [ needUpdateTokenInfo, newLotteryTokenAddress ])
   const doFetchLotteryInfo = () => {
+    setIsLotteryContractFetching(true)
+    fetchLotteryStatus({
+      chainId: newChainId,
+      contractAddress: newLotteryContract
+    }).then((lotteryStatus) => {
+      setNewLotteryTokenAddress(lotteryStatus.lotteryToken)
+      setNeedUpdateTokenInfo(true)
+      setIsLotteryContractFetching(false)
+      addNotify(`Lottery contract fetched`, `success`)
+    }).catch((err) => {
+      setIsLotteryContractFetching(false)
+      addNotify(`Fail fetch contract info`, `error`)
+      console.log('>>> err', err)
+    })
   }
 
   const cancelDeploy = () => {

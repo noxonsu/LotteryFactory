@@ -21,10 +21,12 @@ const fetchLotteryStatus = (options) => {
         const operator = await contract.methods.operatorAddress().call()
         const treasury = await contract.methods.treasuryAddress().call()
         const currentLotteryNumber = await contract.methods.viewCurrentLotteryId().call()
+        const lotteryToken = await contract.methods.cakeToken().call()
         const currentLotteryInfo = await contract.methods.viewLottery(currentLotteryNumber).call()
         resolve({
           chainId,
           contractAddress,
+          lotteryToken,
           owner,
           operator,
           treasury,
