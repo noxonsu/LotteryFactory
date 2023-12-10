@@ -200,8 +200,8 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
 
   useEffect(() => {
     const numberOfTicketsToBuy = new BigNumber(ticketsToBuy)
-    const costAfterDiscount = getTicketCostAfterDiscount(numberOfTicketsToBuy)
-    const costBeforeDiscount = priceTicketInCake.times(numberOfTicketsToBuy)
+    const costAfterDiscount = new BigNumber(getTicketCostAfterDiscount(numberOfTicketsToBuy).toFixed(0))
+    const costBeforeDiscount = new BigNumber(priceTicketInCake.times(numberOfTicketsToBuy).toFixed(0))
     const discountBeingApplied = costBeforeDiscount.minus(costAfterDiscount)
     setTicketCostBeforeDiscount(costBeforeDiscount.gt(0) ? getFullDisplayBalance(costBeforeDiscount, token.info().decimals) : '0')
     setTotalCost(costAfterDiscount.gt(0) ? getFullDisplayBalance(costAfterDiscount) : '0')
