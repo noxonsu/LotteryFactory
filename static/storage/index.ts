@@ -45,6 +45,7 @@ const parseInfo = (info) => {
     ticketPrice: 1,
     balls: 6,
     buyTokenLink: ``,
+    kycVerifyLink: ``,
     matchRules: {
       match_1: 2,
       match_2: 3,

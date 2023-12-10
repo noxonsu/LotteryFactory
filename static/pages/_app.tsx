@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 import { getUnixTimestamp } from "../helpers/getUnixTimestamp"
-import { CHAIN_INFO } from "../helpers/constants"
+import { CHAIN_INFO, KYC_LINK } from "../helpers/constants"
 import NotifyHolder from "../components/NotifyHolder"
 import StorageStyles from "../components/StorageStyles"
 import { useRef } from "react"
@@ -217,6 +217,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         })
         if (storageData.chainId) {
           const chainInfo = CHAIN_INFO(storageData.chainId)
+          let kycVerifyLink = false
+          if (KYC_LINK[storageData.chainId]) kycVerifyLink = KYC_LINK[storageData.chainId]
+          if (storageData.kycVerifyLink && storageData.kycVerifyLink !== ``) kycVerifyLink = storageData.kycVerifyLink
+          
           console.log('>>> storageMenu', storageMenu)
           setVendorSetting({
             chainId: storageData.chainId,
@@ -235,6 +239,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               decimals: chainInfo.nativeCurrency.decimals,
             },
             buyTokenLink: (storageData.buyTokenLink && storageData.buyTokenLink !== ``) ? storageData.buyTokenLink : false,
+            kycVerifyLink,
             numbersCount: ballsCount,
             hideServiceLink: false,
             winPercents: {
