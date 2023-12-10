@@ -4,8 +4,11 @@ import { useStateUri, useStateUint } from "../../helpers/useState"
 import adminFormRow from "../adminFormRow"
 import iconButton from "../iconButton"
 import FaIcon from "../FaIcon"
+import openInTab from "../openInTab"
 import callLotteryMethod from "../../helpers/callLotteryMethod"
 import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
+import { KYC_LINK, KYC_CONTRACTS, KYC_TYPE } from "../../helpers/constants"
+import fetchLotteryKyc from "../../helpers/fetchLotteryKyc"
 
 export default function TabGameRules(options) {
   const {
@@ -157,6 +160,88 @@ export default function TabGameRules(options) {
     })
   }
 
+  /* ---- KYC ---- */
+  const chainSupportKYC = KYC_CONTRACTS[storageData.chainId]
+  const [ isKycLoading, setIsKycLoading ] = useState(true)
+  const [ isContractWithKyc, setIsContractWithKyc ] = useState(false)
+  const [ newKycEnabled, setNewKycEnabled ] = useState(0)
+  const [ isSavingKycEnabled, setIsSavingKycEnabled ] = useState(false)
+  const [ newKycVerifyLink, setNewKycVerifyLink ] = useState(storageData.kycVerifyLink)
+  const [ isSavingKycVerifyLink, setIsSavingKycVerifyLink ] = useState(false)
+  
+  useEffect(() => {
+    setIsKycLoading(true)
+    if (storageData.lotteryAddress && storageData.chainId) {
+      fetchLotteryKyc({
+        chainId: storageData.chainId,
+        contractAddress: storageData.lotteryAddress,
+      }).then((kycStatus) => {
+        if (kycStatus.support) {
+          setIsContractWithKyc(true)
+          setNewKycEnabled((kycStatus.enabled) ? 1 : 0)
+        } else {
+          setIsContractWithKyc(false)
+        }
+        setIsKycLoading(false)
+      }).catch((err) => {
+        setIsContractWithKyc(false)
+        setIsKycLoading(false)
+        console.log('>>> err', err)
+      })
+    }
+  }, [storageData])
+  
+  const doSaveKycEnabled = () => {
+    openConfirmWindow({
+      title: 'Save changes to Lottery',
+      message: 'Save new KYC verification rule?',
+      onConfirm: () => {
+        setIsSavingKycEnabled(true)
+        const { activeWeb3 } = getActiveChain()
+        addNotify(`Confirm transaction`)
+        callLotteryMethod({
+          activeWeb3,
+          contractAddress: storageData.lotteryAddress,
+          method: 'setKYCEnabled',
+          args: [ (newKycEnabled == 1) ],
+        }).then((res) => {
+          setIsSavingKycEnabled(false)
+          addNotify(`Changes saved`, `success`)
+        }).catch((err) => {
+          setIsSavingKycEnabled(false)
+          addNotify(`Fail save KYC verification rule. ${err.message ? err.message : ''}`, `error`)
+        })
+      }
+    })
+  }
+  
+  const doSaveKycVerifyLink = () => {
+    openConfirmWindow({
+      title: `Save KYC verification link`,
+      message: `Save KYC verification link to Storage?`,
+      onConfirm: () => {
+        setIsSavingKycVerifyLink(true)
+        addNotify(`Saving KYC verification link...`)
+        saveStorageConfig({
+          onBegin: () => {
+            addNotify(`Confirm transaction`)
+          },
+          onReady: () => {
+            setIsSavingKycVerifyLink(false)
+            addNotify(`Changed saved`, `success`)
+          },
+          onError: (err) => {
+            setIsSavingKycVerifyLink(false)
+            addNotify(`Fail save changes. ${err.message ? err.message : ''}`, `error`)
+          },
+          newData: {
+            kycVerifyLink: newKycVerifyLink,
+          }
+        })
+      }
+    })
+  }
+  /* ------------- */
   return {
     render: () => {
       if (!storageData.lotteryAddress) {
@@ -170,6 +255,90 @@ export default function TabGameRules(options) {
       return (
         <div className={styles.adminForm}>
           <div className={styles.subFormInfo}>
+            <h3>KYC settings</h3>
+            {isKycLoading ? (
+              <div className={styles.infoBlock}>
+                <span>Loading KYC settings</span>
+              </div>
+            ) : (
+              <>
+                {!isContractWithKyc ? (
+                  <div className={styles.warningBlock}>
+                    <div>You are use old Lottery contract without support KYC verification</div>
+                    <div>Deploy new version for enable it</div>
+                  </div>
+                ) : (
+                  <>
+                    {!chainSupportKYC && (
+                      <div className={styles.warningBlock}>
+                        <div>Selected blockchain not support KYC verification.</div>
+                        <div>For more info contact <a href="https://t.me/onoutsupportbot" target="_blank">@onoutsupportbot</a></div>
+                      </div>
+                    )}
+                    {chainSupportKYC && (
+                      <>
+                        <div className={styles.subForm}>
+                          <div className={styles.infoRow}>
+                            <label>
+                              KYC Enabled:
+                            </label>
+                            <div>
+                              <div>
+                                <select value={newKycEnabled} onChange={(e) => { setNewKycEnabled(e.target.value) }}>
+                                  <option value={0}>No</option>
+                                  <option value={1}>Yes ({KYC_TYPE[storageData.chainId] || `Unknown`})</option>
+                                </select>
+                                <SwitchNetworkAndCall
+                                  chainId={storageData.chainId}
+                                  onClick={doSaveKycEnabled}
+                                  disabled={isSavingKycEnabled}
+                                  icon="save"
+                                  action="Save KYC Rule"
+                                  className={styles.adminButton}
+                                >
+                                  {isSavingKycEnabled ? `Saving...` : `Save KYC Rule`}
+                                </SwitchNetworkAndCall>
+                              </div>
+                            </div>
+                          </div>
+                          <div className={styles.infoRow}>
+                            <label>
+                              <div className={styles.helpTooltip}>
+                                <span>?</span>
+                                <div>Link to KYC verification page. Leave blank for use default for selected blockchain</div>
+                              </div>
+                              Verify link:
+                            </label>
+                            <div>
+                              <div>
+                                <input type="text" value={newKycVerifyLink} onChange={(e) => { setNewKycVerifyLink(e.target.value) }} />
+                              </div>
+                              {KYC_LINK[storageData.chainId] && (
+                                <span>
+                                  Default link: {openInTab(KYC_LINK[storageData.chainId],KYC_LINK[storageData.chainId],KYC_LINK[storageData.chainId])}
+                                </span>
+                              )}
+                              <div style={{flexDirection: 'row-reverse'}}>
+                                <SwitchNetworkAndCall
+                                  chainId={`STORAGE`}
+                                  onClick={doSaveKycVerifyLink}
+                                  disabled={isSavingKycVerifyLink}
+                                  icon="save"
+                                  action="Save"
+                                  className={styles.adminButton}
+                                >
+                                  {isSavingKycVerifyLink ? `Saving link...` : `Save link to KYC verify page`}
+                                </SwitchNetworkAndCall>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </>
+                )}
+              </>
+            )}
             <h3>Lottery rules</h3>
             <div className={styles.subForm}>
               <div className={styles.infoRow}>

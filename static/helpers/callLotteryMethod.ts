@@ -1,4 +1,4 @@
-import contractData from "../contracts/source/artifacts/PancakeSwapLottery.json"
+import contractData from "../contracts/source/artifacts/PancakeSwapLotteryKYC.json"
 import Web3 from 'web3'
 
 import { CHAIN_INFO } from "../helpers/constants"

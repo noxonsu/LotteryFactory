@@ -295,7 +295,8 @@ export default function TabMain(options) {
                       </select>
                       {!hasChainKYC() && (
                         <div>
-                          {`* this blockchain not support KYC. For more info contact  @onoutsupportbot`}
+                          <span>{`* this blockchain not support KYC. `}</span>
+                          <span>For more info contact <a style={{color: '#fff'}} href="https://t.me/onoutsupportbot" target="_blank">@onoutsupportbot</a></span>
                         </div>
                       )}
                     </div>

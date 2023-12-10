@@ -709,6 +709,27 @@
   padding-bottom: 0px;
 }
 
+.adminForm .subFormInfo .infoBlock,
+.adminForm .subFormInfo .errorBlock,
+.adminForm .subFormInfo .warningBlock {
+  text-align: center;
+  padding: 4px;
+  margin: 4px;
+  font-weight: bold;
+  border: 1px solid #FFF;
+}
+.adminForm .subFormInfo .infoBlock A,
+.adminForm .subFormInfo .errorBlock A,
+.adminForm .subFormInfo .warningBlock A {
+  color: #FFF;
+}
+
+.adminForm .subFormInfo .warningBlock {
+  background: #2f4927;
+}
+.adminForm .subFormInfo .infoBlock {
+  background: #0b59b6;
+}
 .adminForm .infoTable {
   margin-left: 20px;
   margin-right: 20px;
