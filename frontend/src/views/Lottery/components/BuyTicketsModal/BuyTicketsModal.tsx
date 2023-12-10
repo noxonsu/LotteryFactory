@@ -198,6 +198,37 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
     hasFetchedBalance,
   ])
 
+  /* Check KYC */
+  const [ isCheckingKYC, setIsCheckingKYC ] = useState(true)
+  const [ isHasKYC, setIsHasKYC ] = useState(false)
+  const [ isWalletOkKYC, setIsWalletOkKYC ] = useState(false)
+  
+  // @ts-ignore
+  useEffect(async () => {
+    setIsCheckingKYC(true)
+    if (account && lotteryContract) {
+      try {
+        const existKyc = await lotteryContract.existKyc()
+        if (existKyc) {
+          const isKycOk = await lotteryContract.checkWalletKYC(account)
+          console.log('>>>> WALLET KYC IS OK', isKycOk)
+          setIsHasKYC(true)
+          setIsWalletOkKYC(isKycOk)
+          setIsCheckingKYC(false)
+        } else {
+          setIsHasKYC(false)
+          setIsWalletOkKYC(true)
+          setIsCheckingKYC(false)
+        }
+      } catch (err) {
+        setIsHasKYC(false)
+        setIsWalletOkKYC(true)
+        setIsCheckingKYC(false)
+        console.log('>>> NO KYC', err)
+      }
+    }
+  }, [ account, lotteryContract ])
+  
   useEffect(() => {
     const numberOfTicketsToBuy = new BigNumber(ticketsToBuy)
     const costAfterDiscount = new BigNumber(getTicketCostAfterDiscount(numberOfTicketsToBuy).toFixed(0))
@@ -289,6 +320,8 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
       },
     })
 
+
+  /* --- KYC */
   const getErrorMessage = () => {
     if (userNotEnoughCake) return t(`Insufficient ${token.info().symbol} balance`)
     return t('The maximum number of tickets you can buy in one transaction is %maxTickets%', {
@@ -322,6 +355,8 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
         allComplete={allComplete}
         onConfirm={handleConfirm}
         isConfirming={isConfirming}
+        isCheckingKYC={isCheckingKYC}
+        isWalletOkKYC={isWalletOkKYC}
         onDismiss={() => setBuyingStage(BuyingStage.BUY)}
       />
     )
@@ -432,41 +467,50 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
             ~{totalCost} {token.info().symbol}
           </Text>
         </Flex>
-
         {account ? (
           <>
-            <ApproveConfirmButtons
-              isApproveDisabled={isApproved}
-              isApproving={isApproving}
-              isConfirmDisabled={disableBuying}
-              isConfirming={isConfirming}
-              onApprove={handleApprove}
-              onConfirm={handleConfirm}
-              buttonArrangement={ButtonArrangement.SEQUENTIAL}
-              confirmLabel={t('Buy Instantly')}
-              confirmId="lotteryBuyInstant"
-            />
-            {isApproved && (
-              <Button
-                variant="secondary"
-                mt="8px"
-                endIcon={
-                  <ArrowForwardIcon
-                    ml="2px"
-                    color={disableBuying || isConfirming ? 'disabled' : 'primary'}
-                    height="24px"
-                    width="24px"
-                  />
-                }
-                disabled={disableBuying || isConfirming}
-                onClick={() => {
-                  setBuyingStage(BuyingStage.EDIT)
-                }}
-              >
-                {t('View/Edit Numbers')}
-              </Button>
+            {isCheckingKYC && (
+              <Button disabled={true} width="100%">{`Loading`}</Button>
             )}
-            <BuyTokenButton disabled={false} width="100%" />
+            {!isCheckingKYC && !isWalletOkKYC && (
+              <Button width="100%">{`Need KYC verify`}</Button>
+            )}
+            {!isCheckingKYC && isWalletOkKYC && (
+              <>
+                <ApproveConfirmButtons
+                  isApproveDisabled={isApproved || isCheckingKYC}
+                  isApproving={isApproving}
+                  isConfirmDisabled={disableBuying || isCheckingKYC}
+                  isConfirming={isConfirming}
+                  onApprove={handleApprove}
+                  onConfirm={handleConfirm}
+                  buttonArrangement={ButtonArrangement.SEQUENTIAL}
+                  confirmLabel={t('Buy Instantly')}
+                  confirmId="lotteryBuyInstant"
+                />
+                {isApproved && (
+                  <Button
+                    variant="secondary"
+                    mt="8px"
+                    endIcon={
+                      <ArrowForwardIcon
+                        ml="2px"
+                        color={disableBuying || isConfirming ? 'disabled' : 'primary'}
+                        height="24px"
+                        width="24px"
+                      />
+                    }
+                    disabled={disableBuying || isConfirming || isCheckingKYC}
+                    onClick={() => {
+                      setBuyingStage(BuyingStage.EDIT)
+                    }}
+                  >
+                    {t('View/Edit Numbers')}
+                  </Button>
+                )}
+                <BuyTokenButton disabled={isCheckingKYC} width="100%" />
+              </>
+            )}
           </>
         ) : (
           <ConnectWalletButton />

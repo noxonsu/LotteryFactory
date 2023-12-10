@@ -33,7 +33,9 @@ const EditNumbersModal: React.FC<{
   onConfirm: () => void
   isConfirming: boolean
   onDismiss?: () => void
-}> = ({ totalCost, updateTicket, randomize, tickets, allComplete, onConfirm, isConfirming, onDismiss }) => {
+  isCheckingKYC?: boolean
+  isWalletOkKYC?: boolean
+}> = ({ totalCost, updateTicket, randomize, tickets, allComplete, onConfirm, isConfirming, onDismiss, isCheckingKYC, isWalletOkKYC }) => {
   const { theme } = useTheme()
   const { t } = useTranslation()
   return (
@@ -67,19 +69,29 @@ const EditNumbersModal: React.FC<{
         ))}
       </ScrollableContainer>
       <Flex flexDirection="column" justifyContent="center" m="24px">
-        <Button
-          id="lotteryBuyEdited"
-          disabled={!allComplete || isConfirming}
-          endIcon={isConfirming ? <AutoRenewIcon spin color="currentColor" /> : undefined}
-          onClick={() => {
-            onConfirm()
-          }}
-        >
-          {isConfirming ? t('Confirming') : t('Confirm and buy')}
-        </Button>
-        <Button mt="8px" variant={isConfirming ? 'secondary' : 'text'} disabled={isConfirming} onClick={onDismiss}>
-          <ArrowBackIcon color={isConfirming ? 'disabled' : 'primary'} height="24px" width="24px" /> {t('Go back')}
-        </Button>
+        {isCheckingKYC && (
+          <Button disabled={true} width="100%">{`Loading...`}</Button>
+        )}
+        {!isCheckingKYC && !isWalletOkKYC && (
+          <Button width="100%">{`Need KYC verify`}</Button>
+        )}
+        {!isCheckingKYC && isWalletOkKYC && (
+          <>
+            <Button
+              id="lotteryBuyEdited"
+              disabled={!allComplete || isConfirming}
+              endIcon={isConfirming ? <AutoRenewIcon spin color="currentColor" /> : undefined}
+              onClick={() => {
+                onConfirm()
+              }}
+            >
+              {isConfirming ? t('Confirming') : t('Confirm and buy')}
+            </Button>
+            <Button mt="8px" variant={isConfirming ? 'secondary' : 'text'} disabled={isConfirming} onClick={onDismiss}>
+              <ArrowBackIcon color={isConfirming ? 'disabled' : 'primary'} height="24px" width="24px" /> {t('Go back')}
+            </Button>
+          </>
+        )}
       </Flex>
     </StyledModal>
   )
