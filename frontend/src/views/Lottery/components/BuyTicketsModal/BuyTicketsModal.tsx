@@ -211,7 +211,6 @@ const BuyTicketsModal: React.FC<BuyTicketsModalProps> = ({ onDismiss }) => {
         const existKyc = await lotteryContract.existKyc()
         if (existKyc) {
           const isKycOk = await lotteryContract.checkWalletKYC(account)
-          console.log('>>>> WALLET KYC IS OK', isKycOk)
           setIsHasKYC(true)
           setIsWalletOkKYC(isKycOk)
           setIsCheckingKYC(false)

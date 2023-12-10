@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {
   Card,
@@ -20,6 +20,7 @@ import { LotteryStatus } from 'config/constants/types'
 import { useTranslation } from 'contexts/Localization'
 import { usePriceCakeBusd } from 'state/farms/hooks'
 import { useLottery } from 'state/lottery/hooks'
+import { useLotteryV2Contract } from 'hooks/useContract'
 import { getBalanceNumber } from 'utils/formatBalance'
 import Balance from 'components/Balance'
 import ViewTicketsModal from './ViewTicketsModal'
@@ -64,6 +65,7 @@ const NextDrawCard = () => {
     t,
     currentLanguage: { locale },
   } = useTranslation()
+  const lotteryContract = useLotteryV2Contract()
   const { account } = useWeb3React()
   const { currentLotteryId, isTransitioning, currentRound } = useLottery()
   const { endTime, amountCollectedInCake, userTickets, status } = currentRound
@@ -79,6 +81,36 @@ const NextDrawCard = () => {
   const isLotteryOpen = status === LotteryStatus.OPEN
   const userTicketCount = userTickets?.tickets?.length || 0
 
+  /* Check KYC */
+  const [ isCheckingKYC, setIsCheckingKYC ] = useState(true)
+  const [ isHasKYC, setIsHasKYC ] = useState(false)
+  const [ isWalletOkKYC, setIsWalletOkKYC ] = useState(false)
+  
+  // @ts-ignore
+  useEffect(async () => {
+    setIsCheckingKYC(true)
+    if (account && lotteryContract) {
+      try {
+        const existKyc = await lotteryContract.existKyc()
+        if (existKyc) {
+          const isKycOk = await lotteryContract.checkWalletKYC(account)
+          setIsHasKYC(true)
+          setIsWalletOkKYC(isKycOk)
+          setIsCheckingKYC(false)
+        } else {
+          setIsHasKYC(false)
+          setIsWalletOkKYC(true)
+          setIsCheckingKYC(false)
+        }
+      } catch (err) {
+        setIsHasKYC(false)
+        setIsWalletOkKYC(true)
+        setIsCheckingKYC(false)
+        console.log('>>> NO KYC', err)
+      }
+    }
+  }, [ account, lotteryContract ])
+  
   const getPrizeBalances = () => {
     if (status === LotteryStatus.CLOSE || status === LotteryStatus.CLAIMABLE) {
       return (
@@ -213,7 +245,15 @@ const NextDrawCard = () => {
                 )}
               </Flex>
             )}
-            <BuyTicketsButton disabled={ticketBuyIsDisabled} maxWidth="280px" />
+            {isCheckingKYC && (
+              <Button disabled={true}>{`Loading...`}</Button>
+            )}
+            {!isCheckingKYC && !isWalletOkKYC && (
+              <Button>{`Need KYC verify`}</Button>
+            )}
+            {!isCheckingKYC && isWalletOkKYC && (
+              <BuyTicketsButton disabled={ticketBuyIsDisabled} maxWidth="280px" />
+            )}
             <BuyTokenButton disabled={false} maxWidth="280px" />
           </Flex>
         </Grid>
