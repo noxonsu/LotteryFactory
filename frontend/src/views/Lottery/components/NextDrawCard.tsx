@@ -65,8 +65,10 @@ const NextDrawCard = () => {
     t,
     currentLanguage: { locale },
   } = useTranslation()
-  const lotteryContract = useLotteryV2Contract()
+  
+   
   const { account } = useWeb3React()
+  const lotteryContract = useLotteryV2Contract()
   const { currentLotteryId, isTransitioning, currentRound } = useLottery()
   const { endTime, amountCollectedInCake, userTickets, status } = currentRound
 
@@ -85,7 +87,7 @@ const NextDrawCard = () => {
   const [ isCheckingKYC, setIsCheckingKYC ] = useState(true)
   const [ isHasKYC, setIsHasKYC ] = useState(false)
   const [ isWalletOkKYC, setIsWalletOkKYC ] = useState(false)
-  
+  const [ checkKycCounter, setCheckKycCounter ] = useState(0)
   // @ts-ignore
   useEffect(async () => {
     setIsCheckingKYC(true)
@@ -103,13 +105,17 @@ const NextDrawCard = () => {
           setIsCheckingKYC(false)
         }
       } catch (err) {
-        setIsHasKYC(false)
-        setIsWalletOkKYC(true)
-        setIsCheckingKYC(false)
-        console.log('>>> NO KYC', err)
+        if (checkKycCounter > 0) {
+          setIsHasKYC(false)
+          setIsWalletOkKYC(true)
+          setIsCheckingKYC(false)
+          console.log('>>> NO KYC', checkKycCounter, account, lotteryContract, err)
+        } else {
+          setCheckKycCounter(checkKycCounter+1)
+        }
       }
     }
-  }, [ account, lotteryContract ])
+  }, [ account, lotteryContract, checkKycCounter ])
   
   const getPrizeBalances = () => {
     if (status === LotteryStatus.CLOSE || status === LotteryStatus.CLAIMABLE) {
@@ -249,7 +255,17 @@ const NextDrawCard = () => {
               <Button disabled={true}>{`Loading...`}</Button>
             )}
             {!isCheckingKYC && !isWalletOkKYC && (
-              <Button>{`Need KYC verify`}</Button>
+              <Button
+                onClick={() => {
+                  // @ts-ignore
+                  if (window?.SO_LotteryConfig?.kycVerifyLink) {
+                    // @ts-ignore
+                    window.open(window.SO_LotteryConfig.kycVerifyLink)
+                  }
+                }}
+              >
+                {`Need KYC verify`}
+              </Button>
             )}
             {!isCheckingKYC && isWalletOkKYC && (
               <BuyTicketsButton disabled={ticketBuyIsDisabled} maxWidth="280px" />

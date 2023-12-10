@@ -49,6 +49,10 @@ export const KYC_TYPE = {
   5: 'Dev KYC - contact @onoutsupportbot for more info',
   56: 'Binance Account Bound (BAB)',
 }
+export const KYC_LINK = {
+  5: 'https://t.me/onoutsupportbot',
+  56: 'https://www.binance.com/en/BABT'
+}
 export const MULTICALL_CONTRACTS = {
   1: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
   4: '0x42Ad527de7d4e9d9d011aC45B31D8551f8Fe9821',

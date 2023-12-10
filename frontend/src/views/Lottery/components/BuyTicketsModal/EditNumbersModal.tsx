@@ -70,10 +70,20 @@ const EditNumbersModal: React.FC<{
       </ScrollableContainer>
       <Flex flexDirection="column" justifyContent="center" m="24px">
         {isCheckingKYC && (
-          <Button disabled={true} width="100%">{`Loading...`}</Button>
+          <Button disabled={true} width="100%" isLoading={true}>{`Loading...`}</Button>
         )}
         {!isCheckingKYC && !isWalletOkKYC && (
-          <Button width="100%">{`Need KYC verify`}</Button>
+          <Button
+            onClick={() => {
+              // @ts-ignore
+              if (window?.SO_LotteryConfig?.kycVerifyLink) {
+                // @ts-ignore
+                window.open(window.SO_LotteryConfig.kycVerifyLink)
+              }
+            }}
+          >
+            {`Need KYC verify`}
+          </Button>
         )}
         {!isCheckingKYC && isWalletOkKYC && (
           <>
