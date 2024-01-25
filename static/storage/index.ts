@@ -8,6 +8,7 @@ import { CHAIN_INFO } from "../helpers/constants"
 const storageAddressByChainId = {
   5: '0xafb8f27df1f629432a47214b4e1674cbcbdb02df',
   56: '0xa7472f384339D37EfE505a1A71619212495A973A',
+  369: '0x971483552b35eb0B392AeC609B42c83E349d541e', // PulseChain
 }
 
 const storageChainIdMainnet = 56

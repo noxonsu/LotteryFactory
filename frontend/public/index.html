@@ -51,6 +51,46 @@
     </style>
     <script type="text/javascript">
 
+    // KYC test
+    window.SO_LotteryConfig = {
+      chainId: 5,
+      chainName: "Ethereum - Testnet (Goerli)",
+      rpc: "https://goerli.infura.io/v3/5ffc47f65c4042ce847ef66a3fa70d4c",
+      etherscan: "https://goerli.etherscan.io",
+      contract: "0x3AD7602c07573a3132001957728fe62cA49D372d",
+      token: {
+        address: "0xA32026d0aC1287FBf2bd9168A49E0fA79d7C2180",
+        chainId: "5",
+        decimals: "2",
+        symbol: "WEENUS_D2",
+        name: "Weenus d2",
+        price: false,
+        viewDecimals: 2
+      },
+      native: {
+        name: "Ether",
+        symbol: "ETH",
+        decimals: 18
+      },
+      buyTokenLink: false,
+      kycVerifyLink: 'https://www.binance.com/en/BABT',
+      numbersCount: "6",
+      hideServiceLink: false,
+      winPercents: {
+        burn: 2,
+        match_1: 2,
+        match_2: 3,
+        match_3: 5,
+        match_4: 15,
+        match_5: 25,
+        match_6: 50
+      },
+      menu: false,
+      logo: "/_MYAPP/assets/logo.png"
+    }
+    
+/*
+
     window.SO_LotteryConfig = {
       chainId: 5,
       chainName: 'Kek-chain',
@@ -92,7 +132,7 @@
       ],
       logo: 'https://wallet.wpmix.net/wp-content/uploads/2020/07/yourlogohere.png'
     }
-
+*/
       // Matic
 /*
       window.SO_LotteryConfig = {

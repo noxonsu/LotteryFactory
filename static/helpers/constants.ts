@@ -36,6 +36,11 @@ export const CURRENCIES = {
     name: "FTM",
     symbol: 'FTM',
     decimals: 18
+  },
+  PLS: {
+    name: 'PLS',
+    symbol: 'PLS',
+    decimals: 18
   }
 }
 
@@ -53,6 +58,10 @@ export const KYC_LINK = {
   5: 'https://t.me/onoutsupportbot',
   56: 'https://www.binance.com/en/BABT'
 }
+export const KYC_OWN_CONTRACT = {
+  369: true
+}
+
 export const MULTICALL_CONTRACTS = {
   1: '0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696',
   4: '0x42Ad527de7d4e9d9d011aC45B31D8551f8Fe9821',
@@ -69,9 +78,21 @@ export const MULTICALL_CONTRACTS = {
   25: '0x0fa4d452693f2f45d28c4ec4d20b236c4010da74',
   1442: '0x48d7ac38530697aDB91061B6D141C8c763edE565',
   1101: '0x10DcBEe8afA39a847707e16Aea5eb34c6b01aBA9',
+  // PulseChain
+  369: '0xa06105Ff6Ba0740531AAe2f62b38e095C8a587BB',
 }
 
 export const AVAILABLE_NETWORKS_INFO = [
+  {
+    slug: 'pulsechain',
+    chainName: 'PulseChain',
+    chainId: '0x171',
+    networkVersion: 369,
+    rpcUrls: ['https://rpc.pulsechain.com'],
+    blockExplorerUrls: ['https://otter.PulseChain.com'],
+    isTestnet: false,
+    nativeCurrency: CURRENCIES.PLS
+  },
   {
     slug: 'bsc_testnet',
     chainName: 'Binance Smart Chain - Testnet',
