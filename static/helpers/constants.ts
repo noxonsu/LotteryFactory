@@ -49,16 +49,19 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const KYC_CONTRACTS = {
   5: '0x1d6f489051c04735f28ee4b0584c08263b1d7c4f',
   56: '0x2b09d47d550061f995a3b5c6f0fd58005215d7c8',
+  369: '0x5E4e74f8Ac59d00941d41953D036fe2C8d511477',
 }
 export const KYC_TYPE = {
   5: 'Dev KYC - contact @onoutsupportbot for more info',
   56: 'Binance Account Bound (BAB)',
+  369: 'Binance Account Bound on PulseChain via Oracle'
 }
 export const KYC_LINK = {
   5: 'https://t.me/onoutsupportbot',
-  56: 'https://www.binance.com/en/BABT'
+  56: 'https://www.binance.com/en/BABT',
+  369: 'https://www.binance.com/en/BABT',
 }
-export const KYC_OWN_CONTRACT = {
+export const KYC_CAN_OWN_CONTRACT = {
   369: true
 }
 

@@ -15,6 +15,7 @@ const deployLottery = (options) => {
       tokenAddress,
       feeOn,
       kycOn,
+      kycContract,
     } = options
     console.log('>>> options', options)
     const onTrx = options.onTrx || (() => {})
@@ -28,7 +29,7 @@ const deployLottery = (options) => {
         activeWeb3.eth.getChainId().then(async (chainId) => {
           const contract = new activeWeb3.eth.Contract(contractDataKYC.abi)
 
-          const kycContract = KYC_CONTRACTS[chainId] || ZERO_ADDRESS
+          const kycContract = (KYC_CONTRACTS[chainId]) ? kycContract : ZERO_ADDRESS
           const kycEnabled = (kycContract !== ZERO_ADDRESS) && kycOn
 
           const txArguments = {

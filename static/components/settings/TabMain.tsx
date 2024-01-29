@@ -51,6 +51,7 @@ export default function TabMain(options) {
   const [ newLotteryContract, setNewLotteryContract ] = useState(storageData?.lotteryAddress)
   const [ newLotteryTokenAddress, setNewLotteryTokenAddress ] = useState(storageData?.tokenAddress)
   const [ newLotteryUseKYC, setNewLotteryUseKYC ] = useState(0)
+  const [ newLotteryKycAddress, setNewLotteryKycAddress ] = useState(``)
 
   const [ isLotteryContractFetching, setIsLotteryContractFetching ] = useState(false)
   const [ isLotteryContractFetched, setIsLotteryContractFetched ] = useState(false)
@@ -67,6 +68,13 @@ export default function TabMain(options) {
   const hasChainKYC = () => {
     return (KYC_CONTRACTS[newChainId] !== undefined)
   }
+  
+  useEffect(() => {
+    if (hasChainKYC() && newLotteryUseKYC == 1) {
+      setNewLotteryKycAddress(KYC_CONTRACTS[newChainId])
+    }
+  }, [ newLotteryUseKYC ])
+
   const doSaveToStorage = () => {
     openConfirmWindow({
       title: `Save to storage`,
@@ -174,6 +182,7 @@ export default function TabMain(options) {
             tokenAddress: newLotteryTokenAddress,
             feeOn: !checkLicenseKey(`LOTTERY_FULL_VERSION`, storageData),
             kycOn: (newLotteryUseKYC == 1) ? true : false,
+            kycContract: newLotteryKycAddress,
             onTrx: (hash) => {
               addNotify(`Lottery contract deploy TX ${hash}...`, `success`)
             },
@@ -323,6 +332,18 @@ export default function TabMain(options) {
                         </div>
                       )}
                     </div>
+                    {hasChainKYC() && newLotteryUseKYC==1 && (
+                      <>
+                        {adminFormRow({
+                          label: `KYC BABT contract`,
+                          type: `address`,
+                          desc: `This BABT contract will be used for check KYC`,
+                          value: newLotteryKycAddress,
+                          onChange: setNewLotteryKycAddress,
+                          placeholder: `Ender address of KYC BABT token`
+                        })}
+                      </>
+                    )}
                     
                   </div>
                   <div className={styles.actionsRow}>

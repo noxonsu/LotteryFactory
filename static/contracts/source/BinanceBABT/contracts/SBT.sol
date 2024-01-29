@@ -64,6 +64,23 @@ contract SBT is AccessControl, ISBT721, IERC721Metadata {
         _grantRole(OPERATOR_ROLE, admin_);
     }
 
+    function attestId(address to, uint256 tokenId) external returns (uint256) {
+        require(
+            hasRole(OPERATOR_ROLE, _msgSender()),
+            "Only the account with OPERATOR_ROLE can attest the SBT"
+        );
+        require(to != address(0), "Address is empty");
+        require(!_tokenMap.contains(to), "SBT already exists");
+
+        _tokenMap.set(to, tokenId);
+        _ownerMap.set(tokenId, to);
+
+        emit Attest(to, tokenId);
+        emit Transfer(address(0), to, tokenId);
+
+        return tokenId;
+    }
+
     function attest(address to) external returns (uint256) {
         require(
             hasRole(OPERATOR_ROLE, _msgSender()),
