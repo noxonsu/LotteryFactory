@@ -46,6 +46,7 @@ const Lottery = () => {
   const { nextEventTime, postCountdownText, preCountdownText } = useGetNextLotteryEvent(endTimeAsInt, status)
   const { numUserRoundsRequested, handleShowMoreUserRounds } = useShowMoreUserHistory()
 
+  
   return (
     <LotteryPage>
       <Menu />

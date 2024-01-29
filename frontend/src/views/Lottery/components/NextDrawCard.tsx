@@ -28,6 +28,8 @@ import BuyTicketsButton from './BuyTicketsButton'
 import BuyTokenButton from './BuyTokenButton'
 import { dateTimeOptions } from '../helpers'
 import RewardBrackets from './RewardBrackets'
+import axios from 'axios'
+
 
 const Grid = styled.div`
   display: grid;
@@ -85,6 +87,7 @@ const NextDrawCard = () => {
 
   /* Check KYC */
   const [ isCheckingKYC, setIsCheckingKYC ] = useState(true)
+  const [ isBridgeKYC, setIsBridgeKYC ] = useState(false)
   const [ isHasKYC, setIsHasKYC ] = useState(false)
   const [ isWalletOkKYC, setIsWalletOkKYC ] = useState(false)
   const [ checkKycCounter, setCheckKycCounter ] = useState(0)
@@ -96,9 +99,69 @@ const NextDrawCard = () => {
         const existKyc = await lotteryContract.existKyc()
         if (existKyc) {
           const isKycOk = await lotteryContract.checkWalletKYC(account)
-          setIsHasKYC(true)
-          setIsWalletOkKYC(isKycOk)
-          setIsCheckingKYC(false)
+          // @ts-ignore
+          if (window && window.SO_LotteryConfig && window.SO_LotteryConfig.kycOracle && !isKycOk) {
+            // @ts-ignore
+            axios.get(window.SO_LotteryConfig.kycOracle + `check/` + account)
+              .then((response) => {
+                const {
+                  data: {
+                    dest,
+                    source
+                  }
+                } = response
+                if (source) {
+                  // handle success
+                  console.log(response)
+                  console.log('>>> need bridge')
+                  setIsBridgeKYC(true)
+                  // @ts-ignore
+                  axios.get(window.SO_LotteryConfig.kycOracle + 'attest/' + account)
+                    .then((resp) => {
+                      const {
+                        data,
+                        data: {
+                          error,
+                          answer
+                        }
+                      } = resp
+                      console.log('>>>> bridge answer', data)
+                      if (error == 'already attested'
+                        || answer == 'attested'
+                      ) {
+                        setIsWalletOkKYC(true)
+                      } else {
+                        setIsWalletOkKYC(false)
+                      }
+                      setIsHasKYC(true)
+                      setIsCheckingKYC(false)
+                      setIsBridgeKYC(false)
+                    })
+                    .catch((err) => {
+                      console.log(err)
+                      setIsHasKYC(true)
+                      setIsWalletOkKYC(false)
+                      setIsCheckingKYC(false)
+                      setIsBridgeKYC(false)
+                    })
+                } else {
+                  setIsHasKYC(true)
+                  setIsWalletOkKYC(false)
+                  setIsCheckingKYC(false)
+                }
+              })
+              .catch((error) => {
+                // handle error
+                console.log(error)
+                setIsHasKYC(true)
+                setIsWalletOkKYC(false)
+                setIsCheckingKYC(false)
+              })
+          } else {
+            setIsHasKYC(true)
+            setIsWalletOkKYC(isKycOk)
+            setIsCheckingKYC(false)
+          }
         } else {
           setIsHasKYC(false)
           setIsWalletOkKYC(true)
@@ -252,7 +315,7 @@ const NextDrawCard = () => {
               </Flex>
             )}
             {isCheckingKYC && (
-              <Button disabled={true}>{`Loading...`}</Button>
+              <Button disabled={true}>{`Checking KYC...`}</Button>
             )}
             {!isCheckingKYC && !isWalletOkKYC && (
               <Button
