@@ -50,8 +50,46 @@
       }
     </style>
     <script type="text/javascript">
-
+    // PulseChain KYC test
+    window.SO_LotteryConfig = {
+      chainId: "369",
+      chainName: "PulseChain",
+      rpc: "https://rpc.pulsechain.com",
+      etherscan: "https://otter.PulseChain.com",
+      contract: "0xf92070AbFf39Ec22952393F0462Ce0c83027e950",
+      token: {
+        address: "0xA1077a294dDE1B09bB078844df40758a5D0f9a27",
+        chainId: "369",
+        decimals: "18",
+        symbol: "WPLS",
+        name: "Wrapped Pulse",
+        price: false,
+        viewDecimals: 2
+      },
+      native: {
+        name: "PLS",
+        symbol: "PLS",
+        decimals: 18
+      },
+      buyTokenLink: false,
+      kycVerifyLink: "https://www.binance.com/en/BABT",
+      kycOracle: "https://kyc-oracle.for-demo.fun/",
+      numbersCount: "6",
+      hideServiceLink: false,
+      winPercents: {
+        burn: 2,
+        match_1: 2,
+        match_2: 3,
+        match_3: 5,
+        match_4: 15,
+        match_5: 25,
+        match_6: 50
+      },
+      menu: false,
+      logo: "/_MYAPP/assets/logo.png"
+    }
     // KYC test
+    /*
     window.SO_LotteryConfig = {
       chainId: 5,
       chainName: "Ethereum - Testnet (Goerli)",
@@ -88,7 +126,7 @@
       menu: false,
       logo: "/_MYAPP/assets/logo.png"
     }
-    
+  */  
 /*
 
     window.SO_LotteryConfig = {
