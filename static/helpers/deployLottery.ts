@@ -29,8 +29,8 @@ const deployLottery = (options) => {
         activeWeb3.eth.getChainId().then(async (chainId) => {
           const contract = new activeWeb3.eth.Contract(contractDataKYC.abi)
 
-          const kycContract = (KYC_CONTRACTS[chainId]) ? kycContract : ZERO_ADDRESS
-          const kycEnabled = (kycContract !== ZERO_ADDRESS) && kycOn
+          const _kycContract = (KYC_CONTRACTS[chainId]) ? kycContract : ZERO_ADDRESS
+          const kycEnabled = (_kycContract !== ZERO_ADDRESS) && kycOn
 
           const txArguments = {
             from: activeWallet,
@@ -40,7 +40,7 @@ const deployLottery = (options) => {
           const _arguments = [
             tokenAddress,
             (feeOn) ? true: false,// FEE ENABLED
-            kycContract,
+            _kycContract,
             kycEnabled,
           ]
 console.log('>>> deploy args', _arguments)
