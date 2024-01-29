@@ -10,7 +10,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 
 import { getUnixTimestamp } from "../helpers/getUnixTimestamp"
-import { CHAIN_INFO, KYC_LINK } from "../helpers/constants"
+import { CHAIN_INFO, KYC_LINK, KYC_WITH_ORACLE, KYC_ORACLE_BACKEND } from "../helpers/constants"
 import NotifyHolder from "../components/NotifyHolder"
 import StorageStyles from "../components/StorageStyles"
 import { useRef } from "react"
@@ -218,8 +218,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         if (storageData.chainId) {
           const chainInfo = CHAIN_INFO(storageData.chainId)
           let kycVerifyLink = false
+          let kycOracle = false
           if (KYC_LINK[storageData.chainId]) kycVerifyLink = KYC_LINK[storageData.chainId]
+          if (KYC_ORACLE_BACKEND[storageData.chainId]) kycOracle = KYC_ORACLE_BACKEND[storageData.chainId]
           if (storageData.kycVerifyLink && storageData.kycVerifyLink !== ``) kycVerifyLink = storageData.kycVerifyLink
+          if (storageData.kycOracle && storageData.kycOracle !== ``) kycOracle = storageData.kycOracle
           
           console.log('>>> storageMenu', storageMenu)
           setVendorSetting({
@@ -240,6 +243,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             },
             buyTokenLink: (storageData.buyTokenLink && storageData.buyTokenLink !== ``) ? storageData.buyTokenLink : false,
             kycVerifyLink,
+            kycOracle,
             numbersCount: ballsCount,
             hideServiceLink: false,
             winPercents: {

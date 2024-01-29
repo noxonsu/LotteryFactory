@@ -61,8 +61,11 @@ export const KYC_LINK = {
   56: 'https://www.binance.com/en/BABT',
   369: 'https://www.binance.com/en/BABT',
 }
-export const KYC_CAN_OWN_CONTRACT = {
+export const KYC_WITH_ORACLE = {
   369: true
+}
+export const KYC_ORACLE_BACKEND = {
+  369: 'https://kyc-oracle.for-demo.fun/'
 }
 
 export const MULTICALL_CONTRACTS = {

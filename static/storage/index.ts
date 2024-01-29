@@ -47,6 +47,7 @@ const parseInfo = (info) => {
     balls: 6,
     buyTokenLink: ``,
     kycVerifyLink: ``,
+    kycOracle: ``,
     matchRules: {
       match_1: 2,
       match_2: 3,

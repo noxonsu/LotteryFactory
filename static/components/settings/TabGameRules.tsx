@@ -7,7 +7,13 @@ import FaIcon from "../FaIcon"
 import openInTab from "../openInTab"
 import callLotteryMethod from "../../helpers/callLotteryMethod"
 import SwitchNetworkAndCall from "../SwitchNetworkAndCall"
-import { KYC_LINK, KYC_CONTRACTS, KYC_TYPE } from "../../helpers/constants"
+import {
+  KYC_LINK,
+  KYC_CONTRACTS,
+  KYC_TYPE,
+  KYC_WITH_ORACLE,
+  KYC_ORACLE_BACKEND
+} from "../../helpers/constants"
 import fetchLotteryKyc from "../../helpers/fetchLotteryKyc"
 
 export default function TabGameRules(options) {
@@ -165,6 +171,7 @@ export default function TabGameRules(options) {
   const [ isKycLoading, setIsKycLoading ] = useState(true)
   const [ isContractWithKyc, setIsContractWithKyc ] = useState(false)
   const [ newKycEnabled, setNewKycEnabled ] = useState(0)
+  const [ newKycOracle, setNewKycOracle ] = useState(``)
   const [ isSavingKycEnabled, setIsSavingKycEnabled ] = useState(false)
   const [ newKycVerifyLink, setNewKycVerifyLink ] = useState(storageData.kycVerifyLink)
   const [ isSavingKycVerifyLink, setIsSavingKycVerifyLink ] = useState(false)
@@ -217,11 +224,11 @@ export default function TabGameRules(options) {
   
   const doSaveKycVerifyLink = () => {
     openConfirmWindow({
-      title: `Save KYC verification link`,
-      message: `Save KYC verification link to Storage?`,
+      title: `Save KYC verification settings`,
+      message: `Save KYC verification settings to Storage?`,
       onConfirm: () => {
         setIsSavingKycVerifyLink(true)
-        addNotify(`Saving KYC verification link...`)
+        addNotify(`Saving KYC verification settings...`)
         saveStorageConfig({
           onBegin: () => {
             addNotify(`Confirm transaction`)
@@ -236,11 +243,14 @@ export default function TabGameRules(options) {
           },
           newData: {
             kycVerifyLink: newKycVerifyLink,
+            kycOracle: newKycOracle
           }
         })
       }
     })
   }
+  
+  const kycOracleSources = 'https://github.com/shendel/BABTKycMigrateOracle'
   /* ------------- */
   return {
     render: () => {
@@ -333,6 +343,44 @@ export default function TabGameRules(options) {
                             </div>
                           </div>
                         </div>
+                        {KYC_WITH_ORACLE[storageData.chainId] && (
+                          <div className={styles.infoRow}>
+                            <label>
+                              <div className={styles.helpTooltip}>
+                                <span>?</span>
+                                <div>Link to KYC Oracle backend</div>
+                              </div>
+                              Oracle API:
+                            </label>
+                            <div>
+                              <div>
+                                <input type="text" value={newKycOracle} onChange={(e) => { setNewKycOracle(e.target.value) }} />
+                              </div>
+                              {KYC_ORACLE_BACKEND[storageData.chainId] && (
+                                <span>
+                                  Default link: {openInTab(KYC_ORACLE_BACKEND[storageData.chainId],KYC_ORACLE_BACKEND[storageData.chainId],KYC_ORACLE_BACKEND[storageData.chainId])}
+                                </span>
+                              )}
+                              <div>
+                                <span>
+                                  KYC Oracle sources and install instruction: {openInTab(kycOracleSources,kycOracleSources,kycOracleSources)}
+                                </span>
+                              </div>
+                              <div style={{flexDirection: 'row-reverse'}}>
+                                <SwitchNetworkAndCall
+                                  chainId={`STORAGE`}
+                                  onClick={doSaveKycVerifyLink}
+                                  disabled={isSavingKycVerifyLink}
+                                  icon="save"
+                                  action="Save"
+                                  className={styles.adminButton}
+                                >
+                                  {isSavingKycVerifyLink ? `Saving...` : `Save KYC Oracle Api`}
+                                </SwitchNetworkAndCall>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </>
                     )}
                   </>
