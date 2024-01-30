@@ -22,6 +22,7 @@ export const getStorageInfo = () => {
   const _isProd = isProd()
   
   const storageChainId = 369 //_isProd ? storageChainIdMainnet : storageChainIdTestnet
+  //const storageChainId = _isProd ? storageChainIdMainnet : storageChainIdTestnet
   const storageChainInfo = CHAIN_INFO(storageChainId)
   const storageRpc = storageChainInfo.rpcUrls[0]
   const storageAddress = storageAddressByChainId[storageChainId]

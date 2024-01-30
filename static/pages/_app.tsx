@@ -279,9 +279,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             window.SO_LotteryConfig = ${JSON.stringify(vendorSetting)}
           `}
         </Script>
-
         <Script strategy="lazyOnload" src="/_MYAPP/loader.js"></Script>
-        <Script src="/_MYAPP/vendor/2.chunk.js"></Script>
+        <Script src="/_MYAPP/vendor/3.chunk.js"></Script>
         <Script src="/_MYAPP/vendor/main.chunk.js"></Script>
       </div>
     )
