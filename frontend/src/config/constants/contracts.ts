@@ -33,6 +33,7 @@ export default {
     103090: '0xaE6d9d48954491B8bfd8ec367Dc5E05065689281', // also for keckchain
     1442: '0x48d7ac38530697aDB91061B6D141C8c763edE565', // Polygon zkEVM (testnet)
     1101: '0x10DcBEe8afA39a847707e16Aea5eb34c6b01aBA9', // Polygon zkEVM (mainnet)
+    369: '0xa06105Ff6Ba0740531AAe2f62b38e095C8a587BB', // PulseChain
   },
   pancakeProfile: {
     56: '0xDf4dBf6536201370F95e06A0F8a7a70fE40E388a',

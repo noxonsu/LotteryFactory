@@ -29,7 +29,7 @@ import BuyTokenButton from './BuyTokenButton'
 import { dateTimeOptions } from '../helpers'
 import RewardBrackets from './RewardBrackets'
 import axios from 'axios'
-
+import ConnectWalletButton from 'components/ConnectWalletButton'
 
 const Grid = styled.div`
   display: grid;
@@ -314,10 +314,10 @@ const NextDrawCard = () => {
                 )}
               </Flex>
             )}
-            {isCheckingKYC && (
+            {isCheckingKYC && account && (
               <Button disabled={true}>{`Checking KYC...`}</Button>
             )}
-            {!isCheckingKYC && !isWalletOkKYC && (
+            {!isCheckingKYC && !isWalletOkKYC && account && (
               <Button
                 onClick={() => {
                   // @ts-ignore
@@ -330,8 +330,14 @@ const NextDrawCard = () => {
                 {`Need KYC verify`}
               </Button>
             )}
-            {!isCheckingKYC && isWalletOkKYC && (
-              <BuyTicketsButton disabled={ticketBuyIsDisabled} maxWidth="280px" />
+            {account ? (
+              <>
+                {!isCheckingKYC && isWalletOkKYC && (
+                  <BuyTicketsButton disabled={ticketBuyIsDisabled} maxWidth="280px" />
+                )}
+              </>
+            ) : (
+              <ConnectWalletButton />
             )}
             <BuyTokenButton disabled={false} maxWidth="280px" />
           </Flex>
