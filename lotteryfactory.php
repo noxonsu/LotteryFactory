@@ -5,8 +5,9 @@ Description: Blockchain Lottery
 Requires PHP: 7.1
 Text Domain: lotteryfactory
 Domain Path: /lang
-Version: 1.2.2
+Version: 1.2.3
  */
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 /* Define Plugin Constants */
@@ -22,10 +23,9 @@ $plugin_url = plugins_url('', __FILE__);
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
     $plugin_url = str_replace('http://', 'https://', $plugin_url)."/";
 }
-echo $plugin_url;
-die(); 
-define( 'LOTTERYFACTORY_URL', $plugin_ur);
-define( 'LOTTERYFACTORY_VER', '1.2.2');
+
+define( 'LOTTERYFACTORY_URL', $plugin_url);
+define( 'LOTTERYFACTORY_VER', '1.2.3');
 
 /**
  * Plugin Init
