@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lottery Ball Calculator</title>
+</head>
+
+<body>
+    <h1>Lottery Ball Calculator</h1>
+    <label for="prizePool">Введите начальный призовой фонд (в токенах):</label>
+    <input type="number" id="prizePool" name="prizePool" value="10000"><br>
+    <label for="tokenPrice">Примерная стоимость токена в долларах:</label>
+    <input type="number" id="tokenPrice" name="tokenPrice" value="1"><br>
+    <label for="ticketPrice">Стоимость билета (в токенах):</label>
+    <input type="number" id="ticketPrice" name="ticketPrice" value="1"><br>
+    <button onclick="calculateOptimalBalls()">Рассчитать оптимальное количество шаров</button>
+    <div id="results"></div>
+    <p>Обратите внимание каждый билет требует mining fee на покупку</p>
+
+    <script>
+        function calculateOptimalBalls() {
+            const prizePool = document.getElementById("prizePool").value;
+            const tokenPrice = document.getElementById("tokenPrice").value;
+            const ticketPrice = document.getElementById("ticketPrice").value;
+            let resultsHtml = '';
+            let optimalBalls = 0;
+            let minProfitableBalls;
+
+            for (let balls = 2; balls <= 6; balls++) {
+                const winningProbability = 1 / Math.pow(10, balls);
+                const expectedWinning = winningProbability * prizePool * tokenPrice;
+                const totalTicketCost = (ticketPrice * tokenPrice);
+                
+                if (expectedWinning < totalTicketCost && !minProfitableBalls) {
+                    minProfitableBalls = balls;
+                }
+
+                resultsHtml += `<p>Для ${balls} шаров: вероятность выигрыша 1 из ${Math.pow(10, balls)}, математическое ожидание выигрыша = ${expectedWinning.toFixed(2)} долларов (стоимость билета = ${totalTicketCost.toFixed(2)} долларов)</p>`;
+            }
+
+            if (minProfitableBalls) {
+                resultsHtml += `<p>Для того чтобы заработать (как организатору), вам нужно как минимум ${minProfitableBalls} шаров.</p>`;
+            } else {
+                resultsHtml += `<p>При данных параметрах заработать невозможно.</p>`;
+            }
+ 
+            document.getElementById("results").innerHTML = resultsHtml;
+        }
+    </script>
+</body>
+</html>
