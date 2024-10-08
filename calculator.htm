@@ -1,50 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Lottery Ball Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Calculator</title>
 </head>
-
 <body>
-    <h1>Lottery Ball Calculator</h1>
-    <label for="prizePool">Введите начальный призовой фонд (в токенах):</label>
-    <input type="number" id="prizePool" name="prizePool" value="10000"><br>
-    <label for="tokenPrice">Примерная стоимость токена в долларах:</label>
-    <input type="number" id="tokenPrice" name="tokenPrice" value="1"><br>
-    <label for="ticketPrice">Стоимость билета (в токенах):</label>
-    <input type="number" id="ticketPrice" name="ticketPrice" value="1"><br>
-    <button onclick="calculateOptimalBalls()">Рассчитать оптимальное количество шаров</button>
+    <h1>Lottery Calculator</h1>
+    
+    <!-- Поле для ввода размера банка -->
+    <label for="bankSize">Bank Size:</label>
+    <input type="number" id="bankSize" value="100"><br><br>
+    
+    <!-- Выпадающий список для выбора типа распределения -->
+    <label for="distributionType">Distribution Type:</label>
+    <select id="distributionType">
+        <option value="uniform">Uniform</option>
+        <option value="increasing">Increasing</option>
+        <option value="veryIncreasing">Very Increasing</option>
+    </select><br><br>
+    
+    <!-- Контейнер для ввода призов -->
+    <div id="prizeInputs"></div>
+    
+    <!-- Кнопка для запуска расчета -->
+    <button onclick="calculate()">Calculate</button>
+    
+    <!-- Контейнер для отображения результатов -->
     <div id="results"></div>
-    <p>Обратите внимание каждый билет требует mining fee на покупку</p>
 
     <script>
-        function calculateOptimalBalls() {
-            const prizePool = document.getElementById("prizePool").value;
-            const tokenPrice = document.getElementById("tokenPrice").value;
-            const ticketPrice = document.getElementById("ticketPrice").value;
-            let resultsHtml = '';
-            let optimalBalls = 0;
-            let minProfitableBalls;
-
-            for (let balls = 2; balls <= 6; balls++) {
-                const winningProbability = 1 / Math.pow(10, balls);
-                const expectedWinning = winningProbability * prizePool * tokenPrice;
-                const totalTicketCost = (ticketPrice * tokenPrice);
-                
-                if (expectedWinning < totalTicketCost && !minProfitableBalls) {
-                    minProfitableBalls = balls;
+        const prizeInputs = document.getElementById('prizeInputs');
+        const distributionType = document.getElementById('distributionType');
+        
+        // Функция для генерации полей ввода призов
+        function generateInputs() {
+            prizeInputs.innerHTML = '';
+            for (let i = 1; i <= 6; i++) {
+                prizeInputs.innerHTML += `
+                    <label for="prize${i}">Prize for ${i} ball(s):</label>
+                    <input type="number" id="prize${i}" step="0.01"><br>
+                `;
+            }
+        }
+        
+        // Генерация полей ввода при загрузке страницы
+        generateInputs();
+        
+        // Обработчик изменения типа распределения
+        distributionType.addEventListener('change', function() {
+            const inputs = prizeInputs.getElementsByTagName('input');
+            if (this.value === 'uniform') {
+                // Установка равномерного распределения
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].value = (1 / 6).toFixed(2);
                 }
-
-                resultsHtml += `<p>Для ${balls} шаров: вероятность выигрыша 1 из ${Math.pow(10, balls)}, математическое ожидание выигрыша = ${expectedWinning.toFixed(2)} долларов (стоимость билета = ${totalTicketCost.toFixed(2)} долларов)</p>`;
+            } else if (this.value === 'increasing') {
+                // Установка увеличивающегося распределения
+                for (let i = 0; i < inputs.length; i++) {
+                    inputs[i].value = ((i + 1) / 21).toFixed(2);
+                }
+            } else if (this.value === 'veryIncreasing') {
+                // Установка сильно увеличивающегося распределения
+                inputs[0].value = '0.00';
+                for (let i = 1; i < inputs.length; i++) {
+                    inputs[i].value = (Math.pow(2, i) / 62).toFixed(2);
+                }
             }
-
-            if (minProfitableBalls) {
-                resultsHtml += `<p>Для того чтобы заработать (как организатору), вам нужно как минимум ${minProfitableBalls} шаров.</p>`;
-            } else {
-                resultsHtml += `<p>При данных параметрах заработать невозможно.</p>`;
+        });
+        
+        // Функция для расчета результатов
+        function calculate() {
+            const bankSize = parseFloat(document.getElementById('bankSize').value);
+            const prizes = [];
+            for (let i = 1; i <= 6; i++) {
+                prizes.push(parseFloat(document.getElementById(`prize${i}`).value));
             }
- 
-            document.getElementById("results").innerHTML = resultsHtml;
+            
+            const probability = 0.1;
+            let expectedWin = 0;
+            let maxWin = 0;
+            
+            // Расчет ожидаемого выигрыша и максимального возможного выигрыша
+            for (let i = 0; i < 6; i++) {
+                const win = bankSize * prizes[i];
+                const chance = Math.pow(probability, i + 1);
+                expectedWin += win * chance;
+                if (win > maxWin) maxWin = win;
+            }
+            
+            // Отображение результатов
+            const results = document.getElementById('results');
+            results.innerHTML = `
+                <p>Maximum possible win: ${maxWin.toFixed(2)} tokens</p>
+                <p>Expected win: ${expectedWin.toFixed(2)} tokens</p>
+                <p>Therefore, the recommended ticket price should be no less than ${expectedWin.toFixed(2)} tokens.</p>
+                <p>Slogan for your lottery: buy a ticket for ${expectedWin.toFixed(2)} token(s)) and win up to ${maxWin.toFixed(2)} tokens!</p>
+            `;
         }
     </script>
 </body>
