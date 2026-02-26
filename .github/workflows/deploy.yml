@@ -11,7 +11,8 @@ jobs:
     steps:
       - name: Checkout LotteryFactory
         uses: actions/checkout@v3
-        path: LotteryFactory
+        with:
+          path: LotteryFactory
 
       - name: Checkout appsource/lottery
         uses: actions/checkout@v3
