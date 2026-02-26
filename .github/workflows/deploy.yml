@@ -1,0 +1,49 @@
+name: Build and Deploy Lottery
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout LotteryFactory
+        uses: actions/checkout@v3
+        path: LotteryFactory
+
+      - name: Checkout appsource/lottery
+        uses: actions/checkout@v3
+        with:
+          repository: appsource/lottery
+          token: ${{ secrets.APPSOURCE_TOKEN }}
+          path: appsource-lottery
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Check for package.json and build
+        run: |
+          cd LotteryFactory
+          if [ -f "package.json" ]; then
+            npm install
+            npm run build
+
+            # Deploy to appsource
+            rsync -av --delete build/ ../appsource-lottery/ --exclude='.git' --exclude='README.md'
+          else
+            echo "No package.json found, copying all files"
+            rsync -av --delete . ../appsource-lottery/ --exclude='.git' --exclude='node_modules'
+          fi
+
+      - name: Commit to appsource
+        run: |
+          cd appsource-lottery
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-deploy from LotteryFactory $(date '+%Y-%m-%d %H:%M:%S')" || echo "No changes"
+          git push
