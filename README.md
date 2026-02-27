@@ -1,5 +1,7 @@
 # LotteryFactory
 
+[![Deploy Status](https://github.com/noxonsu/LotteryFactory/actions/workflows/deploy.yml/badge.svg)](https://github.com/noxonsu/LotteryFactory/actions/workflows/deploy.yml)
+
 Start your own lottery on blockchain and earn 0-30% comission from selling tickets.
 
 User can buy tikect and earn x1-x100 from his bet.
