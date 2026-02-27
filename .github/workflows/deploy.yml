@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Step 1 - Contracts (Rollup)
         run: |
-          npm install
+          npm install --legacy-peer-deps
           npm run build
           if [ ! -d "lib" ]; then
             echo "Error: lib directory not found"
