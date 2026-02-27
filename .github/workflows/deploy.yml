@@ -100,7 +100,7 @@ jobs:
           cp -r frontend/build/* lottery-package/frontend/build/
 
           mkdir -p lottery-package/static/out
-          cp -r static/out/* lottery-package/static/out/
+          cp -r staticbuild/* lottery-package/static/out/
 
           # Copy metadata
           cp info.json lottery-package/
