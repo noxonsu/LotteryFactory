@@ -29,6 +29,17 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Generated version: $VERSION"
 
+      - name: Update version in plugin files
+        run: |
+          # Update plugin header version
+          sed -i "s/^ \* Version: .*/ * Version: ${{ env.VERSION }}/" lotteryfactory.php
+
+          # Update version constant
+          sed -i "s/define( 'LOTTERYFACTORY_VER', '.*'/define( 'LOTTERYFACTORY_VER', '${{ env.VERSION }}'/" lotteryfactory.php
+
+          echo "Updated lotteryfactory.php:"
+          grep -E "Version:|LOTTERYFACTORY_VER" lotteryfactory.php
+
       - name: Build Step 1 - Contracts (Rollup)
         run: |
           npm install --legacy-peer-deps
