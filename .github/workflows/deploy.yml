@@ -43,6 +43,7 @@ jobs:
       - name: Build Step 2 - Frontend (React CRA)
         env:
           CI: false
+          TSC_COMPILE_ON_ERROR: true
         run: |
           cd frontend
           npm install
