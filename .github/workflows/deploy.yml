@@ -71,46 +71,93 @@ jobs:
         run: |
           cat > info.json << EOF
           {
+            "name": "Lottery Factory",
             "version": "${{ env.VERSION }}",
-            "timestamp": $(date +%s),
-            "download_url": "https://farm.wpmix.net/updates/lottery-v${{ env.VERSION }}.zip",
-            "changelog": "${{ github.event.head_commit.message }}",
-            "requires": "5.0",
             "tested": "6.4",
-            "package": "https://farm.wpmix.net/updates/lottery-v${{ env.VERSION }}.zip"
+            "requires": "5.0",
+            "requires_php": "7.1",
+            "download_url": "https://farm.wpmix.net/updates/lottery-v${{ env.VERSION }}.zip",
+            "last_updated": "$(date -u +"%Y-%m-%d %H:%M:%S")",
+            "sections": {
+              "description": "Blockchain lottery system for Ethereum - create and manage decentralized lotteries",
+              "installation": "Upload the plugin files to /wp-content/plugins/lotteryfactory/, then activate the plugin through the Plugins menu in WordPress",
+              "changelog": "<h4>${{ env.VERSION }}</h4><ul><li>$(echo '${{ github.event.head_commit.message }}' | head -1)</li></ul>"
+            }
           }
           EOF
-          cat info.json
+
+          echo "Generated info.json:"
+          cat info.json | jq . || cat info.json
+          echo "Validating JSON..."
+          cat info.json | jq . > /dev/null && echo "✓ Valid JSON" || (echo "✗ Invalid JSON" && exit 1)
 
       - name: Create WordPress plugin package
         run: |
-          # Create temporary directory for packaging
-          mkdir -p lottery-package
+          echo "Creating WordPress plugin package..."
 
-          # Copy WordPress plugin files
-          if [ -d "wordpress" ]; then
-            cp -r wordpress/* lottery-package/
+          # Create package directory with plugin subdirectory (WordPress standard)
+          mkdir -p lottery-package/lotteryfactory
+
+          # Copy main plugin file
+          echo "Copying main plugin file..."
+          cp lotteryfactory.php lottery-package/lotteryfactory/
+
+          # Copy App directory (controllers)
+          echo "Copying App directory..."
+          cp -r App lottery-package/lotteryfactory/
+
+          # Copy inc directory (WordPress includes)
+          echo "Copying inc directory..."
+          cp -r inc lottery-package/lotteryfactory/
+
+          # Copy lang directory (translations)
+          if [ -d "lang" ]; then
+            echo "Copying lang directory..."
+            cp -r lang lottery-package/lotteryfactory/
+          fi
+
+          # Copy templates directory
+          if [ -d "templates" ]; then
+            echo "Copying templates directory..."
+            cp -r templates lottery-package/lotteryfactory/
+          fi
+
+          # Copy wordpress assets
+          if [ -d "wordpress/assets" ]; then
+            echo "Copying wordpress assets..."
+            mkdir -p lottery-package/lotteryfactory/assets
+            cp -r wordpress/assets/* lottery-package/lotteryfactory/assets/
           fi
 
           # Copy all three build outputs
-          mkdir -p lottery-package/lib
-          cp -r lib/* lottery-package/lib/
+          echo "Copying build outputs..."
+          mkdir -p lottery-package/lotteryfactory/lib
+          cp -r lib/* lottery-package/lotteryfactory/lib/
 
-          mkdir -p lottery-package/frontend/build
-          cp -r frontend/build/* lottery-package/frontend/build/
+          mkdir -p lottery-package/lotteryfactory/frontend/build
+          cp -r frontend/build/* lottery-package/lotteryfactory/frontend/build/
 
-          mkdir -p lottery-package/static/out
-          cp -r staticbuild/* lottery-package/static/out/
+          mkdir -p lottery-package/lotteryfactory/static/out
+          cp -r staticbuild/* lottery-package/lotteryfactory/static/out/
 
-          # Copy metadata
-          cp info.json lottery-package/
-          if [ -f "readme.txt" ]; then
-            cp readme.txt lottery-package/
+          # Copy additional files if they exist
+          if [ -f "README.md" ]; then
+            cp README.md lottery-package/lotteryfactory/
+          fi
+          if [ -f "LICENSE" ]; then
+            cp LICENSE lottery-package/lotteryfactory/
+          fi
+          if [ -f "index.php" ]; then
+            cp index.php lottery-package/lotteryfactory/
           fi
 
-          # Create ZIP
+          # Verify structure
+          echo "Package structure:"
+          ls -la lottery-package/lotteryfactory/ | head -20
+
+          # Create ZIP (from package directory, so lotteryfactory/ is the root in ZIP)
           cd lottery-package
-          zip -r ../lottery-v${{ env.VERSION }}.zip .
+          zip -r ../lottery-v${{ env.VERSION }}.zip lotteryfactory
           cd ..
 
           # Verify ZIP
@@ -121,6 +168,8 @@ jobs:
 
           echo "Package created: lottery-v${{ env.VERSION }}.zip"
           ls -lh lottery-v${{ env.VERSION }}.zip
+          echo "ZIP contents:"
+          unzip -l lottery-v${{ env.VERSION }}.zip | head -30
 
       - name: Upload to server
         uses: appleboy/scp-action@master
@@ -143,6 +192,26 @@ jobs:
             chmod 644 /var/www/html/lottery/info.json
             echo "info.json updated"
             cat /var/www/html/lottery/info.json
+
+      - name: Deploy WordPress plugin ZIP to updates directory
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # Create updates directory if it doesn't exist
+            mkdir -p /home/farmFactory/web/farm.wpmix.net/public_html/updates
+
+            # Move ZIP file from incoming to updates
+            mv /home/farmFactory/incoming/lottery-v${{ env.VERSION }}.zip \
+               /home/farmFactory/web/farm.wpmix.net/public_html/updates/
+
+            # Set permissions
+            chmod 644 /home/farmFactory/web/farm.wpmix.net/public_html/updates/lottery-v${{ env.VERSION }}.zip
+
+            echo "WordPress plugin package deployed:"
+            ls -lh /home/farmFactory/web/farm.wpmix.net/public_html/updates/lottery-v${{ env.VERSION }}.zip
 
       - name: Health check
         run: |
