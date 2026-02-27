@@ -5,7 +5,7 @@ Description: Blockchain Lottery
 Requires PHP: 7.1
 Text Domain: lotteryfactory
 Domain Path: /lang
-Version: 1.2.3
+Version: 2.26.0227
  */
 
 error_reporting(E_ALL);
