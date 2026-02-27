@@ -41,6 +41,8 @@ jobs:
           ls -la lib/ | head -10
 
       - name: Build Step 2 - Frontend (React CRA)
+        env:
+          CI: false
         run: |
           cd frontend
           npm install
