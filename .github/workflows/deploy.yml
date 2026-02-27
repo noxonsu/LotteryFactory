@@ -60,12 +60,12 @@ jobs:
           cd static
           npm install
           npm run buildstatic
-          if [ ! -d "out" ]; then
-            echo "Error: static/out directory not found"
+          if [ ! -d "../staticbuild" ]; then
+            echo "Error: staticbuild directory not found"
             exit 1
           fi
           echo "✓ Static build completed"
-          ls -la out/ | head -10
+          ls -la ../staticbuild/ | head -10
 
       - name: Create info.json
         run: |
