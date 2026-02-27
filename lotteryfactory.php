@@ -25,7 +25,7 @@ if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER[
 }
 
 define( 'LOTTERYFACTORY_URL', $plugin_url);
-define( 'LOTTERYFACTORY_VER', '1.2.3');
+define( 'LOTTERYFACTORY_VER', '2.26.0227');
 
 /**
  * Plugin Init
