@@ -101,6 +101,18 @@ jobs:
           echo "✓ Static build completed"
           ls -la ../staticbuild/ | head -10
 
+
+      - name: Deploy frontend to appsource/lottery
+        uses: peaceiris/actions-gh-pages@v3
+        continue-on-error: true
+        with:
+          personal_token: ${{ secrets.APPSOURCE_TOKEN }}
+          external_repository: appsource/lottery
+          publish_branch: gh-pages
+          publish_dir: ./frontend/build
+          cname: lottery.onout.org
+          force_orphan: true
+
       - name: Create info.json
         run: |
           cat > info.json << EOF
