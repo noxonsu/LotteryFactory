@@ -75,7 +75,12 @@ export const AVAILABLE_NETWORKS_INFO = [
     chainName: 'Binance Smart Chain',
     chainId: '0x38',
     networkVersion: 56,
-    rpcUrls: ['https://bsc-dataseed.binance.org/'],
+    rpcUrls: [
+      'https://bsc-rpc.publicnode.com',
+      'https://1rpc.io/bnb',
+      'https://bsc.drpc.org',
+      'https://bsc-dataseed1.binance.org/',
+    ],
     blockExplorerUrls: ['https://bscscan.com'],
     isTestnet: false,
     nativeCurrency: CURRENCIES.BNB

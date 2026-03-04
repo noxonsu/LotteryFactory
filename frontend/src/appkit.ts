@@ -24,7 +24,14 @@ const bsc = {
   name: 'BNB Smart Chain',
   nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
   rpcUrls: {
-    default: { http: ['https://bsc-dataseed.binance.org'] as const },
+    default: {
+      http: [
+        'https://bsc-rpc.publicnode.com',
+        'https://1rpc.io/bnb',
+        'https://bsc.drpc.org',
+        'https://bsc-dataseed1.binance.org/',
+      ] as const,
+    },
   },
 }
 
@@ -42,6 +49,6 @@ export const wagmiConfig = createConfig({
   chains: [mainnet as any, bsc as any],
   transports: {
     [mainnet.id]: http(),
-    [bsc.id]: http('https://bsc-dataseed.binance.org'),
+    [bsc.id]: http('https://bsc-rpc.publicnode.com'),
   },
 })

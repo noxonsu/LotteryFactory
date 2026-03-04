@@ -24,7 +24,14 @@ if (!window.__bridgeActive) {
     name: 'BNB Smart Chain',
     nativeCurrency: { name: 'BNB', symbol: 'BNB', decimals: 18 },
     rpcUrls: {
-      default: { http: ['https://bsc-dataseed.binance.org'] },
+      default: {
+        http: [
+          'https://bsc-rpc.publicnode.com',
+          'https://1rpc.io/bnb',
+          'https://bsc.drpc.org',
+          'https://bsc-dataseed1.binance.org/',
+        ],
+      },
     },
     blockExplorers: {
       default: { name: 'BscScan', url: 'https://bscscan.com' },
