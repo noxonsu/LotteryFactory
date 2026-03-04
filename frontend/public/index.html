@@ -110,6 +110,20 @@
       }
 */
     </script>
+    <!-- MCW theme URL param: set isDark in Redux localStorage state before React loads -->
+    <script>
+      ;(function () {
+        var theme = new URLSearchParams(location.search).get('theme')
+        if (theme === 'dark' || theme === 'light') {
+          var key = 'redux_localstorage_simple_user'
+          try {
+            var stored = JSON.parse(localStorage.getItem(key) || '{}')
+            stored.isDark = theme === 'dark'
+            localStorage.setItem(key, JSON.stringify(stored))
+          } catch (e) {}
+        }
+      })()
+    </script>
     <!-- MCW Apps Wallet Bridge: auto-connect when opened in MCW iframe -->
     <script src="%PUBLIC_URL%/wallet-bridge-init.js"></script>
     <!-- Reown AppKit (WalletConnect v2): standalone wallet connect modal -->
