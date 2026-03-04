@@ -32,7 +32,7 @@ jobs:
         npm run build
         echo ">>>>>>>>>>> Step (2/3) - Build FrontEnd files"
         cd ./frontend/
-        yarn install --ignore-engines
+        npm install --legacy-peer-deps
         npm run build_clean
         echo ">>>>>>>>>>> Step (3/3) - Build Static version"
         cd ..
