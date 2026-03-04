@@ -51,62 +51,58 @@
     </style>
     <script type="text/javascript">
 
+    // BSC Testnet — deployed 2026-03-04
+    // Contract: 0xa4729b743579d46de8edfece6e1fa2ff2f2fb631
+    // Token: WEENUS 0x703f112Bda4Cc6cb9c5FB4B2e6140f6D8374F10b
     window.SO_LotteryConfig = {
-      chainId: 5,
-      chainName: 'Kek-chain',
-      rpc: "https://mainnet.kekchain.com/",
-      etherscan: "https://mainnet-explorer.kekchain.com",
-      contract: "0x24D2d9d7958f68e985128245CD71B88049de7d86",
+      chainId: 97,
+      chainName: 'BSC Testnet',
+      rpc: "https://bsc-testnet-rpc.publicnode.com",
+      etherscan: "https://testnet.bscscan.com",
+      contract: "0xa4729b743579d46de8edfece6e1fa2ff2f2fb631",
       token: {
-        symbol: "Duck Token",
-        address: "0x6330e9B2C21fE22c17Be8c955b12C4e11be675db",
-        decimals: "18",
-        title: "XDCK",
+        symbol: "WEENUS",
+        address: "0x703f112Bda4Cc6cb9c5FB4B2e6140f6D8374F10b",
+        decimals: 18,
+        title: "WEENUS",
         price: false,
-        viewDecimals: 2      },
+        viewDecimals: 4
+      },
       buyTokenLink: false,
-      numbersCount: parseInt("2", 10),
+      numbersCount: 6,
       hideServiceLink: false,
       winPercents: {
         burn: 2,
-        match_1: 39.2,
-        match_2: 58.8,
-        match_3: 6.125,
-        match_4: 12.25,
-        match_5: 24.5,
-        match_6: 49,
+        match_1: 1.25,
+        match_2: 3.75,
+        match_3: 7.5,
+        match_4: 12.5,
+        match_5: 25,
+        match_6: 50,
       },
-      menu: [
-        {
-          title: "Menu title 1",
-          target: "",
-          link: "http://ya.ru",
-          blank: false
-        },
-        {
-          title: "Menu title 2",
-          target: "",
-          link: "http://google.com",
-          blank: true
-        }
-      ],
+      menu: [],
       logo: 'https://wallet.wpmix.net/wp-content/uploads/2020/07/yourlogohere.png'
     }
 
-      // Matic
+      // Kek-chain (archived)
 /*
       window.SO_LotteryConfig = {
-        chainId: 80001,
-        rpc: 'https://rpc-mumbai.maticvigil.com',
-        contract: '0xA288a01E59ABB87FF6AC63563c40c50bd7C7A1C6',
+        chainId: 5,
+        chainName: 'Kek-chain',
+        rpc: "https://mainnet.kekchain.com/",
+        etherscan: "https://mainnet-explorer.kekchain.com",
+        contract: "0x24D2d9d7958f68e985128245CD71B88049de7d86",
         token: {
-          symbol: 'WEENUS',
-          address: '0x35bE4cA2f4C66861b6B3B9E6F35A7d8FDaD48dea',
-          decimals: 18,
-          title: 'Weenus',
-          price: 10
+          symbol: "Duck Token",
+          address: "0x6330e9B2C21fE22c17Be8c955b12C4e11be675db",
+          decimals: "18",
+          title: "XDCK",
+          price: false,
+          viewDecimals: 2
         },
-        numbersCount: 4
+        buyTokenLink: false,
+        numbersCount: 2,
+        hideServiceLink: false,
       }
 */
     </script>
