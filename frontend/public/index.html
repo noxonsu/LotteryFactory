@@ -110,6 +110,11 @@
       }
 */
     </script>
+    <!-- MCW Apps Wallet Bridge: auto-connect when opened in MCW iframe -->
+    <script src="%PUBLIC_URL%/wallet-bridge-init.js"></script>
+    <!-- Reown AppKit (WalletConnect v2): standalone wallet connect modal -->
+    <!-- Skipped automatically in bridge mode (window.__bridgeActive = true) -->
+    <script type="module" src="%PUBLIC_URL%/wallet-appkit-init.js"></script>
   </head>
   <body>
     <!-- GTAG (noscript) -->

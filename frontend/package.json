@@ -5,8 +5,8 @@
   "homepage_": "./",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
     "build_clean": "node ./scripts/build-non-split.js",
     "update_build": "node ./update_build.js",
     "test": "react-scripts test --testPathIgnorePatterns=/src/__tests__/config/",
@@ -33,10 +33,14 @@
   },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
+    "@craco/craco": "^6.4.5",
     "@ethersproject/experimental": "^5.0.1",
     "@pancakeswap/sdk": "^2.4.0",
     "@pancakeswap/uikit": "^0.58.0",
     "@reduxjs/toolkit": "^1.5.0",
+    "@reown/appkit": "^1.8.19",
+    "@reown/appkit-adapter-wagmi": "^1.8.19",
+    "@tanstack/react-query": "^5.90.21",
     "@types/multicodec": "^1.0.0",
     "@types/node": "^13.13.5",
     "@types/qs": "^6.9.6",
@@ -88,6 +92,8 @@
     "stylis-important-plugin": "0.0.5",
     "swiper": "^6.8.4",
     "typescript": "^4.3.2",
+    "viem": "^2.46.3",
+    "wagmi": "^3.5.0",
     "webpack": "^4.44.2"
   },
   "devDependencies": {
