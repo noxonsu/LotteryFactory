@@ -93,7 +93,7 @@ jobs:
             "sections": {
               "description": "Blockchain lottery system for Ethereum - create and manage decentralized lotteries",
               "installation": "Upload the plugin files to /wp-content/plugins/lotteryfactory/, then activate the plugin through the Plugins menu in WordPress",
-              "changelog": "<h4>${{ env.VERSION }}</h4><ul><li>$(echo '${{ github.event.head_commit.message }}' | head -1)</li></ul>"
+              "changelog": "<h4>${{ env.VERSION }}</h4><ul><li>Build ${{ env.VERSION }}</li></ul>"
             }
           }
           EOF
