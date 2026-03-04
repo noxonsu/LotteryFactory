@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Generate version
         id: version
@@ -55,9 +55,10 @@ jobs:
         env:
           CI: false
           TSC_COMPILE_ON_ERROR: true
+          NODE_OPTIONS: --openssl-legacy-provider
         run: |
           cd frontend
-          npm install
+          npm install --legacy-peer-deps
           npm run build_clean
           if [ ! -d "build" ]; then
             echo "Error: frontend/build directory not found"
