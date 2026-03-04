@@ -259,55 +259,6 @@ jobs:
             echo "WordPress plugin package deployed:"
             ls -lh /home/farmFactory/web/farm.wpmix.net/public_html/updates/lottery-v${{ env.VERSION }}.zip
 
-      - name: Deploy static build to appsource/lottery (GitHub Pages)
-        env:
-          APPSOURCE_TOKEN: ${{ secrets.APPSOURCE_TOKEN }}
-        run: |
-          if [ -z "$APPSOURCE_TOKEN" ]; then
-            echo "⚠ APPSOURCE_TOKEN not set, skipping appsource deploy"
-          else
-            echo "Deploying staticbuild/ to appsource/lottery..."
-
-            # Configure git
-            git config --global user.email "ci@noxon.digital"
-            git config --global user.name "LotteryFactory CI"
-
-            # Clone target repo with token
-            git clone --depth=1 "https://x-access-token:${APPSOURCE_TOKEN}@github.com/appsource/lottery.git" /tmp/appsource-lottery
-
-            # Preserve CNAME and .nojekyll
-            CNAME_FILE=""
-            if [ -f /tmp/appsource-lottery/CNAME ]; then
-              CNAME_FILE=$(cat /tmp/appsource-lottery/CNAME)
-            fi
-
-            # Clear target (keep .git)
-            find /tmp/appsource-lottery -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
-
-            # Copy staticbuild contents
-            cp -r staticbuild/. /tmp/appsource-lottery/
-
-            # Restore CNAME
-            if [ -n "$CNAME_FILE" ]; then
-              echo "$CNAME_FILE" > /tmp/appsource-lottery/CNAME
-            fi
-
-            # Add .nojekyll
-            touch /tmp/appsource-lottery/.nojekyll
-
-            # Commit and push
-            cd /tmp/appsource-lottery
-            git add -A
-            git status
-            if git diff --staged --quiet; then
-              echo "No changes to deploy"
-            else
-              git commit -m "deploy: LotteryFactory v${{ env.VERSION }} — BSC testnet"
-              git push origin main
-              echo "✓ Deployed to appsource/lottery"
-            fi
-          fi
-
       - name: Health check
         run: |
           echo "Waiting 10 seconds for deployment to settle..."
