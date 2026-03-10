@@ -9,8 +9,7 @@
     <link rel="preconnect" href="%REACT_APP_NODE_3%" />
     <link rel="preconnect" href="%REACT_APP_NODE_PRODUCTION%" />
     -->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/fonts/kanit.css" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
@@ -29,19 +28,6 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="🥞 PancakeSwap - A next evolution DeFi exchange on Binance Smart Chain (BSC)" />
-    <!-- GTAG -->
-    <script>
-      ;(function (w, d, s, l, i) {
-        w[l] = w[l] || []
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : ''
-        j.async = true
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl
-        f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', '%REACT_APP_GTAG%')
-    </script>
     <style type="text/css">
       HTML,
       BODY {
@@ -127,15 +113,6 @@
     <script type="module" src="%PUBLIC_URL%/wallet-appkit-init.js"></script>
   </head>
   <body>
-    <!-- GTAG (noscript) -->
-    <noscript>
-      <iframe
-        src="https://www.googletagmanager.com/ns.html?id=%REACT_APP_GTAG%"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe>
-    </noscript>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     
     <style>
