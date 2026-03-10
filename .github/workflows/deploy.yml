@@ -43,6 +43,17 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Cache node_modules (root + frontend + static)
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            frontend/node_modules
+            static/node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json', 'frontend/package-lock.json', 'static/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
       - name: Generate version
         id: version
         run: |
