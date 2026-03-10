@@ -856,11 +856,58 @@ const fetchTokenInfo = (tokenAddress: string) => {
   })
 }
 
+const initBridgeMode = async (opts: any) => {
+  try {
+    await Promise.all([
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.1/web3.min.js'),
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js'),
+      loadScript('https://swaponline.github.io/wallet-apps-bridge-client.js'),
+    ])
+
+    if (!(window as any).ethereum?.isSwapWalletAppsBridge) {
+      console.error('[LotteryFactory Bridge] Bridge provider not available, falling back to normal mode')
+      return false
+    }
+
+    // Set legacy networkVersion property for compatibility with polling in connectMetamask
+    const chainIdHex = await (window as any).ethereum.request({ method: 'eth_chainId' })
+    ;(window as any).ethereum.networkVersion = String(parseInt(chainIdHex, 16))
+
+    injectModalsRoot()
+
+    // Auto-connect: bridge already has the account, skip connectModal
+    const accounts = await (window as any).ethereum.request({ method: 'eth_accounts' })
+    if (accounts && accounts[0]) {
+      setState({ account: accounts[0] })
+      await setupWeb3()
+      if (typeof opts.onFinishLoading === 'function') {
+        opts.onFinishLoading()
+      }
+    }
+
+    // Listen for account/network changes from bridge
+    ;(window as any).ethereum.on('accountsChanged', initMetamask)
+    ;(window as any).ethereum.on('networkChanged', initMetamask)
+
+    return true
+  } catch (err) {
+    console.error('[LotteryFactory Bridge] Bridge init error:', err)
+    return false
+  }
+}
+
 const init = async (opts) => {
   setState({ opts })
 
   if (typeof opts.onStartLoading === 'function') {
     opts.onStartLoading()
+  }
+
+  // Bridge mode: skip connect modal, auto-connect via MCW wallet bridge
+  const urlParams = new URLSearchParams(window.location.search)
+  if (urlParams.get('walletBridge') === 'swaponline' && window.parent !== window) {
+    const bridgeOk = await initBridgeMode(opts)
+    if (bridgeOk) return
   }
 
   try {
