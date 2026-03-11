@@ -861,7 +861,7 @@ const initBridgeMode = async (opts: any) => {
     await Promise.all([
       loadScript('https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.1/web3.min.js'),
       loadScript('https://cdnjs.cloudflare.com/ajax/libs/bignumber.js/8.0.2/bignumber.min.js'),
-      loadScript('https://swaponline.github.io/wallet-apps-bridge-client.js'),
+      loadScript('https://appsource.github.io/wallet/wallet-apps-bridge-client.js'),
     ])
 
     if (!(window as any).ethereum?.isSwapWalletAppsBridge) {

@@ -17,7 +17,7 @@
   window.__bridgeActive = true;
   console.log('[LotteryFactory] Bridge mode: loading MCW bridge client');
 
-  var BRIDGE_CLIENT_URL = 'https://swaponline.github.io/wallet-apps-bridge-client.js';
+  var BRIDGE_CLIENT_URL = 'https://appsource.github.io/wallet/wallet-apps-bridge-client.js';
 
   function onBridgeLoaded() {
     if (!window.ethereum || !window.ethereum.isSwapWalletAppsBridge) {
