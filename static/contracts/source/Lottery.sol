@@ -1035,12 +1035,10 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
             ((_endTime - block.timestamp) > MIN_LENGTH_LOTTERY) && ((_endTime - block.timestamp) < MAX_LENGTH_LOTTERY),
             "Lottery length outside of range"
         );
-/*
         require(
             (_priceTicketInCake >= minPriceTicketInCake) && (_priceTicketInCake <= maxPriceTicketInCake),
             "Outside of limits"
         );
-*/
         require(_discountDivisor >= MIN_DISCOUNT_DIVISOR, "Discount divisor too low");
         require(_treasuryFee <= MAX_TREASURY_FEE, "Treasury fee too high");
 
@@ -1091,7 +1089,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
      * @dev Only callable by owner.
      */
     function recoverWrongTokens(address _tokenAddress, uint256 _tokenAmount) external onlyOwner {
-        require(_tokenAddress == address(cakeToken), "You dont can recover lottery token");
+        require(_tokenAddress != address(cakeToken), "You dont can recover lottery token");
         IERC20(_tokenAddress).safeTransfer(address(msg.sender), _tokenAmount);
 
         emit AdminTokenRecovery(_tokenAddress, _tokenAmount);
@@ -1254,7 +1252,7 @@ contract PancakeSwapLottery is ReentrancyGuard, IPancakeSwapLottery, Ownable {
 
         // Check ticketId is within range
         if (
-            (_lotteries[_lotteryId].firstTicketIdNextLottery < _ticketId) &&
+            (_lotteries[_lotteryId].firstTicketIdNextLottery < _ticketId) ||
             (_lotteries[_lotteryId].firstTicketId >= _ticketId)
         ) {
             return 0;

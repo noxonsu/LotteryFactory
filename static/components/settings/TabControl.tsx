@@ -178,7 +178,7 @@ export default function TabControl(options) {
       message: `Add ${injectAmount} ${storageData?.tokenInfo.symbol} to the pot of the lottery round?`,
       onConfirm: () => {
         setIsInjectAmount(true)
-        const weiAmount = toWei(injectAmount)
+        const weiAmount = toWei(injectAmount, storageData?.tokenInfo?.decimals)
         const chainInfo = getActiveChain()
         addNotify(`Inject bank. Check allovance`)
         fetchTokenAllowance({
