@@ -92,7 +92,7 @@ jobs:
         run: |
           cd frontend
           npm install --legacy-peer-deps
-          npm run build_clean
+          npx craco build
           if [ ! -d "build" ]; then
             echo "Error: frontend/build directory not found"
             exit 1
