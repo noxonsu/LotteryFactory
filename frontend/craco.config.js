@@ -2,9 +2,7 @@
  * CRACO config — webpack 5 (react-scripts 5) compatibility fixes:
  * 1. fullySpecified: false — allows ESM modules (@tanstack/react-query v5,
  *    viem, wagmi) to omit file extensions in imports
- * 2. @reown/appkit aliases — resolve subpath exports explicitly
  */
-const path = require('path')
 
 module.exports = {
   webpack: {
@@ -36,9 +34,12 @@ module.exports = {
         moduleScopePlugin.allowedFiles.add(require.resolve('bignumber.js'))
       }
 
-      // Fix: webpack 5 strict mode treats named exports from default-only modules as errors
-      // Old packages like @pancakeswap/sdk import named exports from JSON/CJS modules
-      webpackConfig.module = webpackConfig.module || {}
+      // Fix: wagmi ESM dist files (e.g. hooks/useConnections.js) statically import
+      // useSyncExternalStore from 'react'. React 17 doesn't export this symbol, so webpack 5
+      // strict mode fails the build. Note: webpack 5 only supports importExportsPresence
+      // globally (not per-rule), so we must set it here for the entire compilation.
+      // Risk: other modules that import non-existent named exports will warn instead of error.
+      // Mitigation: source code named imports from JSON are fixed to use default imports.
       webpackConfig.module.parser = webpackConfig.module.parser || {}
       webpackConfig.module.parser.javascript = webpackConfig.module.parser.javascript || {}
       webpackConfig.module.parser.javascript.importExportsPresence = 'warn'
