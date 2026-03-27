@@ -27,10 +27,14 @@ module.exports = {
       webpackConfig.resolve.alias = webpackConfig.resolve.alias || {}
       webpackConfig.resolve.alias['bignumber.js/bignumber'] = require.resolve('bignumber.js')
 
-      // Remove ModuleScopePlugin so alias resolution from node_modules works
-      webpackConfig.resolve.plugins = (webpackConfig.resolve.plugins || []).filter(
-        (p) => p.constructor && p.constructor.name !== 'ModuleScopePlugin'
+      // Fix: allow the specific bignumber.js file in the ModuleScopePlugin allowlist
+      // instead of removing the plugin entirely (which would allow importing ANY file outside src/)
+      const moduleScopePlugin = (webpackConfig.resolve.plugins || []).find(
+        (p) => p.constructor && p.constructor.name === 'ModuleScopePlugin'
       )
+      if (moduleScopePlugin && moduleScopePlugin.allowedFiles) {
+        moduleScopePlugin.allowedFiles.add(require.resolve('bignumber.js'))
+      }
 
       // Fix: webpack 5 strict mode treats named exports from default-only modules as errors
       // Old packages like @pancakeswap/sdk import named exports from JSON/CJS modules
